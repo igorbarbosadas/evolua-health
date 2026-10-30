@@ -31,7 +31,7 @@ main{max-width:900px;padding-top:28px}header{margin-bottom:21px}header small{col
 :root[data-theme="dark"] .hero{background:#17483e;color:#fff}:root[data-theme="dark"] .ring:after{background:#17483e}:root[data-theme="dark"] .bar{background:#354741}:root[data-theme="dark"] .fill{background:#52d3ae}:root[data-theme="dark"] .food-delete{background:#573434;color:#ffd5d5}:root[data-theme="dark"] .food-edit{background:#285246;color:#bff4e1}
 :root[data-theme="dark"] .overlay{background:#020c0bc9}:root[data-theme="dark"] .food-empty{color:var(--muted);border-color:var(--line)}
 @media(max-width:700px){.header-tools{gap:6px}.header-tools select{font-size:12px;max-width:115px}.theme-label{display:none}.personal-list{grid-template-columns:1fr 1fr}.food-modal .sheet{max-height:94dvh}}
-</style><div class="shell"><aside><div class="brand">✳ Evolua Health</div><div class="links" id="side"></div></aside><main><header><div><small>EVOLUA HEALTH / PROTÓTIPO 7.8</small><h1 id="heading">Visão geral</h1></div><div class="header-tools"><button type="button" class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Alternar entre tema claro e escuro" title="Alternar tema"><span id="themeIcon">☾</span><span id="themeText">Escuro</span></button><div class="avatar">EH</div></div></header><section class="page active" id="inicio"><div class="hero"><div><small>Sua evolução até agora</small><strong><span id="weightNow">113,8</span> <span style="font-size:18px">kg</span></strong><small><span id="weightDiff">↓ 2,2 kg desde o início</span></small></div><div class="ring" id="weightRing"><span id="ringText">7%</span></div></div><div class="triple"><div class="mini"><span>Meta</span><b>85 kg</b><span>Peso desejado</span></div><div class="mini"><span>Próxima dose</span><b>03/11</b><span>Exemplo</span></div><div class="mini"><span>Registros</span><b>4 dias</b><span>Sequência</span></div></div><div class="sec"><h2>Metas de hoje</h2><button onclick="openForm('registro')">+ Registrar</button></div><div class="goals">
+</style><div class="shell"><aside><div class="brand">✳ Evolua Health</div><div class="links" id="side"></div></aside><main><header><div><small>EVOLUA HEALTH / PROTÓTIPO 7.9</small><h1 id="heading">Visão geral</h1></div><div class="header-tools"><button type="button" class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Alternar entre tema claro e escuro" title="Alternar tema"><span id="themeIcon">☾</span><span id="themeText">Escuro</span></button><div class="avatar">EH</div></div></header><section class="page active" id="inicio"><div class="hero"><div><small>Sua evolução até agora</small><strong><span id="weightNow">113,8</span> <span style="font-size:18px">kg</span></strong><small><span id="weightDiff">↓ 2,2 kg desde o início</span></small></div><div class="ring" id="weightRing"><span id="ringText">7%</span></div></div><div class="triple"><div class="mini"><span>Meta</span><b>85 kg</b><span>Peso desejado</span></div><div class="mini"><span>Próxima dose</span><b>03/11</b><span>Exemplo</span></div><div class="mini"><span>Registros</span><b>4 dias</b><span>Sequência</span></div></div><div class="sec"><h2>Metas de hoje</h2><button onclick="openForm('registro')">+ Registrar</button></div><div class="goals">
 <div class="card goal"><span class="goal-icon">💧</span><div class="goal-body"><div class="head">Água</div><b><span id="waterValue">1,6 de 3 L</span></b><div class="bar"><div class="fill" id="waterBar" style="width:53%"></div></div></div><span class="goal-pct" id="waterPct">53%</span></div>
 <div class="card goal"><span class="goal-icon" style="background:#eaf0ff">◉</span><div class="goal-body"><div class="head">Calorias</div><b><span id="calValue">1.250 de 2.200 kcal</span></b><div class="bar"><div class="fill" id="calBar" style="width:57%;background:#698bd9"></div></div></div><span class="goal-pct" id="calPct">57%</span></div>
 <div class="card goal"><span class="goal-icon" style="background:#fff2e5">◆</span><div class="goal-body"><div class="head">Proteínas</div><b><span id="proteinValue">67 de 115 g</span></b><div class="bar"><div class="fill" id="proteinBar" style="width:58%;background:#e4a75d"></div></div></div><span class="goal-pct" id="proteinPct">58%</span></div>
@@ -85,7 +85,7 @@ main{max-width:900px;padding-top:28px}header{margin-bottom:21px}header small{col
 </details>
 <details class="profile-group" open><summary><span>Minhas metas<small>Peso, hidratação, calorias e proteínas</small></span><span class="profile-chevron">⌄</span></summary>
 <div class="profile-fields">
-<label>Peso inicial (kg)<input id="profileInitialWeight" type="number" min="20" max="500" step="0.1" inputmode="decimal" placeholder="Ex.: 116"></label>
+<label>Peso inicial (kg)<input id="profileInitialWeight" type="text" readonly aria-readonly="true" placeholder="Registre sua primeira pesagem" title="Definido automaticamente pela primeira pesagem"></label>
 <label>Meta de peso (kg)<input id="profileWeightGoal" type="number" min="20" max="500" step="0.1" inputmode="decimal" required></label>
 </div>
 <div class="profile-auto-head"><strong>Metas diárias estimadas</strong><span>Calculadas automaticamente</span></div>
@@ -762,11 +762,9 @@ function renderWeightEvolution(){
  document.getElementById('evolHistoryCount').textContent=sorted.length+' registro'+(sorted.length===1?'':'s');
  document.getElementById('evolCurrent').textContent=last?weightFormat(last.weight)+' kg':'Sem registro';
  document.getElementById('evolCurrentSub').textContent=last?dateBR(last.date):'Adicione uma pesagem';
- const savedInitialWeight=(()=>{try{return Number(JSON.parse(localStorage.getItem('evolua77_profile')||'{}').initialWeight)||null}catch(e){return null}})();
- const initialConfigured=savedInitialWeight>0?savedInitialWeight:null;
- const delta=last?Number(last.weight)-(initialConfigured??Number(first.weight)):0;
- document.getElementById('evolChange').textContent=(sorted.length>=2||initialConfigured!==null)?(delta>0?'+':'')+weightFormat(delta)+' kg':'—';
- document.getElementById('evolChangeSub').textContent=initialConfigured!==null?'Desde o peso inicial':sorted.length>=2?'Desde '+dateBR(first.date):'A partir da 2ª pesagem';
+ const delta=last&&first?Number(last.weight)-Number(first.weight):0;
+ document.getElementById('evolChange').textContent=sorted.length>=2?(delta>0?'+':'')+weightFormat(delta)+' kg':'—';
+ document.getElementById('evolChangeSub').textContent=sorted.length>=2?'Desde '+dateBR(first.date):'A partir da 2ª pesagem';
  const recentDelta=last&&previous?Number(last.weight)-Number(previous.weight):0;
  document.getElementById('evolPrevious').textContent=previous?(recentDelta>0?'+':'')+weightFormat(recentDelta)+' kg':'—';
  document.getElementById('evolPreviousSub').textContent=previous?'Desde '+dateBR(previous.date):'A partir da 2ª pesagem';
@@ -966,22 +964,23 @@ renderWeightEvolution();
 </style><script>
 /* Perfil 7.8. Mantém a chave da versão anterior para não perder os dados. */
 const EVOL_PROFILE_KEY='evolua77_profile';
-const profileDefaults={name:'',birth:'',sex:'',height:'',activity:'1.2',diet:'sem',foodNotes:'',water:3000,cal:2200,protein:115,initialWeight:''};
+const profileDefaults={name:'',birth:'',sex:'',height:'',activity:'1.2',diet:'sem',foodNotes:'',water:3000,cal:2200,protein:115};
 let evolProfile={...profileDefaults};
 try{const stored=JSON.parse(localStorage.getItem(EVOL_PROFILE_KEY)||'{}');if(stored&&typeof stored==='object'&&!Array.isArray(stored))evolProfile={...evolProfile,...stored}}catch(err){}
 function profileNum(id){const el=document.getElementById(id);return el?Number(String(el.value).replace(',','.')):NaN}
 function profileAge(birth){if(!/^\d{4}-\d{2}-\d{2}$/.test(String(birth)))return null;const b=new Date(birth+'T12:00:00');if(Number.isNaN(b.getTime())||b.toISOString().slice(0,10)!==birth)return null;const today=new Date();let n=today.getFullYear()-b.getFullYear();if(today.getMonth()<b.getMonth()||(today.getMonth()===b.getMonth()&&today.getDate()<b.getDate()))n--;return n>=18&&n<110?n:null}
-function profileCurrentWeight(){const sorted=weightSort();return sorted.length?Number(sorted[sorted.length-1].weight):((Number(document.getElementById('profileInitialWeight').value)>0)?profileNum('profileInitialWeight'):null)}
+function profileCurrentWeight(){const sorted=weightSort();return sorted.length?Number(sorted[sorted.length-1].weight):null}
+function refreshInitialWeight(){const first=weightSort()[0],el=document.getElementById('profileInitialWeight');if(el){el.value=first?weightFormat(first.weight)+' kg':'';el.placeholder=first?'':'Registre sua primeira pesagem';el.title=first?'Primeira pesagem em '+dateBR(first.date):'Adicione uma pesagem na aba Evolução';}}
 function profileBMILevel(bmi){if(bmi<18.5)return ['Abaixo do peso','IMC inferior a 18,5.'];if(bmi<25)return ['Peso adequado','IMC entre 18,5 e 24,9.'];if(bmi<30)return ['Sobrepeso','IMC entre 25 e 29,9.'];if(bmi<35)return ['Obesidade grau I','IMC entre 30 e 34,9.'];if(bmi<40)return ['Obesidade grau II','IMC entre 35 e 39,9.'];return ['Obesidade grau III','IMC de 40 ou mais.']}
 function recomputeProfileMetrics(){
  const weight=profileCurrentWeight(),height=profileNum('profileHeight'),sex=document.getElementById('profileSex').value,age=profileAge(document.getElementById('profileBirth').value),activity=profileNum('profileActivity'),target=profileNum('profileWeightGoal');
  const haveBody=weight&&Number.isFinite(height)&&height>=80&&height<=250;
  const bmi=haveBody?weight/((height/100)**2):null;
  const bmiLabel=document.getElementById('profileBMIValue'),bmiStatus=document.getElementById('profileBMIStatus'),bmiDescription=document.getElementById('profileBMIDescription'),pointer=document.getElementById('profileBMIPointer');
- if(bmi){const [name,range]=profileBMILevel(bmi);bmiLabel.textContent=bmi.toFixed(1).replace('.',',');bmiStatus.textContent=name;bmiDescription.textContent=range+' O IMC é uma medida de triagem e não diferencia músculos de gordura.';pointer.hidden=false;pointer.style.left=(Math.max(1,Math.min(99,(bmi-12)/38*100)))+'%';}else{bmiLabel.textContent='--';bmiStatus.textContent='Informe sua altura e registre uma pesagem ou o peso inicial.';bmiDescription.textContent='O IMC é calculado pelo peso atual e pela altura.';pointer.hidden=true}
+ if(bmi){const [name,range]=profileBMILevel(bmi);bmiLabel.textContent=bmi.toFixed(1).replace('.',',');bmiStatus.textContent=name;bmiDescription.textContent=range+' O IMC é uma medida de triagem e não diferencia músculos de gordura.';pointer.hidden=false;pointer.style.left=(Math.max(1,Math.min(99,(bmi-12)/38*100)))+'%';}else{bmiLabel.textContent='--';bmiStatus.textContent='Informe sua altura e registre uma pesagem.';bmiDescription.textContent='O IMC é calculado pelo peso atual e pela altura.';pointer.hidden=true}
  const water=document.getElementById('profileWaterGoal'),cal=document.getElementById('profileCalGoal'),protein=document.getElementById('profileProteinGoal'),note=document.getElementById('profileFormulaNote'),energy=document.getElementById('profileEstimateResult');
  const full=haveBody&&age!==null&&['male','female'].includes(sex)&&activity>=1.2&&activity<=1.725&&target>=20&&target<=500;
- if(!full){water.value='';cal.value='';protein.value='';note.textContent='Preencha nascimento, sexo, altura, nível de atividade, meta de peso e uma pesagem (ou peso inicial).';energy.textContent='Dados insuficientes para estimar o gasto energético.';return null}
+ if(!full){water.value='';cal.value='';protein.value='';note.textContent='Preencha nascimento, sexo, altura, nível de atividade, meta de peso e registre uma pesagem.';energy.textContent='Dados insuficientes para estimar o gasto energético.';return null}
  const basal=10*weight+6.25*height-5*age+(sex==='male'?5:-161),maintenance=basal*activity;
  // Meta calórica inicial de 15% abaixo da manutenção. Não substitui avaliação profissional.
  const calories=Math.round(Math.max(sex==='male'?1500:1200,maintenance*0.85)/25)*25;
@@ -998,40 +997,38 @@ function recomputeProfileMetrics(){
  return {water:waterMl,cal:calories,protein:proteinG};
 }
 function loadProfileForm(){
- const map={profileName:'name',profileBirth:'birth',profileSex:'sex',profileHeight:'height',profileActivity:'activity',profileDiet:'diet',profileFoodNotes:'foodNotes',profileInitialWeight:'initialWeight'};
+ const map={profileName:'name',profileBirth:'birth',profileSex:'sex',profileHeight:'height',profileActivity:'activity',profileDiet:'diet',profileFoodNotes:'foodNotes'};
  Object.entries(map).forEach(([id,key])=>{const el=document.getElementById(id);if(el)el.value=String(evolProfile[key]??'')});
  document.getElementById('profileWeightGoal').value=String(weightGoal);
- renderProfileHeader();recomputeProfileMetrics();
+ refreshInitialWeight();renderProfileHeader();recomputeProfileMetrics();
 }
 function renderProfileHeader(){document.getElementById('profileTitle').textContent=evolProfile.name||'Meu acompanhamento';const pieces=[];if(evolProfile.height)pieces.push(String(evolProfile.height).replace('.',',')+' cm');if(evolProfile.birth){const age=profileAge(evolProfile.birth);if(age!==null)pieces.push(age+' anos')}document.getElementById('profileSubtitle').textContent=pieces.length?pieces.join(' · '):'Preencha seus dados para personalizar as metas.'}
-function saveFullProfile(event){event.preventDefault();const target=profileNum('profileWeightGoal'),heightRaw=document.getElementById('profileHeight').value,height=heightRaw?profileNum('profileHeight'):'',initialRaw=document.getElementById('profileInitialWeight').value,initial=initialRaw?profileNum('profileInitialWeight'):'';
+function saveFullProfile(event){event.preventDefault();const target=profileNum('profileWeightGoal'),heightRaw=document.getElementById('profileHeight').value,height=heightRaw?profileNum('profileHeight'):'';
  if(!(target>=20&&target<=500)){toast('Informe uma meta de peso válida');return}
  if(height!==''&&!(height>=80&&height<=250)){toast('Informe uma altura válida');return}
- if(initial!==''&&!(initial>=20&&initial<=500)){toast('Informe um peso inicial válido');return}
  const birth=document.getElementById('profileBirth').value;if(birth&&profileAge(birth)===null){toast('Informe uma data de nascimento válida');return}
  const calc=recomputeProfileMetrics();
- evolProfile={name:document.getElementById('profileName').value.trim(),birth,sex:document.getElementById('profileSex').value,height,activity:document.getElementById('profileActivity').value,diet:document.getElementById('profileDiet').value,foodNotes:document.getElementById('profileFoodNotes').value.trim(),initialWeight:initial,water:calc?calc.water:null,cal:calc?calc.cal:null,protein:calc?calc.protein:null};
+ evolProfile={name:document.getElementById('profileName').value.trim(),birth,sex:document.getElementById('profileSex').value,height,activity:document.getElementById('profileActivity').value,diet:document.getElementById('profileDiet').value,foodNotes:document.getElementById('profileFoodNotes').value.trim(),water:calc?calc.water:null,cal:calc?calc.cal:null,protein:calc?calc.protein:null};
  try{localStorage.setItem(EVOL_PROFILE_KEY,JSON.stringify(evolProfile));localStorage.setItem(EVOL_WEIGHT_GOAL_KEY,String(target))}catch(err){toast('Não foi possível salvar no navegador');return}
  weightGoal=target;demo.target=target;
- if(initial!=='')demo.initial=initial;
  renderProfileHeader();renderWeightEvolution();render();toast(calc?'Perfil e estimativas atualizados':'Perfil salvo. Complete os dados para calcular as metas');
 }
 function updateHomeProfileGoals(){
  const defs=[['water',evolProfile.water,'water',v=>(v/1000).toLocaleString('pt-BR',{maximumFractionDigits:2})+' de '+(Number(evolProfile.water)/1000).toLocaleString('pt-BR',{maximumFractionDigits:2})+' L'],['cal',evolProfile.cal,'cal',v=>v.toLocaleString('pt-BR',{maximumFractionDigits:1})+' de '+Number(evolProfile.cal).toLocaleString('pt-BR')+' kcal'],['protein',evolProfile.protein,'protein',v=>v.toLocaleString('pt-BR',{maximumFractionDigits:1})+' de '+Number(evolProfile.protein).toLocaleString('pt-BR')+' g']];
  for(const [type,goal,key,fmt] of defs){const valid=Number(goal)>0?Number(goal):null;document.getElementById(type+'Value').textContent=valid?fmt(demo[key]):'Meta a calcular no Perfil';document.getElementById(type+'Bar').style.width=valid?percent(demo[key],valid)+'%':'0%';document.getElementById(type+'Pct').textContent=valid?percent(demo[key],valid)+'%':'--'}
  const mini=document.querySelector('#inicio .triple .mini:first-child b');if(mini)mini.textContent=Number(weightGoal).toLocaleString('pt-BR',{maximumFractionDigits:1})+' kg';
- const starting=Number(evolProfile.initialWeight)>0?Number(evolProfile.initialWeight):demo.initial;
- const progress=percent(Math.max(0,starting-demo.weight),Math.max(1,starting-weightGoal));document.getElementById('ringText').textContent=progress+'%';document.getElementById('weightRing').style.background=`conic-gradient(#a0f4d4 0 ${progress}%,#67978b ${progress}% 100%)`;
- document.getElementById('weightDiff').textContent=(starting>=demo.weight?'↓ ':'↑ ')+Math.abs(starting-demo.weight).toLocaleString('pt-BR',{maximumFractionDigits:1})+' kg desde o início';
+ const weights=weightSort(),starting=weights.length?Number(weights[0].weight):null,current=weights.length?Number(weights[weights.length-1].weight):null;
+ const progress=starting!==null&&current!==null?percent(Math.max(0,starting-current),Math.max(1,starting-weightGoal)):0;document.getElementById('ringText').textContent=starting!==null?progress+'%':'--';document.getElementById('weightRing').style.background=`conic-gradient(#a0f4d4 0 ${progress}%,#67978b ${progress}% 100%)`;
+ document.getElementById('weightDiff').textContent=starting===null?'Registre sua primeira pesagem':(starting>=current?'↓ ':'↑ ')+Math.abs(starting-current).toLocaleString('pt-BR',{maximumFractionDigits:1})+' kg desde o início';
 }
-function sendHelpEmail(){const message=document.getElementById('helpMessage').value.trim(),subject=document.getElementById('helpSubject').value;if(!message){toast('Escreva sua mensagem');return}const body=message+'\n\nEnviado a partir do Evolua Health 7.8';window.location.href='mailto:?subject='+encodeURIComponent('[Evolua Health] '+subject)+'&body='+encodeURIComponent(body)}
-function bindProfileUpdates(){['profileBirth','profileSex','profileHeight','profileInitialWeight','profileWeightGoal','profileActivity'].forEach(id=>{document.getElementById(id).addEventListener('input',recomputeProfileMetrics);document.getElementById(id).addEventListener('change',recomputeProfileMetrics)})}
+function sendHelpEmail(){const message=document.getElementById('helpMessage').value.trim(),subject=document.getElementById('helpSubject').value;if(!message){toast('Escreva sua mensagem');return}const body=message+'\n\nEnviado a partir do Evolua Health 7.9';window.location.href='mailto:?subject='+encodeURIComponent('[Evolua Health] '+subject)+'&body='+encodeURIComponent(body)}
+function bindProfileUpdates(){['profileBirth','profileSex','profileHeight','profileWeightGoal','profileActivity'].forEach(id=>{document.getElementById(id).addEventListener('input',recomputeProfileMetrics);document.getElementById(id).addEventListener('change',recomputeProfileMetrics)})}
 const priorRender=render;render=function(){priorRender();updateHomeProfileGoals()};
 demo.target=weightGoal;loadProfileForm();bindProfileUpdates();render();
 const profilePriorWeightRender=renderWeightEvolution;
 renderWeightEvolution=function(){
  profilePriorWeightRender();
- const updated=recomputeProfileMetrics();
+ refreshInitialWeight();const updated=recomputeProfileMetrics();
  if(updated){evolProfile.water=updated.water;evolProfile.cal=updated.cal;evolProfile.protein=updated.protein;
  try{localStorage.setItem(EVOL_PROFILE_KEY,JSON.stringify(evolProfile))}catch(e){}
  updateHomeProfileGoals();}
@@ -1042,5 +1039,8 @@ renderWeightEvolution=function(){
 .profile-auto-fields input[readonly]{background:var(--soft);font-weight:750;opacity:1;color:var(--ink)}.profile-bmi{border-top:1px solid var(--line);padding:17px 16px 21px}.profile-bmi-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.profile-bmi-head>div{display:grid;gap:5px}.profile-bmi-head strong{font-size:15px}.profile-bmi-head small{color:var(--muted);font-size:12px}.profile-bmi-head>b{font-size:31px;color:var(--green)}.profile-bmi-status{font-size:14px;font-weight:750;margin:11px 0}.profile-bmi-scale{position:relative;display:flex;overflow:visible;height:16px;border-radius:10px;margin:18px 0 5px}.profile-bmi-scale span:nth-child(1){background:#76a4d6;flex:6.5}.profile-bmi-scale span:nth-child(2){background:#65bd99;flex:6.5}.profile-bmi-scale span:nth-child(3){background:#e9d76e;flex:5}.profile-bmi-scale span:nth-child(4){background:#e7aa65;flex:5}.profile-bmi-scale span:nth-child(5){background:#d67c68;flex:5}.profile-bmi-scale span:nth-child(6){background:#b95c67;flex:10}.profile-bmi-scale span:first-child{border-radius:9px 0 0 9px}.profile-bmi-scale span:nth-child(6){border-radius:0 9px 9px 0}.profile-bmi-scale i{position:absolute;top:-6px;width:4px;height:28px;border-radius:4px;background:var(--ink);box-shadow:0 0 0 2px var(--surface);transform:translateX(-50%)}.profile-bmi-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--muted)}.profile-bmi-description{font-size:12px;line-height:1.55;color:var(--muted);margin:12px 0}.profile-bmi-detail{font-size:12px;color:var(--muted)}.profile-bmi-detail summary{font-weight:750;color:var(--contrast);padding:8px 0;cursor:pointer}.profile-bmi-detail div{line-height:1.8;margin-top:6px}
 .profile-account-body{padding:0 16px 18px}.profile-account-body label,.help-card label{display:grid;gap:7px;font-size:13px;font-weight:700;margin:11px 0}.profile-account-body input,.help-card textarea,.help-card select{width:100%;min-height:50px;background:var(--field);border:1px solid var(--line);border-radius:12px;color:var(--ink);font:inherit;font-size:16px;padding:11px 12px;box-sizing:border-box}.profile-account-actions{display:flex;gap:9px}.profile-account-actions button{flex:1;min-height:47px;border-radius:11px;border:1px solid var(--line);background:var(--soft);color:var(--muted);font-weight:700;opacity:.7}.profile-account-body p{font-size:12px;color:var(--muted);line-height:1.5}.help-card{padding:18px}.help-card p{color:var(--muted);font-size:13px;line-height:1.5}.help-card h2{margin:0}.help-card textarea{height:auto;min-height:125px;resize:vertical}.help-card .profile-save{margin-bottom:10px}
 @media(max-width:700px){.profile-fields{gap:12px;padding:0 14px 17px}.profile-fields label{font-size:12px}.profile-fields input,.profile-fields select{padding:10px;min-height:50px;height:50px}.profile-fields #profileBirth{width:100%}.bottom{padding-left:3px!important;padding-right:3px!important}.bottom button{flex:1;min-width:0!important;font-size:9px!important}.bottom button i svg{width:23px;height:23px}.profile-group>summary{padding:16px}}
+</style><style>
+/* 7.9: peso inicial automático sem edição manual */
+#profileInitialWeight[readonly]{background:var(--soft);color:var(--ink);opacity:1;font-weight:750;cursor:default;}
 </style></html>
 
