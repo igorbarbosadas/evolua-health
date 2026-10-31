@@ -31,7 +31,7 @@ main{max-width:900px;padding-top:28px}header{margin-bottom:21px}header small{col
 :root[data-theme="dark"] .hero{background:#17483e;color:#fff}:root[data-theme="dark"] .ring:after{background:#17483e}:root[data-theme="dark"] .bar{background:#354741}:root[data-theme="dark"] .fill{background:#52d3ae}:root[data-theme="dark"] .food-delete{background:#573434;color:#ffd5d5}:root[data-theme="dark"] .food-edit{background:#285246;color:#bff4e1}
 :root[data-theme="dark"] .overlay{background:#020c0bc9}:root[data-theme="dark"] .food-empty{color:var(--muted);border-color:var(--line)}
 @media(max-width:700px){.header-tools{gap:6px}.header-tools select{font-size:12px;max-width:115px}.theme-label{display:none}.personal-list{grid-template-columns:1fr 1fr}.food-modal .sheet{max-height:94dvh}}
-</style><div class="shell"><aside><div class="brand evolua-sidebar-brand"><svg class="evolua-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect width="64" height="64" rx="19" fill="#0C7768"/><path d="M15 41.5L26 31L34 37L49 21" stroke="#F6FFF9" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M39.5 21H49V30.5" stroke="#B2ECD5" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Evolua <b>Health</b></span></div><div class="links" id="side"></div></aside><main><header><div><small>EVOLUA HEALTH / VERSÃO 9.8</small><h1 id="heading">Visão geral</h1><div id="helloUser" class="eh-greeting" aria-live="polite">Olá!</div></div><div class="header-tools"><button type="button" class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Alternar entre tema claro e escuro" title="Alternar tema"><span id="themeIcon">☾</span><span id="themeText">Escuro</span></button><span id="ehCloudStatus" class="eh-cloud-status" title="Estado da sincronização" role="status" aria-live="polite" hidden>Conectando</span><button type="button" class="eh-logout" id="ehLogoutButton" onclick="cloudLogout()" hidden title="Sair da conta" aria-label="Sair da conta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5M15 12H3M12 3h5a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3h-5"/></svg><span>Sair</span></button><div class="avatar">EH</div></div></header><section class="page active" id="inicio"><div class="hero"><div><small>Sua evolução até agora</small><strong><span id="weightNow">--</span> <span style="font-size:18px">kg</span></strong><small><span id="weightDiff">Registre sua primeira pesagem</span></small></div><div class="ring" id="weightRing"><span id="ringText">--</span></div></div><div class="triple"><div class="mini"><span>Meta</span><b>--</b><span>Peso desejado</span></div><div class="mini"><span>Próxima aplicação</span><b id="homeNextDose">--</b><span id="homeNextDoseDetail">Nenhuma aplicação</span></div><div class="mini"><span>Registros</span><b id="homeTotalRecords">0</b><span id="homeRecordsDetail">Total no histórico</span></div></div><div class="home-bmi" id="homeBmiCard" role="status" aria-live="polite"><div class="home-bmi-icon" aria-hidden="true">◉</div><div class="home-bmi-body"><span>IMC atual</span><strong id="homeBmiNumber">--</strong><small id="homeBmiCategory">Registre uma pesagem e informe sua altura no Perfil.</small></div><button type="button" class="home-bmi-link" onclick="go('perfil')">Ver detalhes</button></div><div class="sec"><h2>Metas de hoje</h2><button onclick="openForm('registro')">+ Registrar</button></div><div class="goals">
+</style><div class="shell"><aside><div class="brand evolua-sidebar-brand"><svg class="evolua-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect width="64" height="64" rx="19" fill="#0C7768"/><path d="M15 41.5L26 31L34 37L49 21" stroke="#F6FFF9" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M39.5 21H49V30.5" stroke="#B2ECD5" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Evolua <b>Health</b></span></div><div class="links" id="side"></div></aside><main><header><div><small>EVOLUA HEALTH · V9.9</small><h1 id="heading">Visão geral</h1><div id="helloUser" class="eh-greeting" aria-live="polite">Olá!</div></div><div class="header-tools"><button type="button" class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Alternar entre tema claro e escuro" title="Alternar tema"><span id="themeIcon">☾</span><span id="themeText">Escuro</span></button><span id="ehCloudStatus" class="eh-cloud-status" title="Estado da sincronização" role="status" aria-live="polite" hidden>Conectando</span><button type="button" class="eh-logout" id="ehLogoutButton" onclick="cloudLogout()" hidden title="Sair da conta" aria-label="Sair da conta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5M15 12H3M12 3h5a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3h-5"/></svg><span>Sair</span></button><div class="avatar">EH</div></div></header><section class="page active" id="inicio"><div class="hero"><div><small>Sua evolução até agora</small><strong><span id="weightNow">--</span> <span style="font-size:18px">kg</span></strong><small><span id="weightDiff">Registre sua primeira pesagem</span></small></div><div class="ring" id="weightRing"><span id="ringText">--</span></div></div><div class="triple"><div class="mini"><span>Meta</span><b>--</b><span>Peso desejado</span></div><div class="mini"><span>Próxima aplicação</span><b id="homeNextDose">--</b><span id="homeNextDoseDetail">Nenhuma aplicação</span></div><div class="mini"><span>Registros</span><b id="homeTotalRecords">0</b><span id="homeRecordsDetail">Total no histórico</span></div></div><div class="home-bmi" id="homeBmiCard" role="status" aria-live="polite"><div class="home-bmi-icon" aria-hidden="true">◉</div><div class="home-bmi-body"><span>IMC atual</span><strong id="homeBmiNumber">--</strong><small id="homeBmiCategory">Registre uma pesagem e informe sua altura no Perfil.</small></div><button type="button" class="home-bmi-link" onclick="go('perfil')">Ver detalhes</button></div><div class="sec"><h2>Metas de hoje</h2><button onclick="openForm('registro')">+ Registrar</button></div><div class="goals">
 <div class="card goal"><span class="goal-icon">💧</span><div class="goal-body"><div class="head">Água</div><b><span id="waterValue">1,6 de 3 L</span></b><div class="bar"><div class="fill" id="waterBar" style="width:53%"></div></div></div><span class="goal-pct" id="waterPct">53%</span></div>
 <div class="card goal"><span class="goal-icon" style="background:#eaf0ff">◉</span><div class="goal-body"><div class="head">Calorias</div><b><span id="calValue">1.250 de 2.200 kcal</span></b><div class="bar"><div class="fill" id="calBar" style="width:57%;background:#698bd9"></div></div></div><span class="goal-pct" id="calPct">57%</span></div>
 <div class="card goal"><span class="goal-icon" style="background:#fff2e5">◆</span><div class="goal-body"><div class="head">Proteínas</div><b><span id="proteinValue">67 de 115 g</span></b><div class="bar"><div class="fill" id="proteinBar" style="width:58%;background:#e4a75d"></div></div></div><span class="goal-pct" id="proteinPct">58%</span></div>
@@ -655,6 +655,7 @@ function renderTreatment(){
  const renderRows=(rows,kind)=>rows.length?rows.map(x=>`<div class="treatment-item"><div><b>${treatmentDateLabel(x.date)} · ${kind==='application'?Number(x.dose).toLocaleString('pt-BR')+' mg':safeText(x.symptom)+' · '+safeText(x.severity)}</b><small>${kind==='application'?safeText(x.site):'Diário de sintomas'}${x.notes?' · '+safeText(x.notes):''}</small></div><button type="button" onclick="deleteTreatmentEntry('${x.id}')" aria-label="Excluir registro">Excluir</button></div>`).join(''):'<div class="treat-empty">Nenhum registro ainda.</div>';
  document.getElementById('treatmentApplications').innerHTML=paginateHTML('applications',apps,x=>renderRows([x],'application'),'<div class="treat-empty">Nenhum registro ainda.</div>',3,10);
  document.getElementById('treatmentSymptoms').innerHTML=paginateHTML('symptoms',symptoms,x=>renderRows([x],'symptom'),'<div class="treat-empty">Nenhum registro ainda.</div>',3,10);
+ if(typeof refreshHomeActivity==='function')refreshHomeActivity();
  
 }
 function openTreatmentEditor(kind){
@@ -1063,7 +1064,7 @@ function homeRecordedCount(){
  return weightHistory.length+treatmentRecords.length+foodRecords.length;
 }
 function refreshHomeActivity(){
- const apps=Array.isArray(treatmentRecords)?treatmentRecords.filter(x=>x.kind==='application'&&/^\\d{4}-\\d{2}-\\d{2}$/.test(x.date)).sort((a,b)=>b.date.localeCompare(a.date)):[];
+ const apps=Array.isArray(treatmentRecords)?treatmentRecords.filter(x=>x.kind==='application'&&/^\d{4}-\d{2}-\d{2}$/.test(x.date)).sort((a,b)=>b.date.localeCompare(a.date)):[];
  const next=document.getElementById('homeNextDose');
  const detail=document.getElementById('homeNextDoseDetail');
  if(next&&detail){
@@ -1078,8 +1079,8 @@ function updateEvoluaGreeting(){
  if(!label)return;
  const fullName=typeof evolProfile!=='undefined'&&evolProfile.name?evolProfile.name.trim():'';
  const email=window.evoluaActiveUserEmail||'';
- let name=fullName?fullName.split(/\\s+/)[0]:email.split('@')[0];
- name=name.replace(/[._0-9-]+/g,' ').trim().split(/\\s+/)[0]||'';
+ let name=fullName?fullName.split(/\s+/)[0]:email.split('@')[0];
+ name=name.replace(/[._0-9-]+/g,' ').trim().split(/\s+/)[0]||'';
  label.textContent=name?'Olá, '+name+'!':'Olá!';
  const logout=document.getElementById('ehLogoutButton');
  if(logout)logout.hidden=!window.evoluaActiveUserEmail;
@@ -1479,7 +1480,7 @@ window.addEventListener('online',()=>{if(cloudReady&&cloudUser)cloudSave(false)}
 #cloudGate .gate-message{text-align:center!important}
 </style>
 <style>
-/* Evolua Health 9.8: cabeçalho leve e responsivo no celular. Desktop preservado. */
+/* Evolua Health 9.9: cabeçalho leve e responsivo no celular. Desktop preservado. */
 @media (max-width:700px){
   main>header{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center!important;gap:8px!important;margin-bottom:18px!important;min-height:52px!important;}
   main>header>div:first-child{min-width:0!important;}
@@ -1502,5 +1503,14 @@ window.addEventListener('online',()=>{if(cloudReady&&cloudUser)cloudSave(false)}
   main>header #ehCloudStatus:not([hidden]){width:32px!important;min-width:32px!important;height:32px!important;min-height:32px!important;}
   main>header #heading{font-size:21px!important;}
 }
-</style></html>
+</style>
+<style>
+/* Evolua Health 9.9: versão discreta e visível sem ocupar a barra de ações. */
+@media(max-width:700px){
+ main>header>div:first-child>small{display:block!important;font-size:10px!important;line-height:1.2!important;letter-spacing:.65px!important;font-weight:750!important;color:#718b83!important;margin:0 0 5px!important;white-space:nowrap!important;}
+ main>header #heading{margin:0!important;}
+}
+:root[data-theme="dark"] main>header>div:first-child>small{color:#a9c4b9!important;}
+</style>
+</html>
 
