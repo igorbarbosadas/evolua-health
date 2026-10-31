@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Evolua Health | Administração 1.0</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color-scheme:dark;--bg:#151b1a;--surface:#222b29;--surface2:#2b3833;--line:#465850;--text:#f3faf6;--muted:#b7c9c0;--accent:#91e9c6;--danger:#f2a2a2}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-size:15px}
+button,input,select{font:inherit}button{cursor:pointer}
+a{color:var(--accent)}
+.wrapper{max-width:1160px;margin:auto;padding:24px 18px 65px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+.identity{display:flex;align-items:center;gap:13px}.mark{width:43px;height:43px;display:grid;place-items:center;border-radius:13px;background:#117f6a;color:#fff;font-size:26px}
+.identity strong{display:block;font-size:19px}.identity small{font-size:12px;color:var(--muted)}
+h1{font-size:25px;letter-spacing:-.5px;margin:0 0 9px}h2{font-size:20px;margin:0}p{color:var(--muted);line-height:1.55}
+.card{border:1px solid var(--line);background:var(--surface);border-radius:19px;padding:22px;margin-bottom:18px}
+.hidden,[hidden]{display:none!important}
+input,select{width:100%;min-height:45px;border-radius:10px;border:1px solid var(--line);background:#1c2522;color:var(--text);padding:10px}
+input:focus,select:focus{outline:2px solid var(--accent)}
+label{font-size:13px;color:var(--muted);font-weight:650;display:block}
+label input,label select{margin-top:7px}
+button{background:#0c7d69;border:1px solid transparent;color:#fff;border-radius:11px;padding:12px 15px;font-weight:700;min-height:44px}
+button.secondary{background:var(--surface2);border-color:var(--line)}
+button.danger{background:#442e2e;color:#ffd1cd;border-color:#6d4949}
+button:disabled{opacity:.5;cursor:wait}
+.actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.stat{background:var(--surface2);border-radius:14px;border:1px solid var(--line);padding:16px}
+.stat small{display:block;color:var(--muted);line-height:1.4}
+.stat strong{display:block;font-size:26px;margin-top:10px}
+.toolbar{display:grid;grid-template-columns:minmax(0,1fr) 170px 130px;gap:10px;margin:18px 0}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;min-width:650px}
+th,td{text-align:left;padding:12px 11px;border-bottom:1px solid var(--line)}
+th{font-size:12px;color:var(--muted)}
+td{font-size:13px}tr:last-child td{border-bottom:0}
+td .actions button{padding:7px 9px;min-height:32px;font-size:12px}
+.nutri{white-space:nowrap;color:var(--muted)}
+.fields{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0}
+.fields .span2{grid-column:span 2}
+label.check{display:flex;align-items:center;gap:8px;min-height:44px}label.check input{width:20px;height:20px;min-height:0;margin:0}
+#status{position:sticky;bottom:9px;background:#244238;border:1px solid #4c816b;border-radius:12px;padding:12px 16px;max-width:720px;margin:12px auto;color:#e0fff2}
+#status.error{background:#513030;color:#ffe5e3;border-color:#9a5d5d}
+.empty{padding:20px;color:var(--muted)}
+.pager{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:15px}
+.note{font-size:12px;margin:8px 0}
+@media(max-width:760px){.wrapper{padding:18px 12px 60px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.fields{grid-template-columns:1fr 1fr}.toolbar{grid-template-columns:1fr 1fr}.toolbar input{grid-column:1/-1}.card{padding:16px}h1{font-size:22px}}
+@media(max-width:420px){.fields{grid-template-columns:1fr}.fields .span2{grid-column:auto}.pager{flex-wrap:wrap}}
+</style>
+</head><body><div class="wrapper">
+<header class="top"><div class="identity"><span class="mark">↗</span><div><strong>Evolua Health</strong><small>Administração · 1.0</small></div></div>
+<div class="actions"><a id="userAppLink" href="../">Ir para o aplicativo</a><button id="signout" type="button" class="secondary" hidden>Sair</button></div></header>
+<section id="login" class="card" style="max-width:500px;margin:50px auto">
+<h1>Acesso administrativo</h1><p>Entre com uma conta que tenha permissão de administrador no Supabase.</p>
+<form id="loginForm"><label>E-mail<input id="email" type="email" autocomplete="username" required></label>
+<label style="margin-top:14px">Senha<input id="password" type="password" autocomplete="current-password" required></label>
+<button style="width:100%;margin-top:18px" type="submit">Entrar</button></form>
+</section>
+<section id="denied" class="card" hidden><h1>Acesso não autorizado</h1><p>Esta conta não consta na tabela de administradores. O acesso aos dados administrativos foi bloqueado.</p><button id="switchAccount" class="secondary">Entrar com outra conta</button></section>
+<div id="dashboard" hidden>
+<section class="card"><div class="actions" style="justify-content:space-between"><div><h1>Visão geral</h1><p class="note">Indicadores agregados. Sem acesso aos registros pessoais de saúde.</p></div><button id="reload" class="secondary">Atualizar indicadores</button></div>
+<div class="grid"><div class="stat"><small>Contas cadastradas</small><strong id="usersTotal">—</strong></div><div class="stat"><small>Novas contas em 30 dias</small><strong id="usersMonth">—</strong></div><div class="stat"><small>Alimentos cadastrados</small><strong id="foodTotal">—</strong></div><div class="stat"><small>Alimentos verificados</small><strong id="foodVerified">—</strong></div></div></section>
+<section class="card">
+<div class="actions" style="justify-content:space-between"><div><h2>Catálogo alimentar</h2><p class="note">Edite o catálogo compartilhado. Nutrientes sempre por 100 g ou 100 ml, conforme o alimento.</p></div><button id="newFood">+ Novo alimento</button></div>
+<div class="toolbar"><input id="search" type="search" placeholder="Pesquisar alimento pelo nome"><select id="sourceFilter" aria-label="Filtrar origem"><option value="">Todas as origens</option><option value="estimativa_local">Estimativa local</option><option value="manual_curado">Manual curado</option><option value="usda">USDA</option><option value="taco_licenciado">TACO licenciado</option></select><select id="verifiedFilter" aria-label="Filtrar verificação"><option value="">Todos</option><option value="yes">Verificados</option><option value="no">Não verificados</option></select></div>
+<div class="table-wrap"><table><thead><tr><th>Alimento</th><th>Origem</th><th>Energia</th><th>Proteínas</th><th>Revisão</th><th>Ações</th></tr></thead><tbody id="catalogRows"></tbody></table></div>
+<div class="pager"><span id="pageInfo" class="note">Página 1</span><div class="actions"><button id="prev" class="secondary">Anterior</button><button id="next" class="secondary">Próxima</button></div></div>
+</section>
+<section class="card" id="editorCard" hidden><h2 id="editorHeading">Novo alimento</h2><p class="note">Os números devem representar a mesma base de 100 g ou 100 ml. Fonte e identificador são necessários.</p>
+<form id="foodForm"><div class="fields">
+<label class="span2">Nome<input name="name" maxlength="180" required></label>
+<label>Fonte<select name="source" required><option value="manual_curado">Manual curado</option><option value="estimativa_local">Estimativa local</option><option value="usda">USDA</option><option value="taco_licenciado">TACO licenciado</option></select></label>
+<label>Identificador da fonte<input name="source_id" maxlength="180" required></label>
+<label>Calorias (kcal)<input name="kcal" type="number" min="0" max="2000" step="any"></label>
+<label>Proteínas (g)<input name="protein" type="number" min="0" max="100" step="any"></label>
+<label>Carboidratos (g)<input name="carbs" type="number" min="0" max="100" step="any"></label>
+<label>Gorduras (g)<input name="fat" type="number" min="0" max="100" step="any"></label>
+<label>Fibras (g)<input name="fiber" type="number" min="0" max="100" step="any"></label>
+<label>Sódio (mg)<input name="sodium" type="number" min="0" max="100000" step="any"></label>
+<label>Açúcares (g)<input name="sugar" type="number" min="0" max="100" step="any"></label>
+<label>Açúcares adicionados (g)<input name="added_sugar" type="number" min="0" max="100" step="any"></label>
+<label class="check span2"><input type="checkbox" name="verified"> Valores conferidos com a fonte informada</label>
+</div><div class="actions"><button type="submit" id="saveFood">Salvar alimento</button><button type="button" id="cancel" class="secondary">Cancelar</button></div></form></section>
+</div>
+<div id="status" role="status" aria-live="polite" hidden></div>
+</div>
+<script src="../config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+let client=null,currentUser=null,isAdmin=false,page=0,rows=[],loading=false,editingId=null;
+const PAGE_SIZE=20;
+function show(id,visible){$(id).hidden=!visible}
+function status(message,error=false){
+ const el=$('status');el.textContent=message;el.classList.toggle('error',error);el.hidden=!message;
+}
+function assertConfig(){
+ const cfg=window.EVOLUA_PUBLIC_CONFIG;
+ if(!cfg||!/^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(cfg.url||'')||!cfg.publishableKey||cfg.publishableKey.startsWith('sb_secret_'))throw Error('Confira config.js na pasta principal.');
+ return cfg;
+}
+function showLoggedOut(){
+ currentUser=null;isAdmin=false;show('login',true);show('denied',false);show('dashboard',false);show('signout',false);
+}
+async function authState(){
+ const {data:{session},error}=await client.auth.getSession();
+ if(error)throw error;
+ if(!session){showLoggedOut();return}
+ currentUser=session.user;
+ const {data, error:roleError}=await client.from('evolua_admins').select('user_id').eq('user_id',currentUser.id).maybeSingle();
+ if(roleError)throw roleError;
+ if(!data){isAdmin=false;show('login',false);show('denied',true);show('dashboard',false);show('signout',true);return}
+ isAdmin=true;show('login',false);show('denied',false);show('dashboard',true);show('signout',true);
+ await Promise.all([loadOverview(),loadCatalog()]);
+}
+async function loadOverview(){
+ if(!isAdmin)return;
+ const {data,error}=await client.rpc('evolua_admin_overview');
+ if(error){status('Falha nos indicadores: '+error.message,true);return}
+ $('usersTotal').textContent=Number(data.users_total||0).toLocaleString('pt-BR');
+ $('usersMonth').textContent=Number(data.users_last_30d||0).toLocaleString('pt-BR');
+ $('foodTotal').textContent=Number(data.catalog_total||0).toLocaleString('pt-BR');
+ $('foodVerified').textContent=Number(data.catalog_verified||0).toLocaleString('pt-BR');
+}
+async function loadCatalog(){
+ if(!isAdmin||loading)return;
+ loading=true;$('prev').disabled=$('next').disabled=true;
+ try{
+ let q=client.from('evolua_food_catalog').select('id,name,kcal,protein,carbs,fat,fiber,sodium,sugar,added_sugar,source,source_id,verified,updated_at',{count:'exact'});
+ const text=$('search').value.trim();
+ if(text)q=q.ilike('name','%'+text.replace(/[%_,]/g,' ')+'%');
+ if($('sourceFilter').value)q=q.eq('source',$('sourceFilter').value);
+ if($('verifiedFilter').value)q=q.eq('verified',$('verifiedFilter').value==='yes');
+ const {data,error,count}=await q.order('name',{ascending:true}).range(page*PAGE_SIZE,(page+1)*PAGE_SIZE-1);
+ if(error)throw error;
+ rows=data||[];$('catalogRows').replaceChildren();
+ if(!rows.length){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=6;td.className='empty';td.textContent='Nenhum alimento encontrado.';tr.append(td);$('catalogRows').append(tr)}
+ for(const item of rows){
+  const tr=document.createElement('tr');
+  for(const text of [item.name,item.source,item.kcal==null?'—':item.kcal+' kcal',item.protein==null?'—':item.protein+' g',item.verified?'Verificado':'Pendente']){
+   const td=document.createElement('td');td.textContent=String(text);tr.append(td);
+  }
+  const actions=document.createElement('td');actions.className='actions';
+  const edit=document.createElement('button');edit.type='button';edit.textContent='Editar';edit.className='secondary';edit.addEventListener('click',()=>openEditor(item));
+  const del=document.createElement('button');del.type='button';del.textContent='Excluir';del.className='danger';del.addEventListener('click',()=>deleteFood(item));
+  actions.append(edit,del);tr.append(actions);$('catalogRows').append(tr);
+ }
+ $('pageInfo').textContent='Página '+(page+1)+' · '+count+' alimento(s)';
+ $('prev').disabled=page===0;
+ $('next').disabled=(page+1)*PAGE_SIZE>=count;
+ }catch(e){status('Falha ao carregar catálogo: '+e.message,true)}
+ finally{loading=false}
+}
+function openEditor(item=null){
+ editingId=item?.id??null;
+ $('editorHeading').textContent=item?'Editar alimento':'Novo alimento';
+ const form=$('foodForm');form.reset();
+ const fields=['name','source','source_id','kcal','protein','carbs','fat','fiber','sodium','sugar','added_sugar'];
+ if(item){for(const key of fields)form.elements.namedItem(key).value=item[key]??'';form.elements.namedItem('verified').checked=!!item.verified}
+ else{
+  form.elements.namedItem('source').value='manual_curado';
+  form.elements.namedItem('source_id').value='manual_'+(crypto.randomUUID?.()||Date.now().toString(36));
+ }
+ show('editorCard',true);$('editorCard').scrollIntoView({behavior:'smooth',block:'start'});
+}
+async function saveFood(e){
+ e.preventDefault();if(!isAdmin)return;
+ const form=$('foodForm'),f=form.elements;
+ const item={name:f.namedItem('name').value.trim(),source:f.namedItem('source').value,source_id:f.namedItem('source_id').value.trim(),verified:f.namedItem('verified').checked,updated_at:new Date().toISOString()};
+ if(!item.name||!item.source_id){status('Nome e identificador são obrigatórios.',true);return}
+ for(const key of ['kcal','protein','carbs','fat','fiber','sodium','sugar','added_sugar']){
+  const raw=f.namedItem(key).value.trim();item[key]=raw===''?null:Number(raw);
+  if(item[key]!==null&&(!Number.isFinite(item[key])||item[key]<0)){status('Valor inválido em '+key,true);return}
+ }
+ if(item.sugar!==null&&item.added_sugar!==null&&item.added_sugar>item.sugar){status('Açúcares adicionados não podem superar açúcares totais.',true);return}
+ $('saveFood').disabled=true;
+ try{
+  const call=editingId!==null?client.from('evolua_food_catalog').update(item).eq('id',editingId).select('id'):client.from('evolua_food_catalog').insert(item).select('id');
+  const {data,error}=await call.single();if(error)throw error;
+  if(!data)throw Error('Nenhuma linha foi modificada. Confirme sua permissão.');
+  show('editorCard',false);status('Alimento salvo no catálogo compartilhado.');await Promise.all([loadCatalog(),loadOverview()]);
+ }catch(e){status('Falha ao salvar: '+e.message,true)}
+ finally{$('saveFood').disabled=false}
+}
+async function deleteFood(item){
+ if(!isAdmin||!confirm('Excluir "'+item.name+'" do catálogo compartilhado? Os registros já salvos no diário não serão apagados.'))return;
+ const {data,error}=await client.from('evolua_food_catalog').delete().eq('id',item.id).select('id');
+ if(error||!data?.length){status('Não foi possível excluir: '+(error?.message||'Sem permissão'),true);return}
+ status('Alimento excluído do catálogo.');await Promise.all([loadCatalog(),loadOverview()]);
+}
+$('loginForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const btn=e.submitter;btn.disabled=true;status('Verificando credenciais...');
+ try{const {error}=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error)throw error;
+ await authState();status(isAdmin?'Acesso autorizado.':'Sua conta não tem acesso administrativo.',!isAdmin);
+ }catch(e){status('Não foi possível entrar: '+e.message,true)}
+ finally{btn.disabled=false}
+});
+async function signout(){await client.auth.signOut();showLoggedOut();status('Sessão encerrada.')}
+$('signout').addEventListener('click',signout);
+$('switchAccount').addEventListener('click',signout);
+$('reload').addEventListener('click',loadOverview);
+$('newFood').addEventListener('click',()=>openEditor());
+$('cancel').addEventListener('click',()=>show('editorCard',false));
+$('foodForm').addEventListener('submit',saveFood);
+$('prev').addEventListener('click',()=>{if(page>0){page--;loadCatalog()}});
+$('next').addEventListener('click',()=>{page++;loadCatalog()});
+let debounce=null;
+for(const id of ['search','sourceFilter','verifiedFilter'])$(id).addEventListener(id==='search'?'input':'change',()=>{
+ clearTimeout(debounce);debounce=setTimeout(()=>{page=0;loadCatalog()},250);
+});
+(async()=>{
+ try{
+  const config=assertConfig();
+  if(!window.supabase?.createClient)throw Error('Biblioteca do Supabase não carregou.');
+  client=window.supabase.createClient(config.url,config.publishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+  await authState();
+ }catch(e){status('Erro de inicialização: '+e.message,true);showLoggedOut()}
+})();
+</script></body></html>
