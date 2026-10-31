@@ -31,16 +31,14 @@ main{max-width:900px;padding-top:28px}header{margin-bottom:21px}header small{col
 :root[data-theme="dark"] .hero{background:#17483e;color:#fff}:root[data-theme="dark"] .ring:after{background:#17483e}:root[data-theme="dark"] .bar{background:#354741}:root[data-theme="dark"] .fill{background:#52d3ae}:root[data-theme="dark"] .food-delete{background:#573434;color:#ffd5d5}:root[data-theme="dark"] .food-edit{background:#285246;color:#bff4e1}
 :root[data-theme="dark"] .overlay{background:#020c0bc9}:root[data-theme="dark"] .food-empty{color:var(--muted);border-color:var(--line)}
 @media(max-width:700px){.header-tools{gap:6px}.header-tools select{font-size:12px;max-width:115px}.theme-label{display:none}.personal-list{grid-template-columns:1fr 1fr}.food-modal .sheet{max-height:94dvh}}
-</style><div class="shell"><aside><div class="brand evolua-sidebar-brand"><svg class="evolua-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect width="64" height="64" rx="19" fill="#0C7768"/><path d="M15 41.5L26 31L34 37L49 21" stroke="#F6FFF9" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M39.5 21H49V30.5" stroke="#B2ECD5" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Evolua <b>Health</b></span></div><div class="links" id="side"></div></aside><main><header><div><small>EVOLUA HEALTH · V10.8</small><h1 id="heading">Visão geral</h1><div id="helloUser" class="eh-greeting" aria-live="polite">Olá!</div></div><div class="header-tools"><button type="button" class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Alternar entre tema claro e escuro" title="Alternar tema"><span id="themeIcon">☾</span><span id="themeText">Escuro</span></button><span id="ehCloudStatus" class="eh-cloud-status" title="Estado da sincronização" role="status" aria-live="polite" hidden>Conectando</span><button type="button" class="eh-logout" id="ehLogoutButton" onclick="cloudLogout()" hidden title="Sair da conta" aria-label="Sair da conta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5M15 12H3M12 3h5a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3h-5"/></svg><span>Sair</span></button><div class="avatar">EH</div></div></header><section class="page active" id="inicio"><div class="hero"><div><small>Sua evolução até agora</small><strong><span id="weightNow">--</span> <span style="font-size:18px">kg</span></strong><small><span id="weightDiff">Registre sua primeira pesagem</span></small></div><div class="ring" id="weightRing"><span id="ringText">--</span></div></div><div class="triple"><div class="mini"><span>Meta</span><b>--</b><span>Peso desejado</span></div><div class="mini"><span>Próxima aplicação</span><b id="homeNextDose">--</b><span id="homeNextDoseDetail">Nenhuma aplicação</span></div><div class="mini"><span>Registros</span><b id="homeTotalRecords">0</b><span id="homeRecordsDetail">Total no histórico</span></div></div><div class="home-bmi" id="homeBmiCard" role="status" aria-live="polite"><div class="home-bmi-icon" aria-hidden="true">◉</div><div class="home-bmi-body"><span>IMC atual</span><strong id="homeBmiNumber">--</strong><small id="homeBmiCategory">Registre uma pesagem e informe sua altura no Perfil.</small></div><button type="button" class="home-bmi-link" onclick="go('perfil')">Ver detalhes</button></div><div class="sec"><h2>Metas de hoje</h2></div><div class="goals">
-<div class="card goal"><span class="goal-icon">💧</span><div class="goal-body"><div class="head">Água</div><b><span id="waterValue">Meta a calcular no Perfil</span></b><div class="bar"><div class="fill" id="waterBar" style="width:0%"></div></div><button type="button" class="water-history-link" onclick="openWaterHistory()">Ver histórico de água</button></div><span class="goal-pct" id="waterPct">--</span></div>
+</style><div class="shell"><aside><div class="brand evolua-sidebar-brand"><svg class="evolua-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect width="64" height="64" rx="19" fill="#0C7768"/><path d="M15 41.5L26 31L34 37L49 21" stroke="#F6FFF9" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M39.5 21H49V30.5" stroke="#B2ECD5" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Evolua <b>Health</b></span></div><div class="links" id="side"></div></aside><main><header><div><small>EVOLUA HEALTH · V10.3</small><h1 id="heading">Visão geral</h1><div id="helloUser" class="eh-greeting" aria-live="polite">Olá!</div></div><div class="header-tools"><button type="button" class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Alternar entre tema claro e escuro" title="Alternar tema"><span id="themeIcon">☾</span><span id="themeText">Escuro</span></button><span id="ehCloudStatus" class="eh-cloud-status" title="Estado da sincronização" role="status" aria-live="polite" hidden>Conectando</span><button type="button" class="eh-logout" id="ehLogoutButton" onclick="cloudLogout()" hidden title="Sair da conta" aria-label="Sair da conta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5M15 12H3M12 3h5a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3h-5"/></svg><span>Sair</span></button><div class="avatar">EH</div></div></header><section class="page active" id="inicio"><div class="hero"><div><small>Sua evolução até agora</small><strong><span id="weightNow">--</span> <span style="font-size:18px">kg</span></strong><small><span id="weightDiff">Registre sua primeira pesagem</span></small></div><div class="ring" id="weightRing"><span id="ringText">--</span></div></div><div class="triple"><div class="mini"><span>Meta</span><b>--</b><span>Peso desejado</span></div><div class="mini"><span>Próxima aplicação</span><b id="homeNextDose">--</b><span id="homeNextDoseDetail">Nenhuma aplicação</span></div><div class="mini"><span>Registros</span><b id="homeTotalRecords">0</b><span id="homeRecordsDetail">Total no histórico</span></div></div><div class="home-bmi" id="homeBmiCard" role="status" aria-live="polite"><div class="home-bmi-icon" aria-hidden="true">◉</div><div class="home-bmi-body"><span>IMC atual</span><strong id="homeBmiNumber">--</strong><small id="homeBmiCategory">Registre uma pesagem e informe sua altura no Perfil.</small></div><button type="button" class="home-bmi-link" onclick="go('perfil')">Ver detalhes</button></div><div class="sec"><h2>Metas de hoje</h2><button onclick="openForm('registro')">+ Registrar</button></div><div class="goals">
+<div class="card goal"><span class="goal-icon">💧</span><div class="goal-body"><div class="head">Água</div><b><span id="waterValue">Meta a calcular no Perfil</span></b><div class="bar"><div class="fill" id="waterBar" style="width:0%"></div></div></div><span class="goal-pct" id="waterPct">--</span></div>
 <div class="card goal"><span class="goal-icon" style="background:#eaf0ff">◉</span><div class="goal-body"><div class="head">Calorias</div><b><span id="calValue">Meta a calcular no Perfil</span></b><div class="bar"><div class="fill" id="calBar" style="width:0%;background:#698bd9"></div></div></div><span class="goal-pct" id="calPct">--</span></div>
 <div class="card goal"><span class="goal-icon" style="background:#fff2e5">◆</span><div class="goal-body"><div class="head">Proteínas</div><b><span id="proteinValue">Meta a calcular no Perfil</span></b><div class="bar"><div class="fill" id="proteinBar" style="width:0%;background:#e4a75d"></div></div></div><span class="goal-pct" id="proteinPct">--</span></div>
 </div><div class="sec"><h2>Registrar agora</h2></div><div class="quick-action">
-<button onclick="openWaterEditor()"><span class="qa-icon qa-illustration" aria-hidden="true">💧</span>Água</button>
+<button onclick="openForm('água')"><span class="qa-icon qa-illustration" aria-hidden="true">💧</span>Água</button>
 <button onclick="openForm('refeição')"><span class="qa-icon qa-illustration" aria-hidden="true">🥗</span>Refeição</button>
-<button onclick="openForm('pesagem')"><span class="qa-icon qa-illustration" aria-hidden="true"><svg class="scale-illustration scale-illustration-v4" viewBox="0 0 64 64" focusable="false" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="scaleV4Shell" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#f9fffe"/><stop offset="0.55" stop-color="#d4fff2"/><stop offset="1" stop-color="#85d9c7"/></linearGradient><linearGradient id="scaleV4Side" x1="0" x2="0.7" y1="0" y2="1"><stop offset="0" stop-color="#baf7df"/><stop offset="1" stop-color="#49c3a9"/></linearGradient><linearGradient id="scaleV4Display" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#0b5a60"/><stop offset="1" stop-color="#248f89"/></linearGradient></defs><rect x="6" y="7" width="52" height="50" rx="14" fill="#14695e" opacity=".25"/><rect x="5" y="4" width="54" height="53" rx="14" fill="url(#scaleV4Shell)" stroke="#a8f6df" stroke-width="2"/><path d="M8 28Q13 22 20 24L23 51Q15 54 9 47Z" fill="url(#scaleV4Side)" opacity=".93"/><path d="M56 28Q51 22 44 24L41 51Q49 54 55 47Z" fill="url(#scaleV4Side)" opacity=".93"/><rect x="22" y="10" width="20" height="14" rx="4" fill="#18736d"/><rect x="24" y="12" width="16" height="10" rx="2.5" fill="url(#scaleV4Display)"/><path d="M11 14Q13 9 19 9" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" fill="none" opacity=".7"/><path d="M12 50Q32 58 52 50" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none" opacity=".35"/></svg></span>Peso</button></div>
-<div id="waterOverlay" class="overlay" onclick="if(event.target===this)closeWaterEditor()"><div class="sheet water-sheet" role="dialog" aria-modal="true" aria-labelledby="waterModalTitle"><div class="sheet-top"><h2 id="waterModalTitle">Registrar água</h2><button type="button" class="close" aria-label="Fechar" onclick="closeWaterEditor()">×</button></div>
-<form id="waterForm" onsubmit="saveWaterEntry(event)"><input type="hidden" id="waterEditId"><label>Quantidade (ml)<input type="number" id="waterAmount" required min="1" max="10000" step="1" inputmode="numeric" placeholder="Ex.: 250"></label><label>Data<input type="date" id="waterDate" required></label><label>Horário<input type="time" id="waterTime" required></label><div class="sheet-actions"><button type="button" class="cancel" onclick="closeWaterEditor()">Cancelar</button><button type="submit" class="primary">Salvar consumo</button></div></form></div></div><div class="sec"><h2>Checklist diário</h2><span id="count" class="muted">0/0</span></div><div class="checklist-toolbar"><button type="button" class="add-task" onclick="openTaskEditor()">+ Criar tarefa</button><span class="muted">Personalize sua rotina</span></div><div class="card checklist-card"><div class="checklist-progress" role="progressbar" aria-label="Tarefas concluídas" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="checkProgress"><div class="checklist-progress-header"><strong>Progresso de hoje</strong><span id="checkProgressText">0% concluído</span></div><div class="checklist-track"><div class="checklist-fill" id="checkProgressFill" style="width:0%"></div></div></div><div id="tasks"><p class="muted">Nenhuma tarefa ainda. Toque em Criar tarefa para começar.</p></div></div><p class="muted">Seus registros são vinculados à sua conta quando a sincronização está ativa.</p></section><section class="page" id="alimentacao">
+<button onclick="openForm('pesagem')"><span class="qa-icon qa-illustration" aria-hidden="true"><svg class="scale-illustration scale-illustration-v4" viewBox="0 0 64 64" focusable="false" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="scaleV4Shell" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#f9fffe"/><stop offset="0.55" stop-color="#d4fff2"/><stop offset="1" stop-color="#85d9c7"/></linearGradient><linearGradient id="scaleV4Side" x1="0" x2="0.7" y1="0" y2="1"><stop offset="0" stop-color="#baf7df"/><stop offset="1" stop-color="#49c3a9"/></linearGradient><linearGradient id="scaleV4Display" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#0b5a60"/><stop offset="1" stop-color="#248f89"/></linearGradient></defs><rect x="6" y="7" width="52" height="50" rx="14" fill="#14695e" opacity=".25"/><rect x="5" y="4" width="54" height="53" rx="14" fill="url(#scaleV4Shell)" stroke="#a8f6df" stroke-width="2"/><path d="M8 28Q13 22 20 24L23 51Q15 54 9 47Z" fill="url(#scaleV4Side)" opacity=".93"/><path d="M56 28Q51 22 44 24L41 51Q49 54 55 47Z" fill="url(#scaleV4Side)" opacity=".93"/><rect x="22" y="10" width="20" height="14" rx="4" fill="#18736d"/><rect x="24" y="12" width="16" height="10" rx="2.5" fill="url(#scaleV4Display)"/><path d="M11 14Q13 9 19 9" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" fill="none" opacity=".7"/><path d="M12 50Q32 58 52 50" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none" opacity=".35"/></svg></span>Peso</button></div><div class="sec"><h2>Checklist diário</h2><span id="count" class="muted">0/0</span></div><div class="checklist-toolbar"><button type="button" class="add-task" onclick="openTaskEditor()">+ Criar tarefa</button><span class="muted">Personalize sua rotina</span></div><div class="card checklist-card"><div class="checklist-progress" role="progressbar" aria-label="Tarefas concluídas" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="checkProgress"><div class="checklist-progress-header"><strong>Progresso de hoje</strong><span id="checkProgressText">0% concluído</span></div><div class="checklist-track"><div class="checklist-fill" id="checkProgressFill" style="width:0%"></div></div></div><div id="tasks"><p class="muted">Nenhuma tarefa ainda. Toque em Criar tarefa para começar.</p></div></div><p class="muted">Seus registros são vinculados à sua conta quando a sincronização está ativa.</p></section><section class="page" id="alimentacao">
 <div class="food-header"><div><p class="intro">Pesquise alimentos e consulte rótulos pelo código de barras. Confira sempre a fonte.</p></div><button class="food-primary" onclick="openFood()">+ Adicionar alimento</button></div>
 <div class="food-kpis"><div class="food-kpi"><small>Calorias</small><b><span id="foodKcal">0</span> kcal</b></div><div class="food-kpi"><small>Proteínas</small><b><span id="foodProtein">0</span> g</b></div><div class="food-kpi"><small>Carboidratos</small><b><span id="foodCarbs">0</span> g</b></div><div class="food-kpi"><small>Gorduras</small><b><span id="foodFat">0</span> g</b></div></div>
 <section class="personal-library"><div class="personal-head"><strong>Seus favoritos</strong><button type="button" onclick="openPersonalLibrary()">Ver alimentos salvos</button></div><p>Toque em ☆ no diário para favoritar. Depois toque no alimento favorito para adicioná-lo novamente.</p><div id="personalList" class="personal-list"></div><details class="meal-favorites"><summary>Combinações de refeições <span class="muted" style="font-weight:400">(ex.: arroz + feijão + frango)</span></summary><p>Escolha uma refeição de hoje e salve todos os alimentos dela juntos. Depois, toque em “Adicionar ao diário” para repetir a combinação.</p><div class="meal-save-row"><select id="mealFavoriteSelect" aria-label="Refeição para salvar"><option>Café da manhã</option><option>Almoço</option><option>Lanche</option><option>Jantar</option><option>Ceia</option></select><button type="button" onclick="saveFavoriteMeal()">Salvar combinação</button></div><div id="favoriteMealsList" class="personal-list"></div></details></section><div class="food-tip">Catálogo ampliado com valores nutricionais aproximados por 100 g. Confira o rótulo dos produtos e ajuste a porção quando necessário.</div>
@@ -70,12 +68,6 @@ main{max-width:900px;padding-top:28px}header{margin-bottom:21px}header small{col
 <div class="sec"><h2>Histórico de pesagens</h2><span class="muted" id="evolHistoryCount"></span></div>
 <div id="weightHistory" class="evol-history"></div>
 <p class="muted evol-note">As pesagens exibidas são os registros associados à sua conta.</p>
-<section class="water-history" aria-labelledby="waterHistoryTitle">
-<div class="water-history-head"><div><h2 id="waterHistoryTitle">Histórico de hidratação</h2><p>Consumos registrados com data e horário</p></div><button type="button" class="water-add" onclick="openWaterEditor()">+ Registrar água</button></div>
-<div class="water-stats"><div><small>Hoje</small><strong id="waterDayTotal">0 ml</strong></div><div><small>Últimos 7 dias</small><strong id="waterWeekTotal">0 ml</strong></div><div><small>Total de registros</small><strong id="waterEntryCount">0</strong></div></div>
-<div class="water-history-card"><div class="water-filter"><label>Visualização<select id="waterPeriod" onchange="renderWaterHistory()"><option value="7">7 dias</option><option value="30">30 dias</option><option value="month">6 meses</option></select></label><span id="waterPeriodInfo" class="water-caption"></span></div>
-<div id="waterTrend" class="water-trend" role="img" aria-label="Resumo visual de hidratação"></div><div class="water-list-head"><h3>Registros de água</h3><span id="waterListCount"></span></div><div id="waterList"></div></div>
-</section>
 </section><section class="page" id="perfil">
 <p class="intro">Personalize seus dados. Preencha as informações e salve para atualizar o acompanhamento.</p>
 <div class="profile-summary card"><div><small>Seu perfil</small><strong id="profileTitle">Meu acompanhamento</strong><span id="profileSubtitle">Preencha seus dados para personalizar as metas.</span></div><span class="profile-symbol">◉</span></div>
@@ -134,23 +126,16 @@ html{scroll-padding-bottom:100px}body{overflow-x:hidden}.shell{width:100%}.hero{
 </style><script>
 const views=[['inicio','⌂','Início','Visão geral'],['alimentacao','◉','Alimentação','Alimentação'],['tratamento','✚','Tratamento','Tratamento'],['evolucao','▥','Evolução','Evolução'],['perfil','♙','Perfil','Meu perfil'],['ajuda','?','Ajuda','Ajuda']];
 for(const v of views){document.getElementById('side').insertAdjacentHTML('beforeend',`<button data-tab="${v[0]}" onclick="go('${v[0]}')">${v[1]} &nbsp; ${v[2]}</button>`);/* navegação inferior incluída no HTML */}
-function openWaterHistory(){go('evolucao');if(typeof renderWaterHistory==='function')renderWaterHistory();requestAnimationFrame(()=>document.querySelector('.water-history')?.scrollIntoView({behavior:'smooth',block:'start'}));}
 function go(id){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));document.getElementById('heading').textContent=views.find(v=>v[0]===id)[3];const greeting=document.getElementById('helloUser');if(greeting)greeting.hidden=id!=='inicio';window.scrollTo(0,0)}
 go('inicio');
 let demo={weight:null,initial:null,target:null,water:0,cal:0,protein:0};
-const WATER_KEY='evolua_water_daily_v1'; // legado, somente leitura
-const WATER_LOG_KEY='evolua_water_entries_v1';
+const WATER_KEY='evolua_water_daily_v1';
 function waterToday(){const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
-function waterLocalTime(){const d=new Date();return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
-function waterLegacyEntry(){try{const x=JSON.parse(localStorage.getItem(WATER_KEY)||'null');const ml=Number(x?.ml);if(/^\d{4}-\d{2}-\d{2}$/.test(x?.date||'')&&ml>0&&Number.isFinite(ml))return {id:'legacy_'+x.date,date:x.date,time:'12:00',ml:Math.round(ml),legacy:true};}catch(e){}return null}
-function waterStoredEntries(){try{const x=JSON.parse(localStorage.getItem(WATER_LOG_KEY)||'[]');return Array.isArray(x)?x.filter(v=>v&&typeof v.id==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v.date)&&Number(v.ml)>0):[]}catch(e){return []}}
-function waterEntries(){const list=waterStoredEntries();const legacy=waterLegacyEntry();if(legacy&&!list.some(x=>x.id===legacy.id))list.push(legacy);return list.sort((a,b)=>(b.date+'T'+b.time).localeCompare(a.date+'T'+a.time)||b.id.localeCompare(a.id));}
-function readWaterToday(){return waterEntries().filter(x=>x.date===waterToday()).reduce((sum,x)=>sum+Number(x.ml),0)}
+function readWaterToday(){try{const data=JSON.parse(localStorage.getItem(WATER_KEY)||'null');return data&&data.date===waterToday()&&Number.isFinite(Number(data.ml))&&Number(data.ml)>=0?Number(data.ml):0}catch(e){return 0}}
 function updateWaterToday(){demo.water=readWaterToday()}
-function storeWaterEntries(list){localStorage.setItem(WATER_LOG_KEY,JSON.stringify(list));updateWaterToday();render();if(typeof updateHomeProfileGoals==='function')updateHomeProfileGoals();renderWaterHistory()}
-function addWater(amount){const v=Number(amount);if(!Number.isFinite(v)||v<=0)return false;const entries=waterEntries();entries.push({id:'water_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8),date:waterToday(),time:waterLocalTime(),ml:Math.round(v)});storeWaterEntries(entries);return true}
+function addWater(amount){const v=Number(amount);if(!Number.isFinite(v)||v<=0){toast('Informe uma quantidade válida de água');return false}const total=readWaterToday()+v;localStorage.setItem(WATER_KEY,JSON.stringify({date:waterToday(),ml:total}));demo.water=total;return true}
 updateWaterToday();
-document.addEventListener('visibilitychange',()=>{if(!document.hidden&&typeof updateHomeProfileGoals==='function'){updateWaterToday();updateHomeProfileGoals();renderWaterHistory()}});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&typeof updateHomeProfileGoals==='function'){updateWaterToday();updateHomeProfileGoals()}});
 const TASK_KEY='evolua_conceito41_custom_tasks_v1';
 const DONE_KEY='evolua_conceito41_daily_checks_v1';
 const todayKey=()=>new Date().toLocaleDateString('en-CA');
@@ -178,7 +163,7 @@ const config={
  'registro':[['Tipo de registro','select','','kind','']]
 };
 let activeType='';
-function openForm(type){if(type==='água'){openWaterEditor();return}if(type==='pesagem'){openWeightEditor();return;}if(type==='refeição'){openFood();return;}if(type==='aplicação'){openTreatmentEditor('application');return;}if(type==='sintoma'){openTreatmentEditor('symptom');return;}activeType=type;document.getElementById('modalTitle').textContent=type==='registro'?'Registrar agora':'Registrar '+type;document.getElementById('modalDesc').textContent='O registro será salvo na sua conta quando a sincronização estiver ativa.';
+function openForm(type){if(type==='pesagem'){openWeightEditor();return;}if(type==='refeição'){openFood();return;}if(type==='aplicação'){openTreatmentEditor('application');return;}if(type==='sintoma'){openTreatmentEditor('symptom');return;}activeType=type;document.getElementById('modalTitle').textContent=type==='registro'?'Registrar agora':'Registrar '+type;document.getElementById('modalDesc').textContent='O registro será salvo na sua conta quando a sincronização estiver ativa.';
  let fields=config[type]||config['registro'];document.getElementById('formFields').innerHTML=fields.map(([label,kind,placeholder,id,min])=>`<label for="f_${id}">${label}</label>`+(kind==='select'?`<select id="f_${id}">${(id==='site'?['Abdômen direito','Abdômen esquerdo','Coxa direita','Coxa esquerda','Braço direito','Braço esquerdo']:['Água','Refeição','Pesagem','Aplicação','Sintoma']).map(x=>`<option>${x}</option>`).join('')}</select>`:`<input id="f_${id}" ${kind==='number'?'inputmode="decimal" step="any" min="'+min+'"':''} type="${kind}" placeholder="${placeholder}" required>`)).join('');document.getElementById('overlay').classList.add('show')}
 function closeForm(){document.getElementById('overlay').classList.remove('show')} document.addEventListener('keydown',e=>{if(e.key==='Escape')closeForm()});
 function percent(n,max){return Math.min(100,Math.round(100*n/max))}
@@ -186,7 +171,7 @@ function render(){updateWaterToday();const hasWeight=Number.isFinite(demo.weight
  for(const type of ['water','cal','protein']){document.getElementById(type+'Value').textContent='Meta a calcular no Perfil';document.getElementById(type+'Bar').style.width='0%';document.getElementById(type+'Pct').textContent='--'}}render();
 function toast(msg){let e=document.getElementById('toast');e.textContent=msg;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2600)}
 function saveRecord(e){e.preventDefault();let val=id=>document.getElementById('f_'+id)?.value;let num=id=>Number(String(val(id)).replace(',','.'));if(activeType==='registro'){let k=val('kind');closeForm();openForm(({Água:'água',Refeição:'refeição',Pesagem:'pesagem',Aplicação:'aplicação',Sintoma:'sintoma'})[k]);return}
- if(activeType==='água'){closeForm();openWaterEditor();return;}closeForm();toast('Use o formulário específico para registrar esta informação');}
+ if(activeType==='água'){if(!addWater(num('water')))return;render();tasks();closeForm();toast('Água registrada');return;}closeForm();toast('Use o formulário específico para registrar esta informação');}
 </script>
 <style>
 .checklist-toolbar{display:flex;align-items:center;gap:12px;margin:0 0 11px}.add-task{background:#e0f1e9;color:#096b58;border:0;border-radius:12px;padding:11px 15px;font-weight:750;font-size:14px}.task-custom{gap:9px}.task-name{flex:1;min-width:0;overflow-wrap:anywhere;font-size:14px}.task-name.done{text-decoration:line-through;color:#849894}.task-edit,.task-delete{background:#f0f5f2;border:0;padding:8px;border-radius:9px;color:#166c58;font-weight:650;font-size:12px;cursor:pointer}.task-delete{color:#af4242;font-size:20px;padding:5px 10px}.task-custom input{flex-shrink:0}.task-overlay{z-index:500}.task-overlay .sheet{max-height:85dvh}.task-overlay .sheet input{width:100%;font-size:16px}
@@ -254,62 +239,17 @@ function saveRecord(e){e.preventDefault();let val=id=>document.getElementById('f
 @media(max-width:700px){.checklist-card{padding:16px!important}.checklist-progress-header{margin-bottom:10px}.checklist-track,.checklist-fill{height:14px!important}}
 </style>
 <div class="overlay food-modal" id="foodOverlay" onclick="if(event.target===this)closeFood()"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="foodTitle"><div class="sheet-top"><h2 id="foodTitle">Adicionar alimento</h2><button class="close" onclick="closeFood()" aria-label="Fechar">✕</button></div>
-<form id="foodForm" onsubmit="saveFood(event)"><label for="foodMeal">Refeição</label><select id="foodMeal"><option>Café da manhã</option><option>Almoço</option><option>Lanche</option><option>Jantar</option><option>Ceia</option></select><label for="foodSearch">Pesquisar alimento</label><div class="food-search-row"><input id="foodSearch" type="search" placeholder="Ex.: arroz, frango, iogurte" oninput="onFoodSearchInput()" autocomplete="off"><button type="button" class="scan-trigger" onclick="openScanner()" aria-label="Escanear código de barras com a câmera" title="Escanear código de barras"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><path d="M7 9v6m3-6v6m3-6v6m3-6v6"/></svg></button></div><div id="foodSuggestions" class="food-suggestions"></div><button type="button" id="foodManualStart" class="food-manual-entry" onclick="foodStartManual()">Não encontrou? Cadastrar manualmente</button><button type="button" class="external-find" id="foodExternalFind" onclick="searchExternalByName()">Buscar produtos no Open Food Facts</button><div id="externalResults" class="external-results"></div>
-<p class="food-search-guide" id="foodSearchGuide">Digite o nome do alimento ou use a câmera para ler o código de barras.</p><div class="source-status" id="externalStatus" role="status" aria-live="polite">Pesquise pelo nome ou toque no botão de scanner ao lado da busca.</div><p class="source-help">A busca consulta primeiro o catálogo do Evolua Health. Alimentos locais são estimativas. Produtos de marca: Open Food Facts. Confira o rótulo e a porção.</p>
+<form id="foodForm" onsubmit="saveFood(event)"><label for="foodMeal">Refeição</label><select id="foodMeal"><option>Café da manhã</option><option>Almoço</option><option>Lanche</option><option>Jantar</option><option>Ceia</option></select><label for="foodSearch">Pesquisar alimento</label><div class="food-search-row"><input id="foodSearch" type="search" placeholder="Ex.: arroz, frango, iogurte" oninput="onFoodSearchInput()" autocomplete="off"><button type="button" class="scan-trigger" onclick="openScanner()" aria-label="Escanear código de barras com a câmera" title="Escanear código de barras"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><path d="M7 9v6m3-6v6m3-6v6m3-6v6"/></svg></button></div><div id="foodSuggestions" class="food-suggestions"></div><button type="button" class="external-find" onclick="searchExternalByName()">Buscar produtos por nome na base externa</button><div id="externalResults" class="external-results"></div>
+<div class="source-status" id="externalStatus" role="status" aria-live="polite">Pesquise pelo nome ou toque no botão de scanner ao lado da busca.</div><p class="source-help">Valores de produtos encontrados vêm do Open Food Facts. Confira o rótulo antes de salvar.</p>
 <input type="hidden" id="barcodeSearch"><button type="button" id="barcodeButton" onclick="lookupBarcode()" hidden>Consultar rótulo</button>
 <div class="food-fields"><div><label for="foodGrams">Quantidade</label><input id="foodGrams" type="number" min="0.0001" max="5000" step="any" value="100" oninput="calcFoodPreview()" required></div><div><label for="foodUnit">Unidade</label><select id="foodUnit" onchange="foodUnitChanged()"><option value="g">Gramas (g)</option><option value="ml">Mililitros (ml)</option><option value="un">Unidades</option><option value="gota">Gotas</option><option value="fatia">Fatias</option></select></div><div id="unitSizeWrap" hidden><label for="unitSize">Equivalência por unidade (g ou ml)</label><input id="unitSize" type="number" min="0.0001" step="any" value="1" oninput="calcFoodPreview()"></div><div><label for="foodCustom">Nome personalizado</label><input id="foodCustom" type="text" maxlength="100" placeholder="Opcional" oninput="calcFoodPreview()"></div></div>
-<p class="muted" id="nutritionBaseNotice">Informe nutrientes por 100 g ou 100 ml, conforme o produto. Para unidades, gotas ou fatias, informe também a equivalência.</p><div class="food-fields"><div><label for="nutKcal">Calorias (kcal)</label><input id="nutKcal" type="number" min="0" max="2000" step="any" placeholder="Não informado" oninput="calcFoodPreview()"></div><div><label for="nutProtein">Proteínas (g)</label><input id="nutProtein" type="number" min="0" max="100" step="any" placeholder="Não informado" oninput="calcFoodPreview()"></div><div><label for="nutCarbs">Carboidratos (g)</label><input id="nutCarbs" type="number" min="0" max="100" step="any" placeholder="Não informado" oninput="calcFoodPreview()"></div><div><label for="nutFat">Gorduras (g)</label><input id="nutFat" type="number" min="0" max="100" step="any" placeholder="Não informado" oninput="calcFoodPreview()"></div><div><label for="nutSugar">Açúcares totais (g)</label><input id="nutSugar" type="number" min="0" max="100" step="any" placeholder="Não informado" oninput="calcFoodPreview()"></div><div><label for="nutAddedSugar">Açúcares adicionados (g)</label><input id="nutAddedSugar" type="number" min="0" max="100" step="any" placeholder="Não informado" oninput="calcFoodPreview()"></div><div><label for="nutFiber">Fibras (g)</label><input id="nutFiber" type="number" min="0" max="100" step="0.01" placeholder="Não informado" oninput="calcFoodPreview()"></div><div><label for="nutSodium">Sódio (mg)</label><input id="nutSodium" type="number" min="0" max="50000" step="any" placeholder="Não informado" oninput="calcFoodPreview()"></div></div>
+<p class="muted">Nutrientes por 100 g ou 100 ml. Você pode corrigir os valores conforme o rótulo.</p><div class="food-fields"><div><label for="nutKcal">Calorias (kcal)</label><input id="nutKcal" type="number" min="0" max="2000" step="any" value="0" oninput="calcFoodPreview()"></div><div><label for="nutProtein">Proteínas (g)</label><input id="nutProtein" type="number" min="0" max="100" step="any" value="0" oninput="calcFoodPreview()"></div><div><label for="nutCarbs">Carboidratos (g)</label><input id="nutCarbs" type="number" min="0" max="100" step="any" value="0" oninput="calcFoodPreview()"></div><div><label for="nutFat">Gorduras (g)</label><input id="nutFat" type="number" min="0" max="100" step="any" value="0" oninput="calcFoodPreview()"></div><div><label for="nutSugar">Açúcares totais (g)</label><input id="nutSugar" type="number" min="0" max="100" step="any" placeholder="Não informado" oninput="calcFoodPreview()"></div><div><label for="nutAddedSugar">Açúcares adicionados (g)</label><input id="nutAddedSugar" type="number" min="0" max="100" step="any" placeholder="Não informado" oninput="calcFoodPreview()"></div><div><label for="nutFiber">Fibras (g)</label><input id="nutFiber" type="number" min="0" max="100" step="0.01" placeholder="Não informado" oninput="calcFoodPreview()"></div><div><label for="nutSodium">Sódio (mg)</label><input id="nutSodium" type="number" min="0" max="50000" step="any" placeholder="Não informado" oninput="calcFoodPreview()"></div></div>
 <p class="source-help" id="manualFoodHint">Produto não encontrado? Informe o nome, a quantidade e os nutrientes do rótulo manualmente nos campos abaixo.</p>
-<div id="foodOrigin" class="source-status">Origem: cadastro manual. Informe os dados do rótulo.</div><div id="nutritionChecks" class="nutrition-checks" role="status" aria-live="polite"></div><div class="food-favorite-actions"><button type="button" onclick="savePersonalFood()">☆ Salvar no meu catálogo</button></div><div id="foodPreview" class="food-preview">Selecione um alimento.</div><div class="sheet-actions"><button class="cancel" type="button" onclick="closeFood()">Cancelar</button><button type="submit" class="primary">Salvar alimento</button></div></form></div></div>
+<div id="foodOrigin" class="source-status">Origem: digitação manual ou catálogo ilustrativo.</div><div class="food-favorite-actions"><button type="button" onclick="savePersonalFood()">☆ Salvar no meu catálogo</button></div><div id="foodPreview" class="food-preview">Selecione um alimento.</div><div class="sheet-actions"><button class="cancel" type="button" onclick="closeFood()">Cancelar</button><button type="submit" class="primary">Salvar alimento</button></div></form></div></div>
 <script>
 const catalog=[
-['Arroz branco cozido',128,2.5,28.1,.2],['Arroz integral cozido',124,2.6,25.8,1],['Feijão carioca cozido',76,4.8,13.6,.5],['Feijão preto cozido',77,4.5,14,0.5],['Peito de frango grelhado',165,31,0,3.6],['Carne bovina magra grelhada',215,30,0,10],['Ovo cozido',155,12.6,1.1,10.6],['Iogurte natural integral',61,3.5,4.7,3.3],['Leite integral',61,3.2,4.8,3.3],['Whey protein em pó (referência)',400,75,9,7],['Granola tradicional (referência)',440,9,68,14],['Aveia em flocos',389,16.9,66.3,6.9],['Banana',89,1.1,22.8,.3],['Maçã',52,.3,13.8,.2],['Mamão',43,.5,10.8,.3],['Batata-doce cozida',77,.6,18.4,.1],['Batata inglesa cozida',87,1.9,20.1,.1],['Macarrão cozido',158,5.8,30.9,.9],['Pão francês',300,9,58,3.1],['Queijo minas frescal',264,17.4,3.2,20.2],['Queijo muçarela',280,22,2.2,21],['Atum em água escorrido',116,26,0,1],['Tilápia grelhada',128,26,0,2.7],['Brócolis cozido',35,2.4,7.2,.4],['Alface',15,1.4,2.9,.2],['Tomate',18,.9,3.9,.2],['Azeite de oliva',884,0,0,100],['Amêndoas',579,21.2,21.6,49.9],['Pasta de amendoim',588,25,20,50],['Arroz parboilizado cozido',123,2.6,26,0.3],['Cuscuz de milho cozido',112,2.2,25.3,0.7],['Tapioca pronta sem recheio',230,0.2,57,0],['Pão de forma integral',247,10,43,3.5],['Pão de forma branco',266,8.9,49,3.2],['Pão de queijo',330,7,39,16],['Torrada integral',390,12,70,6],['Farinha de mandioca',365,1.6,89,0.3],['Mandioca cozida',125,0.6,30,0.3],['Inhame cozido',97,1.5,23,0.2],['Abóbora cabotiá cozida',48,1.1,10.8,0.5],['Purê de batatas',111,2.1,16,4],['Polenta cozida',74,1.6,15,0.4],['Quinoa cozida',120,4.4,21.3,1.9],['Lentilha cozida',116,9,20.1,0.4],['Grão-de-bico cozido',164,8.9,27.4,2.6],['Ervilha cozida',84,5.4,15.6,0.2],['Milho verde cozido',96,3.4,21,1.5],['Frango desfiado cozido',165,31,0,3.6],['Sobrecoxa de frango assada sem pele',209,26,0,10.9],['Patinho moído cozido',212,27,0,10.5],['Acém cozido',215,28,0,11],['Fígado bovino grelhado',175,26,5,5],['Lombo suíno assado',196,29,0,8],['Pernil suíno assado',242,27,0,14],['Sardinha em lata escorrida',208,25,0,11.5],['Salmão grelhado',206,22,0,12],['Merluza cozida',95,20,0,1.2],['Camarão cozido',99,24,0.2,0.3],['Ovo mexido simples',160,11,2,12],['Clara de ovo cozida',52,10.9,0.7,0.2],['Tofu firme',144,15,3,9],['Proteína de soja texturizada seca',330,50,30,1],['Iogurte natural desnatado',42,3.8,5.6,0.2],['Iogurte grego natural',97,9,4,5],['Kefir de leite natural',60,3.4,4.8,3],['Leite desnatado',35,3.4,5,0.1],['Leite semidesnatado',46,3.3,4.8,1.5],['Bebida vegetal de aveia sem açúcar',43,1,7,1.4],['Queijo cottage',98,11,3.4,4.3],['Ricota',174,11.3,3,13],['Requeijão tradicional',257,9,4,23],['Queijo prato',360,23,2,29],['Parmesão',431,38,4,29],['Manteiga',717,0.9,0.1,81],['Creme de leite',195,2,3,19],['Morango',32,0.7,7.7,0.3],['Laranja',47,0.9,11.8,0.1],['Tangerina',53,0.8,13.3,0.3],['Abacaxi',50,0.5,13.1,0.1],['Manga',60,0.8,15,0.4],['Melancia',30,0.6,7.6,0.2],['Melão',34,0.8,8.2,0.2],['Uva',69,0.7,18.1,0.2],['Pera',57,0.4,15.2,0.1],['Kiwi',61,1.1,14.7,0.5],['Abacate',160,2,8.5,14.7],['Goiaba',68,2.6,14.3,1],['Açaí polpa pura sem açúcar',70,1,6,5],['Limão',29,1.1,9.3,0.3],['Cenoura crua',41,0.9,9.6,0.2],['Cenoura cozida',35,0.8,8.2,0.2],['Pepino',15,0.7,3.6,0.1],['Couve crua',35,2.9,4.4,1.5],['Espinafre cozido',23,3,3.8,0.3],['Abobrinha cozida',17,1.2,3.1,0.3],['Berinjela cozida',35,0.8,8.7,0.2],['Beterraba cozida',44,1.7,10,0.2],['Repolho cru',25,1.3,5.8,0.1],['Cebola crua',40,1.1,9.3,0.1],['Pimentão cru',26,1,6,0.3],['Vagem cozida',35,1.9,7.9,0.3],['Couve-flor cozida',23,1.8,4.1,0.5],['Castanha de caju',553,18.2,30.2,43.8],['Castanha-do-pará',659,14.3,11.7,67.1],['Amendoim torrado',587,24,21,50],['Sementes de chia',486,16.5,42.1,30.7],['Linhaça',534,18.3,28.9,42.2],['Mel',304,0.3,82.4,0],['Açúcar',387,0,100,0],['Chocolate ao leite',535,7.7,59,29.7],['Chocolate 70% cacau',598,7.8,45.9,42.6],['Biscoito cream cracker',440,9,71,13],['Biscoito de polvilho',440,1.5,82,12],['Pipoca sem óleo estourada',387,12.9,77.8,4.5],['Café sem açúcar',1,0.1,0,0],['Suco de laranja natural',45,0.7,10.5,0.2],['Água de coco',19,0.7,3.7,0.2],['Refrigerante comum',42,0,10.6,0],['Refrigerante zero',0,0,0,0]];
+['Arroz branco cozido',128,2.5,28.1,.2],['Arroz integral cozido',124,2.6,25.8,1],['Feijão carioca cozido',76,4.8,13.6,.5],['Feijão preto cozido',77,4.5,14,0.5],['Peito de frango grelhado',165,31,0,3.6],['Carne bovina magra grelhada',215,30,0,10],['Ovo cozido',155,12.6,1.1,10.6],['Iogurte natural integral',61,3.5,4.7,3.3],['Leite integral',61,3.2,4.8,3.3],['Whey protein em pó (referência)',400,75,9,7],['Granola tradicional (referência)',440,9,68,14],['Aveia em flocos',389,16.9,66.3,6.9],['Banana',89,1.1,22.8,.3],['Maçã',52,.3,13.8,.2],['Mamão',43,.5,10.8,.3],['Batata-doce cozida',77,.6,18.4,.1],['Batata inglesa cozida',87,1.9,20.1,.1],['Macarrão cozido',158,5.8,30.9,.9],['Pão francês',300,9,58,3.1],['Queijo minas frescal',264,17.4,3.2,20.2],['Queijo muçarela',280,22,2.2,21],['Atum em água escorrido',116,26,0,1],['Tilápia grelhada',128,26,0,2.7],['Brócolis cozido',35,2.4,7.2,.4],['Alface',15,1.4,2.9,.2],['Tomate',18,.9,3.9,.2],['Azeite de oliva',884,0,0,100],['Amêndoas',579,21.2,21.6,49.9],['Pasta de amendoim',588,25,20,50],['Arroz parboilizado cozido',123,2.6,26,0.3],['Cuscuz de milho cozido',112,2.2,25.3,0.7],['Tapioca pronta sem recheio',230,0.2,57,0],['Pão de forma integral',247,10,43,3.5],['Pão de forma branco',266,8.9,49,3.2],['Pão de queijo',330,7,39,16],['Torrada integral',390,12,70,6],['Farinha de mandioca',365,1.6,89,0.3],['Mandioca cozida',125,0.6,30,0.3],['Inhame cozido',97,1.5,23,0.2],['Abóbora cabotiá cozida',48,1.1,10.8,0.5],['Purê de batatas',111,2.1,16,4],['Polenta cozida',74,1.6,15,0.4],['Quinoa cozida',120,4.4,21.3,1.9],['Lentilha cozida',116,9,20.1,0.4],['Grão-de-bico cozido',164,8.9,27.4,2.6],['Ervilha cozida',84,5.4,15.6,0.2],['Milho verde cozido',96,3.4,21,1.5],['Frango desfiado cozido',165,31,0,3.6],['Sobrecoxa de frango assada sem pele',209,26,0,10.9],['Patinho moído cozido',212,27,0,10.5],['Acém cozido',215,28,0,11],['Fígado bovino grelhado',175,26,5,5],['Lombo suíno assado',196,29,0,8],['Pernil suíno assado',242,27,0,14],['Sardinha em lata escorrida',208,25,0,11.5],['Salmão grelhado',206,22,0,12],['Merluza cozida',95,20,0,1.2],['Camarão cozido',99,24,0.2,0.3],['Ovo mexido simples',160,11,2,12],['Clara de ovo cozida',52,10.9,0.7,0.2],['Tofu firme',144,15,3,9],['Proteína de soja texturizada seca',330,50,30,1],['Iogurte natural desnatado',42,3.8,5.6,0.2],['Iogurte grego natural',97,9,4,5],['Kefir de leite natural',60,3.4,4.8,3],['Leite desnatado',35,3.4,5,0.1],['Leite semidesnatado',46,3.3,4.8,1.5],['Bebida vegetal de aveia sem açúcar',43,1,7,1.4],['Queijo cottage',98,11,3.4,4.3],['Ricota',174,11.3,3,13],['Requeijão tradicional',257,9,4,23],['Queijo prato',360,23,2,29],['Parmesão',431,38,4,29],['Manteiga',717,0.9,0.1,81],['Creme de leite',195,2,3,19],['Morango',32,0.7,7.7,0.3],['Laranja',47,0.9,11.8,0.1],['Tangerina',53,0.8,13.3,0.3],['Abacaxi',50,0.5,13.1,0.1],['Manga',60,0.8,15,0.4],['Melancia',30,0.6,7.6,0.2],['Melão',34,0.8,8.2,0.2],['Uva',69,0.7,18.1,0.2],['Pera',57,0.4,15.2,0.1],['Kiwi',61,1.1,14.7,0.5],['Abacate',160,2,8.5,14.7],['Goiaba',68,2.6,14.3,1],['Açaí polpa pura sem açúcar',70,1,6,5],['Limão',29,1.1,9.3,0.3],['Cenoura crua',41,0.9,9.6,0.2],['Cenoura cozida',35,0.8,8.2,0.2],['Pepino',15,0.7,3.6,0.1],['Couve crua',35,2.9,4.4,1.5],['Espinafre cozido',23,3,3.8,0.3],['Abobrinha cozida',17,1.2,3.1,0.3],['Berinjela cozida',35,0.8,8.7,0.2],['Beterraba cozida',44,1.7,10,0.2],['Repolho cru',25,1.3,5.8,0.1],['Cebola crua',40,1.1,9.3,0.1],['Pimentão cru',26,1,6,0.3],['Vagem cozida',35,1.9,7.9,0.3],['Couve-flor cozida',23,1.8,4.1,0.5],['Castanha de caju',553,18.2,30.2,43.8],['Castanha-do-pará',659,14.3,11.7,67.1],['Amendoim torrado',587,24,21,50],['Sementes de chia',486,16.5,42.1,30.7],['Linhaça',534,18.3,28.9,42.2],['Mel',304,0.3,82.4,0],['Açúcar',387,0,100,0],['Chocolate ao leite',535,7.7,59,29.7],['Chocolate 70% cacau',598,7.8,45.9,42.6],['Biscoito cream cracker',440,9,71,13],['Biscoito de polvilho',440,1.5,82,12],['Pipoca sem óleo estourada',387,12.9,77.8,4.5],['Café sem açúcar',1,0.1,0,0],['Suco de laranja natural',45,0.7,10.4,0.2],['Água de coco',19,0.7,3.7,0.2],['Refrigerante comum',42,0,10.6,0],['Refrigerante zero',0,0,0,0]];
 let activeFoodSource='manual',activeFoodSourceId='';let barcodeLookupId=0;
-// Base compartilhada: cache de pesquisa por sessão, evitando requisições repetidas.
-const sharedFoodCache=new Map();
-let sharedFoodResults=[],sharedFoodQuery='',sharedFoodTimer=0,sharedFoodRequest=0;
-function normalizeFoodQuery(text){return String(text||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('pt-BR').trim()}
-async function querySharedFoodCatalog(query){
-  const normalized=normalizeFoodQuery(query);
-  if(normalized.length<2||!cloudClient||!cloudUser){sharedFoodResults=[];sharedFoodQuery='';return}
-  const request=++sharedFoodRequest;
-  if(sharedFoodCache.has(normalized)) {sharedFoodResults=sharedFoodCache.get(normalized);sharedFoodQuery=normalized;filterFoods();return}
-  try{
-    // Limite e colunas reduzidas. A tabela fica protegida por RLS no Supabase.
-    const escaped=query.trim().replace(/[%_,]/g,' ').slice(0,75);
-    const {data,error}=await cloudClient.from('evolua_food_catalog')
-      .select('id,name,kcal,protein,carbs,fat,fiber,sodium,sugar,added_sugar,source,source_id,verified,updated_at')
-      .ilike('name','%'+escaped+'%').order('name').limit(20);
-    if(error)throw error;
-    if(request!==sharedFoodRequest)return;
-    sharedFoodResults=data||[];sharedFoodQuery=normalized;
-    if(sharedFoodCache.size>60)sharedFoodCache.clear();
-    sharedFoodCache.set(normalized,sharedFoodResults);
-    filterFoods();
-  }catch(e){if(request!==sharedFoodRequest)return;sharedFoodResults=[];sharedFoodQuery='';filterFoods();const el=document.getElementById('externalStatus');if(el&&String(e.message).includes('evolua_food_catalog'))el.textContent='Catálogo central ainda não instalado. Execute o SQL 10.9 no Supabase.';}
-}
-function scheduleSharedFoodSearch(){
-  clearTimeout(sharedFoodTimer);
-  const query=document.getElementById('foodSearch').value.trim();
-  sharedFoodQuery='';sharedFoodResults=[];sharedFoodRequest++;
-  if(query.length>=2)sharedFoodTimer=setTimeout(()=>querySharedFoodCatalog(query),280);
-}
-function selectSharedFood(id){
- const item=sharedFoodResults.find(x=>String(x.id)===String(id));if(!item)return;
- barcodeLookupId++;selectedFood=null;
- activeFoodSource=item.source==='usda'?'USDA FoodData Central':'Catálogo central estimativo';
- activeFoodSourceId=item.source_id||'';
- document.getElementById('foodSearch').value=item.name;
- document.getElementById('foodCustom').value='';
- const values=[['nutKcal','kcal'],['nutProtein','protein'],['nutCarbs','carbs'],['nutFat','fat'],['nutFiber','fiber'],['nutSodium','sodium'],['nutSugar','sugar'],['nutAddedSugar','added_sugar']];
- for(const [el,key] of values) document.getElementById(el).value=item[key]??'';
- const origin=item.source==='usda'?'USDA FoodData Central (CC0)':'Catálogo central · estimativa do Evolua Health';
- const date=item.updated_at?new Date(item.updated_at).toLocaleDateString('pt-BR'):'';
- document.getElementById('foodOrigin').textContent='Origem: '+origin+(date?' · Atualizado em '+date:'');
- document.getElementById('externalStatus').textContent='Alimento do catálogo compartilhado. Confira os valores e a porção.';
- document.getElementById('foodSuggestions').replaceChildren();foodShowSelected();calcFoodPreview();
-}
-
 const FOOD_KEY='evolua43_food_records';
 let foodRecords=[];try{let v=JSON.parse(localStorage.getItem(FOOD_KEY)||'[]');if(Array.isArray(v))foodRecords=v}catch(e){}
 let selectedFood=null;let editingFoodId=null;
@@ -324,9 +264,9 @@ function foodUnitChanged(){let u=document.getElementById('foodUnit').value,wrap=
 function unitBase(){let u=document.getElementById('foodUnit').value,q=Number(document.getElementById('foodGrams').value);return ['g','ml'].includes(u)?q:q*Number(document.getElementById('unitSize').value)}
 function displayAmount(x){let num=x.quantity??x.grams,unit=x.unit||'g/ml';return Number(num).toLocaleString('pt-BR',{maximumFractionDigits:4})+' '+unit}
 function foodPer100(x){const base=Number(x.grams)||1;let result={name:x.name,source:x.source,sourceId:x.sourceId};for(const k of ['kcal','protein','carbs','fat','fiber','sodium','sugar','addedSugar'])result[k]=x[k]==null?null:Number((x[k]*100/base).toFixed(6));return result}
-function personalAddData(p){document.getElementById('foodSearch').value=p.name;document.getElementById('foodCustom').value='';activeFoodSource=p.source||'Catálogo pessoal';activeFoodSourceId=p.sourceId||'';for(let [el,k] of [['nutKcal','kcal'],['nutProtein','protein'],['nutCarbs','carbs'],['nutFat','fat'],['nutFiber','fiber'],['nutSodium','sodium'],['nutSugar','sugar'],['nutAddedSugar','addedSugar']])document.getElementById(el).value=p[k]??'';document.getElementById('foodOrigin').textContent='Origem: '+foodSourceLabel(activeFoodSource);document.getElementById('externalStatus').textContent='Alimento reutilizado. Confira a quantidade.';filterFoods();foodShowSelected();calcFoodPreview()}
+function personalAddData(p){document.getElementById('foodSearch').value=p.name;document.getElementById('foodCustom').value='';activeFoodSource=p.source||'Catálogo pessoal';activeFoodSourceId=p.sourceId||'';for(let [el,k] of [['nutKcal','kcal'],['nutProtein','protein'],['nutCarbs','carbs'],['nutFat','fat'],['nutFiber','fiber'],['nutSodium','sodium'],['nutSugar','sugar'],['nutAddedSugar','addedSugar']])document.getElementById(el).value=p[k]??'';document.getElementById('foodOrigin').textContent='Origem: '+activeFoodSource;document.getElementById('externalStatus').textContent='Alimento reutilizado. Confira a quantidade.';filterFoods();calcFoodPreview()}
 function savePersonalFood(){let name=document.getElementById('foodCustom').value.trim()||document.getElementById('foodSearch').value.trim();let vals=['nutKcal','nutProtein','nutCarbs','nutFat','nutFiber','nutSodium','nutSugar','nutAddedSugar'].map(id=>{let v=document.getElementById(id).value;return v===''?null:Number(v)});if(!name||vals.slice(0,4).every(x=>x===null)){toast('Informe nome e nutrientes para salvar');return}let item={name,source:activeFoodSource,sourceId:activeFoodSourceId};['kcal','protein','carbs','fat','fiber','sodium','sugar','addedSugar'].forEach((k,i)=>item[k]=vals[i]);personalFoods=personalFoods.filter(x=>x.name.toLowerCase()!==name.toLowerCase());personalFoods.unshift(item);localStorage.setItem(PERSONAL_KEY,JSON.stringify(personalFoods));renderPersonal();toast('Salvo no meu catálogo')}
-function openPersonalLibrary(){openFood();document.getElementById('foodSearch').value='';filterFoods();document.getElementById('externalStatus').textContent='Selecione um alimento do seu catálogo abaixo.';let list=document.getElementById('externalResults');list.hidden=false;list.innerHTML=personalFoods.length?personalFoods.map((p,i)=>'<button type="button" onclick="choosePersonal('+i+')">'+safeText(p.name)+'</button>').join(''):'<p>Seu catálogo ainda está vazio. Cadastre um alimento e toque em Salvar no meu catálogo.</p>'}
+function openPersonalLibrary(){openFood();document.getElementById('foodSearch').value='';filterFoods();document.getElementById('externalStatus').textContent='Selecione um alimento do seu catálogo abaixo.';let list=document.getElementById('externalResults');list.innerHTML=personalFoods.length?personalFoods.map((p,i)=>'<button type="button" onclick="choosePersonal('+i+')">'+safeText(p.name)+'</button>').join(''):'<p>Seu catálogo ainda está vazio. Cadastre um alimento e toque em Salvar no meu catálogo.</p>'}
 function choosePersonal(i){let p=personalFoods[i];if(!p)return;personalAddData(p);document.getElementById('externalResults').replaceChildren()}
 function saveFavoriteMeal(){const meal=document.getElementById('mealFavoriteSelect').value;let now=foodRecords.filter(x=>x.date===localDay()&&x.meal===meal);if(!now.length){toast('Nenhum alimento registrado em '+meal.toLowerCase()+' hoje');return}let label=meal+' · '+now.map(x=>x.name).slice(0,3).join(' + ');favoriteMeals.unshift({name:label,items:now.map(x=>({name:x.name,quantity:x.quantity??x.grams,unit:x.unit||'g',unitSize:x.unitSize||1,grams:x.grams,meal:x.meal,source:x.source,sourceId:x.sourceId,kcal:x.kcal,protein:x.protein,carbs:x.carbs,fat:x.fat,fiber:x.fiber,sodium:x.sodium,sugar:x.sugar,addedSugar:x.addedSugar}))});localStorage.setItem(MEALS_KEY,JSON.stringify(favoriteMeals));renderPersonal();toast('Combinação salva: '+meal)}
 function deleteFavoriteMeal(i){if(!confirm('Excluir esta combinação favorita?'))return;favoriteMeals.splice(i,1);localStorage.setItem(MEALS_KEY,JSON.stringify(favoriteMeals));renderPersonal()}
@@ -337,7 +277,7 @@ function useFavoriteMeal(i){let f=favoriteMeals[i];if(!f)return;for(let x of f.i
 const listViews={};
 function pageState(key){return listViews[key]||(listViews[key]={expanded:false,page:1})}
 function changeListPage(key,action){const st=pageState(key);if(action==='all'){st.expanded=true;st.page=1}else if(action==='recent'){st.expanded=false;st.page=1}else if(action==='next'){st.page++}else if(action==='prev'){st.page=Math.max(1,st.page-1)}renderListContext(key)}
-function renderListContext(key){if(key==='foodDiary'||key==='foodHistory')renderFood();else if(key==='applications'||key==='symptoms')renderTreatment();else if(key==='weights')renderWeightEvolution();else if(key==='waterEntries')renderWaterHistory();else if(key==='savedFoods'||key==='favoriteMeals')renderPersonal()}
+function renderListContext(key){if(key==='foodDiary'||key==='foodHistory')renderFood();else if(key==='applications'||key==='symptoms')renderTreatment();else if(key==='weights')renderWeightEvolution();else if(key==='savedFoods'||key==='favoriteMeals')renderPersonal()}
 function paginateHTML(key,items,renderItem,emptyHTML,preview=3,pageSize=10){
  if(!items.length)return emptyHTML;
  const st=pageState(key),total=items.length,pages=Math.ceil(total/pageSize);
@@ -351,167 +291,32 @@ function paginateHTML(key,items,renderItem,emptyHTML,preview=3,pageSize=10){
  }
  return html;
 }
-
-// O modal deve permanecer fora de uma .page. Se fosse descendente de Início,
-// a aba Evolução o esconderia ao trocar de tela (display:none no ancestral).
-const waterModal=document.getElementById('waterOverlay');
-if(waterModal && waterModal.parentElement!==document.body){document.body.appendChild(waterModal)}
-// Hidratação: registros reais, edição, exclusão e visão temporal.
-function openWaterEditor(id=''){
- const overlay=document.getElementById('waterOverlay');
- if(!overlay)return;
- // Como o histórico é exibido em Evolução, o formulário precisa estar fora de qualquer aba.
- if(overlay.parentElement!==document.body)document.body.appendChild(overlay);
- const record=id?waterEntries().find(x=>String(x.id)===String(id)):null;
- if(id&&!record){toast('Consumo não encontrado. Atualize o histórico e tente novamente.');return;}
- document.getElementById('waterEditId').value=record?.id||'';
- document.getElementById('waterAmount').value=record?.ml??250;
- document.getElementById('waterDate').value=record?.date||waterToday();
- document.getElementById('waterTime').value=record?.time||waterLocalTime();
- document.getElementById('waterModalTitle').textContent=record?'Editar consumo de água':'Registrar água';
- overlay.classList.add('show');
- overlay.setAttribute('aria-hidden','false');
- requestAnimationFrame(()=>document.getElementById('waterAmount')?.focus({preventScroll:true}));
-}
-function closeWaterEditor(){const overlay=document.getElementById('waterOverlay');overlay.classList.remove('show');overlay.setAttribute('aria-hidden','true')}
-function saveWaterEntry(e){
- e.preventDefault();
- const id=document.getElementById('waterEditId').value,ml=Number(document.getElementById('waterAmount').value);
- const date=document.getElementById('waterDate').value,time=document.getElementById('waterTime').value;
- if(!Number.isFinite(ml)||ml<1||ml>10000||!/^\d{4}-\d{2}-\d{2}$/.test(date)||!/^\d{2}:\d{2}$/.test(time))return toast('Confira a quantidade, a data e o horário');
- const entries=waterEntries();
- if(id){const found=entries.find(x=>x.id===id);if(!found)return toast('Registro não encontrado');Object.assign(found,{ml,date,time});delete found.legacy;}
- else entries.push({id:'water_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,9),ml,date,time});
- // Se o consumo antigo foi alterado, mantenha seu mesmo ID e não duplique com o legado.
- // Mantenha o ID de origem, mesmo se a data for alterada.
- storeWaterEntries(entries);
- closeWaterEditor();toast('Consumo de água salvo');
-}
-function deleteWaterEntry(id){if(!confirm('Excluir este consumo de água?'))return;const list=waterEntries().filter(x=>x.id!==id);if(id.startsWith('legacy_'))localStorage.removeItem(WATER_KEY);storeWaterEntries(list);toast('Registro excluído')}
-function waterDateOffset(days){const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()-days);return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
-function formatWaterMl(amount){return Number(amount).toLocaleString('pt-BR',{maximumFractionDigits:0})+' ml'}
-function renderWaterHistory(){
- const trend=document.getElementById('waterTrend');if(!trend)return;
- const all=waterEntries();const today=waterToday();const weekFrom=waterDateOffset(6);
- const todayMl=all.filter(x=>x.date===today).reduce((a,x)=>a+Number(x.ml),0);
- const weekMl=all.filter(x=>x.date>=weekFrom&&x.date<=today).reduce((a,x)=>a+Number(x.ml),0);
- document.getElementById('waterDayTotal').textContent=formatWaterMl(todayMl);
- document.getElementById('waterWeekTotal').textContent=formatWaterMl(weekMl);
- document.getElementById('waterEntryCount').textContent=String(all.length);
- const period=document.getElementById('waterPeriod').value;
- let labels=[],totals=[],labelText='';
- if(period==='month'){
-  for(let i=5;i>=0;i--){const d=new Date();d.setDate(15);d.setMonth(d.getMonth()-i);const key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');labels.push(key);totals.push(all.filter(x=>x.date.startsWith(key)).reduce((a,x)=>a+Number(x.ml),0));}
-  labelText='Volume por mês nos últimos 6 meses';
- }else{
-  const days=period==='30'?30:7;
-  for(let i=days-1;i>=0;i--){const key=waterDateOffset(i);labels.push(key);totals.push(all.filter(x=>x.date===key).reduce((a,x)=>a+Number(x.ml),0));}
-  labelText='Volume por dia nos últimos '+days+' dias';
- }
- document.getElementById('waterPeriodInfo').textContent=labelText;
- const max=Math.max(1,...totals);
- trend.replaceChildren();
- if(!totals.some(v=>v>0))trend.innerHTML='<p class="water-empty">Nenhum consumo registrado neste período.</p>';
- else labels.forEach((key,i)=>{const bar=document.createElement('div');bar.className='water-trend-col';const height=Math.max(totals[i]>0?5:0,Math.round(totals[i]/max*100));const label=period==='month'?key.slice(5):key.slice(8);const quantity=document.createElement('div');quantity.className='water-trend-amount';quantity.textContent=totals[i]&&period!=='30'?String(Math.round(totals[i]/1000*10)/10).replace('.',',')+'L':'';const visual=document.createElement('div');visual.className='water-trend-bar';visual.style.height=height+'%';const day=document.createElement('small');day.textContent=period==='30'&&i%4!==0&&i!==labels.length-1?'':label;bar.title=key+': '+formatWaterMl(totals[i]);bar.setAttribute('aria-label',bar.title);bar.append(quantity,visual,day);trend.append(bar)});
- const count=document.getElementById('waterListCount');count.textContent=all.length+' registros';
- const list=document.getElementById('waterList');
- const preview=paginateHTML('waterEntries',all,x=>`<div class="water-entry"><div><strong>${formatWaterMl(x.ml)}</strong><small>${x.date.split('-').reverse().join('/')} às ${x.time||'12:00'}${x.legacy?' · registro anterior':''}</small></div><div class="water-entry-actions"><button type="button" data-water-edit="${safeText(x.id)}">Editar</button><button type="button" class="danger" onclick="deleteWaterEntry('${x.id}')">Excluir</button></div></div>`, '<p class="water-empty">Nenhum consumo registrado. Use Registrar água para começar.</p>',4,10);
- list.innerHTML=preview;
-}
-// Delegação de eventos mantém Editar funcional após troca de página, filtro ou sincronização.
-document.getElementById('waterList')?.addEventListener('click',event=>{
- const button=event.target.closest('button[data-water-edit]');
- if(!button)return;
- event.preventDefault();
- openWaterEditor(button.dataset.waterEdit);
-});
 function renderPersonal(){let el=document.getElementById('personalList');if(el)el.innerHTML=paginateHTML('savedFoods',personalFoods.map((p,i)=>({...p,_index:i})),p=>'<button type="button" onclick="openFood();choosePersonal('+p._index+')">★ '+safeText(p.name)+'</button>','<span class="muted">Nenhum favorito ainda. Toque na estrela de um alimento do diário.</span>',5,10);let fm=document.getElementById('favoriteMealsList');if(fm)fm.innerHTML=paginateHTML('favoriteMeals',favoriteMeals.map((f,i)=>({...f,_index:i})),f=>'<div class="favorite-meal-row"><span>'+safeText(f.name)+'</span><button type="button" onclick="useFavoriteMeal('+f._index+')">Adicionar ao diário</button><button type="button" class="remove-favorite" onclick="deleteFavoriteMeal('+f._index+')" aria-label="Excluir combinação">×</button></div>','<span class="muted">Nenhuma refeição favorita ainda.</span>',3,10)}
 function toggleFavorite(id){const x=foodRecords.find(y=>y.id===id);if(!x)return;let name=x.name;const found=personalFoods.some(y=>y.name.toLowerCase()===name.toLowerCase());if(found){personalFoods=personalFoods.filter(y=>y.name.toLowerCase()!==name.toLowerCase());toast('Removido dos favoritos')}else{personalFoods.unshift(foodPer100(x));toast('Adicionado aos favoritos')}localStorage.setItem(PERSONAL_KEY,JSON.stringify(personalFoods));renderPersonal();renderFood()}
 
 renderPersonal();
-renderWaterHistory();
 const formatFood=n=>Number(n).toLocaleString('pt-BR',{maximumFractionDigits:1});
 function localDay(){let d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
-// Formulário progressivo 10.10: pesquisar -> selecionar -> informar porção -> salvar.
-function initializeCompactFoodForm(){
- const form=document.getElementById('foodForm');if(!form||document.getElementById('foodSelectedStep'))return;
- const meal=document.getElementById('foodMeal');
- const firstFields=form.querySelector('.food-fields');
- const notice=document.getElementById('nutritionBaseNotice');
- const secondFields=notice.nextElementSibling;
- const start=document.createElement('div');start.id='foodSelectedStep';start.hidden=true;start.className='food-selected-step';
- const mealLabel=form.querySelector('label[for="foodMeal"]');
- form.insertBefore(start,mealLabel);start.append(mealLabel,meal,firstFields);
- const advanced=document.createElement('details');advanced.id='foodAdvancedDetails';advanced.className='food-advanced-details';
- const summary=document.createElement('summary');summary.textContent='Conferir ou editar os valores nutricionais';advanced.append(summary);
- start.append(advanced);
- for(const id of ['nutritionBaseNotice','manualFoodHint','foodOrigin','nutritionChecks']){
-   const el=document.getElementById(id);if(el)advanced.append(el);
- }
- advanced.insertBefore(secondFields,document.getElementById('manualFoodHint'));
- const favorite=form.querySelector('.food-favorite-actions');if(favorite)advanced.append(favorite);
- const preview=document.getElementById('foodPreview');const actions=form.querySelector('.sheet-actions');
- start.append(preview,actions);
- document.getElementById('foodExternalFind').hidden=true;
-}
-function foodShowSelected({manual=false}={}){
- const selected=document.getElementById('foodSelectedStep');if(!selected)return;
- selected.hidden=false;
- document.getElementById('foodSearchGuide').hidden=true;
- document.getElementById('foodSuggestions').hidden=true;
- document.getElementById('foodManualStart').hidden=true;
- document.getElementById('foodExternalFind').hidden=true;
- document.getElementById('externalResults').hidden=true;
- const advanced=document.getElementById('foodAdvancedDetails');
- if(advanced)advanced.open=manual;
-}
-function foodReturnToSearch(){
- const selected=document.getElementById('foodSelectedStep');if(!selected)return;
- selected.hidden=true;
- document.getElementById('foodSearchGuide').hidden=false;
- document.getElementById('foodSuggestions').hidden=false;
- document.getElementById('foodManualStart').hidden=false;
- document.getElementById('externalResults').hidden=false;
- const q=document.getElementById('foodSearch').value.trim();
- document.getElementById('foodExternalFind').hidden=q.length<3;
-}
-function foodStartManual(){
- if(!document.getElementById('foodSearch').value.trim()){
-   document.getElementById('externalStatus').textContent='Digite primeiro o nome do alimento.';
-   document.getElementById('foodSearch').focus();return;
- }
- activeFoodSource='manual';activeFoodSourceId='';selectedFood=null;
- document.getElementById('foodOrigin').textContent='Origem: cadastro manual. Informe os nutrientes por 100 g ou 100 ml.';
- document.getElementById('externalStatus').textContent='Cadastro manual. Preencha as informações conforme o rótulo.';
- foodShowSelected({manual:true});calcFoodPreview();
-}
-initializeCompactFoodForm();
-function openFood(){editingFoodId=null;document.getElementById('foodTitle').textContent='Adicionar alimento';document.getElementById('foodOverlay').classList.add('show');document.getElementById('foodForm').reset();document.getElementById('externalResults').replaceChildren();document.getElementById('foodGrams').value='100';document.getElementById('foodUnit').value='g';document.getElementById('unitSize').value='1';foodUnitChanged();['nutKcal','nutProtein','nutCarbs','nutFat','nutFiber','nutSodium','nutSugar','nutAddedSugar'].forEach(id=>document.getElementById(id).value='');selectedFood=null;activeFoodSource='manual';activeFoodSourceId='';document.getElementById('externalStatus').textContent='';document.getElementById('foodOrigin').textContent='Origem: cadastro manual. Informe os dados do rótulo.';sharedFoodResults=[];sharedFoodQuery='';foodReturnToSearch();filterFoods();calcFoodPreview()}
-function editFood(id){let x=foodRecords.find(a=>a.id===id);if(!x)return;openFood();editingFoodId=id;document.getElementById('foodTitle').textContent='Editar alimento';document.getElementById('foodMeal').value=x.meal;document.getElementById('foodSearch').value=x.name;document.getElementById('foodGrams').value=x.quantity??x.grams;document.getElementById('foodUnit').value=x.unit||'g';document.getElementById('unitSize').value=x.unitSize||1;foodUnitChanged();activeFoodSource=x.source||'manual';activeFoodSourceId=x.sourceId||'';document.getElementById('foodOrigin').textContent='Origem: '+foodSourceLabel(activeFoodSource)+(activeFoodSourceId?' · Código '+activeFoodSourceId:'');let f=100/x.grams;[['nutKcal','kcal'],['nutProtein','protein'],['nutCarbs','carbs'],['nutFat','fat'],['nutFiber','fiber'],['nutSodium','sodium'],['nutSugar','sugar'],['nutAddedSugar','addedSugar']].forEach(([el,k])=>document.getElementById(el).value=x[k]===null||x[k]===undefined?'':(x[k]*f).toFixed(2));foodShowSelected();calcFoodPreview()}
+function openFood(){editingFoodId=null;document.getElementById('foodTitle').textContent='Adicionar alimento';document.getElementById('foodOverlay').classList.add('show');document.getElementById('foodForm').reset();document.getElementById('externalResults').replaceChildren();document.getElementById('foodGrams').value='100';document.getElementById('foodUnit').value='g';document.getElementById('unitSize').value='1';foodUnitChanged();['nutKcal','nutProtein','nutCarbs','nutFat','nutFiber','nutSodium','nutSugar','nutAddedSugar'].forEach(id=>document.getElementById(id).value='');selectedFood=null;activeFoodSource='manual';activeFoodSourceId='';document.getElementById('externalStatus').textContent='Pesquise pelo nome ou toque no botão de scanner ao lado da busca.';document.getElementById('foodOrigin').textContent='Origem: digitação manual ou catálogo ilustrativo.';filterFoods();calcFoodPreview()}
+function editFood(id){let x=foodRecords.find(a=>a.id===id);if(!x)return;openFood();editingFoodId=id;document.getElementById('foodTitle').textContent='Editar alimento';document.getElementById('foodMeal').value=x.meal;document.getElementById('foodSearch').value=x.name;document.getElementById('foodGrams').value=x.quantity??x.grams;document.getElementById('foodUnit').value=x.unit||'g';document.getElementById('unitSize').value=x.unitSize||1;foodUnitChanged();activeFoodSource=x.source||'manual';activeFoodSourceId=x.sourceId||'';document.getElementById('foodOrigin').textContent='Origem: '+activeFoodSource+(activeFoodSourceId?' ('+activeFoodSourceId+')':'');let f=100/x.grams;[['nutKcal','kcal'],['nutProtein','protein'],['nutCarbs','carbs'],['nutFat','fat'],['nutFiber','fiber'],['nutSodium','sodium'],['nutSugar','sugar'],['nutAddedSugar','addedSugar']].forEach(([el,k])=>document.getElementById(el).value=x[k]===null||x[k]===undefined?'':(x[k]*f).toFixed(2));calcFoodPreview()}
 function closeFood(){document.getElementById('foodOverlay').classList.remove('show')}
 function onFoodSearchInput(){
  barcodeLookupId++;
- const previouslySelected=selectedFood!==null || activeFoodSource!=='manual';
- if(previouslySelected){['nutKcal','nutProtein','nutCarbs','nutFat','nutFiber','nutSodium','nutSugar','nutAddedSugar'].forEach(id=>{document.getElementById(id).value=''});}
  selectedFood=null;activeFoodSource='manual';activeFoodSourceId='';
  document.getElementById('barcodeSearch').value='';document.getElementById('externalResults').replaceChildren();
- document.getElementById('foodOrigin').textContent='Origem: cadastro manual. Informe os dados do rótulo.';
- document.getElementById('externalStatus').textContent=previouslySelected?'Nome alterado. Nutrientes anteriores limpos para evitar dados de outro alimento.':'Selecione um alimento da lista ou use o scanner para produtos embalados.';
- foodReturnToSearch();scheduleSharedFoodSearch();filterFoods();calcFoodPreview();
+ document.getElementById('foodOrigin').textContent='Origem: digitação manual ou catálogo ilustrativo.';
+ document.getElementById('externalStatus').textContent='Selecione um alimento da lista ou use o scanner para produtos embalados.';
+ filterFoods();
 }
 function filterFoods(){
  const list=document.getElementById('foodSuggestions');
  if(activeFoodSource==='Open Food Facts' && activeFoodSourceId){list.innerHTML='';return;}
- const q=normalizeFoodQuery(document.getElementById('foodSearch').value.trim());
- const externalBtn=document.getElementById('foodExternalFind');if(externalBtn)externalBtn.hidden=q.length<3;
- const matches=q?catalog.map((a,i)=>({a,i})).filter(o=>normalizeFoodQuery(o.a[0]).includes(q)).slice(0,8):[];
- const remote=sharedFoodQuery===q?sharedFoodResults:[];
- const central=remote.map(item=>`<button type="button" onclick="selectSharedFood(${Number(item.id)})"><span>${safeText(item.name)}</span><small>${item.kcal??'--'} kcal/100 g · ${item.source==='usda'?'USDA (CC0)':'Catálogo central estimativo'}</small></button>`).join('');
- const fallback=matches.map(o=>`<button type="button" class="${selectedFood===o.i?'selected':''}" onclick="selectFood(${o.i})"><span>${safeText(o.a[0])}</span><small>${o.a[1]} kcal/100 g · estimativa local</small></button>`).join('');
- list.innerHTML=central+(central&&fallback?'<p class="food-source-divider">Outras referências locais</p>':'')+fallback || (q?'<p class="muted" style="padding:10px">Não encontrado. Busque no Open Food Facts ou cadastre pelo rótulo.</p>':'');
+ let norm=t=>t.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('pt-BR');
+ let q=norm(document.getElementById('foodSearch').value.trim());
+ let matches=catalog.map((a,i)=>({a,i})).filter(o=>norm(o.a[0]).includes(q)).slice(0,q?8:4);
+ list.innerHTML=matches.map(o=>`<button type="button" class="${selectedFood===o.i?'selected':''}" onclick="selectFood(${o.i})"><span>${safeText(o.a[0])}</span><small>${o.a[1]} kcal/100g</small></button>`).join('')||(q?'<p class="muted" style="padding:10px">Sem correspondência no catálogo local. Use o scanner ou preencha os dados do rótulo.</p>':'');
 }
-
-function selectFood(i){barcodeLookupId++;selectedFood=i;let a=catalog[i];activeFoodSource='Catálogo local aproximado';activeFoodSourceId='';document.getElementById('foodOrigin').textContent='Origem: catálogo local · estimativa, não é TBCA oficial';document.getElementById('foodSearch').value=a[0];document.getElementById('externalStatus').textContent='Alimento selecionado do catálogo local aproximado. Confira os valores.';['nutKcal','nutProtein','nutCarbs','nutFat'].forEach((key,j)=>document.getElementById(key).value=a[j+1]);['nutFiber','nutSodium','nutSugar','nutAddedSugar'].forEach(id=>document.getElementById(id).value='');filterFoods();foodShowSelected();calcFoodPreview()}
+function selectFood(i){barcodeLookupId++;selectedFood=i;let a=catalog[i];activeFoodSource='Catálogo local aproximado';activeFoodSourceId='';document.getElementById('foodOrigin').textContent='Origem: catálogo local aproximado, não validado como TBCA';document.getElementById('foodSearch').value=a[0];document.getElementById('externalStatus').textContent='Alimento selecionado do catálogo local aproximado. Confira os valores.';['nutKcal','nutProtein','nutCarbs','nutFat'].forEach((key,j)=>document.getElementById(key).value=a[j+1]);['nutFiber','nutSodium','nutSugar','nutAddedSugar'].forEach(id=>document.getElementById(id).value='');filterFoods();calcFoodPreview()}
 async function lookupBarcode(){
  const code=document.getElementById('barcodeSearch').value.trim(); const requestId=++barcodeLookupId;
  const status=document.getElementById('externalStatus'); const btn=document.getElementById('barcodeButton');
@@ -550,7 +355,7 @@ async function lookupBarcode(){
    const missing=['calorias','proteínas','carboidratos','gorduras','fibras','sódio'].filter((_,i)=>items[i]===null);
    document.getElementById('foodOrigin').textContent='Fonte: Open Food Facts · Código '+code+' · Por 100 g (ou 100 ml, conforme rótulo). Sódio expresso em mg.';
    const label=[product.product_name_pt||product.product_name||('Produto '+code),product.brands].filter(Boolean).join(' · ');
-   foodShowSelected();status.textContent='Produto encontrado: '+label+' · Código '+code+(missing.length?'. Não informado: '+missing.join(', ')+'. Preencha conforme o rótulo.':'. Confira os valores com a embalagem.');
+   status.textContent='Produto encontrado: '+label+' · Código '+code+(missing.length?'. Não informado: '+missing.join(', ')+'. Preencha conforme o rótulo.':'. Confira os valores com a embalagem.');
    calcFoodPreview();
  }catch(err){if(requestId!==barcodeLookupId)return;status.textContent='Falha ao consultar o serviço ('+err.message+'). Tente novamente ou cadastre o alimento manualmente.';}
  finally{btn.disabled=false;}
@@ -584,56 +389,13 @@ function selectExternalProduct(i){
  document.getElementById('foodSearch').value=p.product_name_pt||p.product_name;document.getElementById('foodCustom').value='';
  activeFoodSource='Open Food Facts';activeFoodSourceId=p.code||'';selectedFood=null;
  document.getElementById('foodSuggestions').replaceChildren();document.getElementById('externalResults').replaceChildren();
- document.getElementById('foodOrigin').textContent='Fonte: Open Food Facts · '+(p.brands||'Marca não informada')+' · Código '+(p.code||'não informado')+' · Dados por 100 g ou 100 ml, conforme produto.';
+ document.getElementById('foodOrigin').textContent='Fonte: Open Food Facts · '+(p.brands||'Marca não informada')+' · Código '+(p.code||'não informado')+' · Nutrientes por 100 g.';
  document.getElementById('externalStatus').textContent='Produto selecionado. Confira os nutrientes e a embalagem antes de salvar.';
- foodShowSelected();calcFoodPreview();
-}
-function foodSourceLabel(source){
- const value=String(source||'').toLowerCase();
- if(value.includes('open food facts'))return 'Open Food Facts · dados colaborativos, confira o rótulo';
- if(value.includes('usda'))return 'USDA FoodData Central · base pública CC0';
- if(value.includes('catálogo central'))return 'Catálogo central · estimativa, confira os valores';
- if(value.includes('local')||value.includes('aproximado'))return 'Catálogo local · estimativa, não é TBCA oficial';
- if(value.includes('manual'))return 'Cadastro manual · valores informados por você';
- return 'Meu catálogo · confirme a origem e o rótulo';
-}
-function nutritionWarnings(){
- const read=id=>{const raw=document.getElementById(id).value.trim();return raw===''?null:Number(raw)};
- const kcal=read('nutKcal'),p=read('nutProtein'),c=read('nutCarbs'),f=read('nutFat'),fiber=read('nutFiber'),sugar=read('nutSugar'),added=read('nutAddedSugar'),sodium=read('nutSodium');
- const warnings=[];
- if([p,c,f].every(v=>v!==null)&&p+c+f>101)warnings.push('Proteínas, carboidratos e gorduras ultrapassam 100 g por 100 g/ml. Confira a base utilizada.');
- if(sugar!==null&&c!==null&&sugar>c+0.5)warnings.push('Açúcares totais superam os carboidratos informados. Confira o rótulo.');
- if(added!==null&&sugar!==null&&added>sugar+0.5)warnings.push('Açúcares adicionados não podem superar os açúcares totais.');
- if(added!==null&&c!==null&&added>c+0.5)warnings.push('Açúcares adicionados superam os carboidratos informados.');
- if(sodium!==null&&sodium>100000)warnings.push('Sódio acima de 100.000 mg por 100 g/ml. Confira a unidade informada.');
- if(kcal!==null&&p!==null&&c!==null&&f!==null){
-  const estimate=4*p+4*c+9*f;
-  if(kcal>0&&Math.abs(kcal-estimate)>Math.max(100,kcal*0.6))warnings.push('Calorias muito diferentes da estimativa pelos macronutrientes. Confira as informações.');
- }
- if(['un','gota','fatia'].includes(document.getElementById('foodUnit').value)){
-  const size=Number(document.getElementById('unitSize').value);
-  if(!Number.isFinite(size)||size<=0)warnings.push('Informe a equivalência em gramas ou mililitros de cada unidade.');
- }
- return warnings;
-}
-function renderNutritionWarnings(){
- const box=document.getElementById('nutritionChecks');if(!box)return;
- const issues=nutritionWarnings();box.replaceChildren();
- if(!issues.length){box.hidden=true;return}
- box.hidden=false;const title=document.createElement('strong');title.textContent='Confira os valores';box.append(title);
- issues.forEach(msg=>{const p=document.createElement('p');p.textContent=msg;box.append(p)});
-}
-function nutritionSourceChanged(){
- const field=document.getElementById('foodOrigin');if(!field)return;
- field.dataset.source=activeFoodSource;
+ calcFoodPreview();
 }
 function foodNumbers(){let factor=unitBase()/100;return ['nutKcal','nutProtein','nutCarbs','nutFat','nutFiber','nutSodium','nutSugar','nutAddedSugar'].map(k=>{let v=document.getElementById(k).value.trim();return v===''?null:Number(v)*factor})}
-function calcFoodPreview(){let vals=foodNumbers();let fmt=(v,unit)=>v===null?'não informado':formatFood(v)+' '+unit;document.getElementById('foodPreview').textContent='Porção: '+fmt(vals[0],'kcal')+' · '+fmt(vals[1],'g proteína')+' · '+fmt(vals[2],'g carboidratos')+' · '+fmt(vals[3],'g gordura')+' · '+fmt(vals[4],'g fibras')+' · '+fmt(vals[5],'mg sódio')+' · '+fmt(vals[6],'g açúcares totais')+' · '+fmt(vals[7],'g açúcares adicionados');renderNutritionWarnings()}
-function saveFood(e){e.preventDefault();let name=document.getElementById('foodCustom').value.trim()||document.getElementById('foodSearch').value.trim();if(!name){toast('Informe o nome do alimento');return}let quantity=Number(document.getElementById('foodGrams').value),grams=unitBase();if(!Number.isFinite(grams)||grams<=0||!Number.isFinite(quantity)||quantity<=0){toast('Quantidade inválida');return}let values=foodNumbers();if(values.some(n=>n!==null&&(!Number.isFinite(n)||n<0))){toast('Nutrientes inválidos');return}if(values.slice(0,4).every(n=>n===null)){toast('Informe ao menos um nutriente antes de salvar');return}
- const errs=nutritionWarnings();
- const hard=errs.filter(x=>x.startsWith('Açúcares adicionados')||x.startsWith('Açúcares totais')||x.startsWith('Proteínas, carboidratos'));
- if(hard.length){renderNutritionWarnings();toast('Confira os dados nutricionais destacados');return}
- let old=foodRecords.find(x=>x.id===editingFoodId);let record={id:editingFoodId||('f'+Date.now()+Math.random().toString(36).slice(2,7)),date:old?.date||localDay(),meal:document.getElementById('foodMeal').value,name,grams,quantity,unit:document.getElementById('foodUnit').value,unitSize:Number(document.getElementById('unitSize').value),source:activeFoodSource,sourceId:activeFoodSourceId,kcal:values[0],protein:values[1],carbs:values[2],fat:values[3],fiber:values[4],sodium:values[5],sugar:values[6],addedSugar:values[7]};if(editingFoodId)foodRecords=foodRecords.map(x=>x.id===editingFoodId?record:x);else foodRecords.push(record);persistFood();closeFood();renderFood();renderPersonal();toast(editingFoodId?'Alimento atualizado':'Alimento adicionado')}
+function calcFoodPreview(){let vals=foodNumbers();let fmt=(v,unit)=>v===null?'não informado':formatFood(v)+' '+unit;document.getElementById('foodPreview').textContent='Porção: '+fmt(vals[0],'kcal')+' · '+fmt(vals[1],'g proteína')+' · '+fmt(vals[2],'g carboidratos')+' · '+fmt(vals[3],'g gordura')+' · '+fmt(vals[4],'g fibras')+' · '+fmt(vals[5],'mg sódio')+' · '+fmt(vals[6],'g açúcares totais')+' · '+fmt(vals[7],'g açúcares adicionados')}
+function saveFood(e){e.preventDefault();let name=document.getElementById('foodCustom').value.trim()||document.getElementById('foodSearch').value.trim();if(!name){toast('Informe o nome do alimento');return}let quantity=Number(document.getElementById('foodGrams').value),grams=unitBase();if(!Number.isFinite(grams)||grams<=0||!Number.isFinite(quantity)||quantity<=0){toast('Quantidade inválida');return}let values=foodNumbers();if(values.some(n=>n!==null&&(!Number.isFinite(n)||n<0))){toast('Nutrientes inválidos');return}if(values.slice(0,4).every(n=>n===null)){toast('Informe ao menos um nutriente antes de salvar');return}let old=foodRecords.find(x=>x.id===editingFoodId);let record={id:editingFoodId||('f'+Date.now()+Math.random().toString(36).slice(2,7)),date:old?.date||localDay(),meal:document.getElementById('foodMeal').value,name,grams,quantity,unit:document.getElementById('foodUnit').value,unitSize:Number(document.getElementById('unitSize').value),source:activeFoodSource,sourceId:activeFoodSourceId,kcal:values[0],protein:values[1],carbs:values[2],fat:values[3],fiber:values[4],sodium:values[5],sugar:values[6],addedSugar:values[7]};if(editingFoodId)foodRecords=foodRecords.map(x=>x.id===editingFoodId?record:x);else foodRecords.push(record);persistFood();closeFood();renderFood();renderPersonal();toast(editingFoodId?'Alimento atualizado':'Alimento adicionado')}
 function persistFood(){localStorage.setItem(FOOD_KEY,JSON.stringify(foodRecords));if(typeof refreshHomeActivity==='function')refreshHomeActivity()}
 function deleteFood(id){if(!confirm('Excluir este alimento do diário?'))return;foodRecords=foodRecords.filter(x=>x.id!==id);persistFood();renderFood()}
 function renderFood(){let day=localDay(),today=foodRecords.filter(x=>x.date===day);let sum=key=>today.reduce((a,b)=>a+Number(b[key]||0),0);for(let [key,prop] of [['foodKcal','kcal'],['foodProtein','protein'],['foodCarbs','carbs'],['foodFat','fat']])document.getElementById(key).textContent=formatFood(sum(prop));document.getElementById('foodDate').textContent=new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'short'});
@@ -1014,11 +776,10 @@ function getVisibleWeights(sorted){if(weightPeriod==='all'||!sorted.length)retur
 function renderWeightEvolution(){
  const sorted=weightSort(),first=sorted[0],last=sorted[sorted.length-1],previous=sorted[sorted.length-2];
  const visibleAll=getVisibleWeights(sorted);
- // Uma pesagem por dia no gráfico: o último registro cadastrado para a data.
- // weightSort ordena as datas e os IDs cronológicos; todo o histórico permanece intacto.
- const latestByDay=new Map();
- for(const record of visibleAll)latestByDay.set(record.date,record);
- const visible=[...latestByDay.values()];
+ // Uma pesagem por dia no gráfico, sem alterar nem excluir registros.
+ const lastByDate=new Map();
+ for(const entry of visibleAll)lastByDate.set(entry.date,entry);
+ const visible=[...lastByDate.values()];
  const selected=visible.find(x=>x.id===selectedWeightId);
  const periodInput=document.getElementById('evolPeriod');if(periodInput)periodInput.value=weightPeriod;
  const customDates=document.getElementById('evolCustomDates');if(customDates)customDates.hidden=weightPeriod!=='custom';const goalText=document.getElementById('evolGoalDisplay');if(goalText)goalText.textContent=weightGoal===null?'Não definida':weightFormat(weightGoal)+' kg';const profileGoal=document.getElementById('profileWeightGoal');if(profileGoal&&document.activeElement!==profileGoal)profileGoal.value=weightGoal===null?'':String(weightGoal);
@@ -1037,14 +798,8 @@ function renderWeightEvolution(){
  if(!visible.length){chart.className='evol-chart-empty';chart.textContent=weightPeriod==='custom'&&weightCustomStart&&weightCustomEnd&&weightCustomStart>weightCustomEnd?'A data inicial deve ser anterior à data final.':'Sem registros neste período.';info.textContent='Escolha outro período.';return}
  chart.className='';
  info.textContent=selected?dateBR(selected.date)+' · '+weightFormat(selected.weight)+' kg'+(selected.notes?' · '+selected.notes:''):'Toque em um ponto do gráfico para ver o peso e a data.';
- const vals=visible.map(r=>Number(r.weight));let lo=Math.min(...vals),hi=Math.max(...vals);
- const nearGoal=weightGoal!==null&&weightGoal>=lo-Math.max(3,(hi-lo)*.3)&&weightGoal<=hi+Math.max(3,(hi-lo)*.3);
- const periodHint=weightPeriod==='all'?'Todo o histórico':weightPeriod==='custom'?'Período personalizado':'Últimos '+weightPeriod+' dias até a pesagem mais recente';
- const goalHint=weightGoal===null?' Defina uma meta no Perfil para acompanhar seu objetivo.':
-  ' Meta de '+weightFormat(weightGoal)+' kg definida no Perfil'+(nearGoal?'.':' (fora da escala atual do gráfico).');
- const dailyHint=visibleAll.length!==visible.length?' No gráfico, exibimos a última pesagem de cada dia. Todos os registros continuam no histórico.':'';
- document.getElementById('evolChartHint').textContent=periodHint+'.'+dailyHint+goalHint;
- if(nearGoal){lo=Math.min(lo,weightGoal);hi=Math.max(hi,weightGoal)}
+ document.getElementById('evolChartHint').textContent=weightPeriod==='all'?(weightGoal===null?'Última pesagem de cada dia. Defina a meta no Perfil para incluir a referência.':'Última pesagem de cada dia. Meta definida no Perfil: '+weightFormat(weightGoal)+' kg.'):weightPeriod==='custom'?'Última pesagem de cada dia no intervalo escolhido.':'Última pesagem de cada dia nos últimos '+weightPeriod+' dias.';
+ const vals=visible.map(r=>Number(r.weight));let lo=Math.min(...vals),hi=Math.max(...vals);const nearGoal=weightGoal!==null&&weightGoal>=lo-Math.max(3,(hi-lo)*.3)&&weightGoal<=hi+Math.max(3,(hi-lo)*.3);if(nearGoal){lo=Math.min(lo,weightGoal);hi=Math.max(hi,weightGoal)}
  const margin=Math.max(1.5,(hi-lo)*.10);lo-=margin;hi+=margin;
  const W=360,H=250,L=49,R=18,T=22,B=46,pw=W-L-R,ph=H-T-B;
  const firstTs=new Date(visible[0].date+'T12:00:00').getTime(),lastTs=new Date(visible[visible.length-1].date+'T12:00:00').getTime();
@@ -1318,7 +1073,7 @@ function weightGoalProgress(first,current,goal){
  return Math.max(0,Math.min(100,Math.round((current-first)/(goal-first)*100)));
 }
 function homeRecordedCount(){
- return weightHistory.length+treatmentRecords.length+foodRecords.length+waterEntries().length;
+ return weightHistory.length+treatmentRecords.length+foodRecords.length;
 }
 function refreshHomeActivity(){
  const apps=Array.isArray(treatmentRecords)?treatmentRecords.filter(x=>x.kind==='application'&&/^\d{4}-\d{2}-\d{2}$/.test(x.date)).sort((a,b)=>b.date.localeCompare(a.date)):[];
@@ -1428,12 +1183,12 @@ renderWeightEvolution=function(){
 #cloudGate button{width:100%;margin-top:9px}
 #cloudGate .gate-message{color:#a13333;font-size:13px}
 @media(max-width:700px){#cloudGate{padding:12px}#cloudGate .cloud-gate-card{padding:18px}}
-</style><div id="cloudGate"><div class="cloud-gate-card"><div class="evolua-auth-brand"><div class="evolua-brand-lockup"><svg class="evolua-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect width="64" height="64" rx="19" fill="#0C7768"/><path d="M15 41.5L26 31L34 37L49 21" stroke="#F6FFF9" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M39.5 21H49V30.5" stroke="#B2ECD5" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="evolua-brand-name"><strong>Evolua <span>Health</span></strong><small>SEU ACOMPANHAMENTO, EM UM SÓ LUGAR</small></div></div></div><div class="evolua-auth-intro"><div class="evolua-auth-eyebrow">ÁREA SEGURA</div><h2>Bem-vindo ao Evolua</h2><p id="gateExplanation">Preparando seu acesso...</p></div><div id="gateControls"></div><p id="gateMessage" class="gate-message" aria-live="polite" role="status"></p><div class="evolua-auth-footer">Seus registros ficam vinculados à sua conta.</div></div></div><script src="./config.js?v=10.8"></script>
+</style><div id="cloudGate"><div class="cloud-gate-card"><div class="evolua-auth-brand"><div class="evolua-brand-lockup"><svg class="evolua-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect width="64" height="64" rx="19" fill="#0C7768"/><path d="M15 41.5L26 31L34 37L49 21" stroke="#F6FFF9" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M39.5 21H49V30.5" stroke="#B2ECD5" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="evolua-brand-name"><strong>Evolua <span>Health</span></strong><small>SEU ACOMPANHAMENTO, EM UM SÓ LUGAR</small></div></div></div><div class="evolua-auth-intro"><div class="evolua-auth-eyebrow">ÁREA SEGURA</div><h2>Bem-vindo ao Evolua</h2><p id="gateExplanation">Preparando seu acesso...</p></div><div id="gateControls"></div><p id="gateMessage" class="gate-message" aria-live="polite" role="status"></p><div class="evolua-auth-footer">Seus registros ficam vinculados à sua conta.</div></div></div><script src="./config.js?v=10.3"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 /* 8.6: a chave publishable/anon pode ser pública. Não inserir service_role. */
 const CLOUD_CFG_KEY='evolua86_public_config';
-const CLOUD_TRACKED=[WATER_KEY,WATER_LOG_KEY,TASK_KEY,DONE_KEY,FOOD_KEY,PERSONAL_KEY,MEALS_KEY,TREATMENT_STORAGE_KEY,EVOL_WEIGHT_KEY,EVOL_WEIGHT_GOAL_KEY,EVOL_PROFILE_KEY];
+const CLOUD_TRACKED=[WATER_KEY,TASK_KEY,DONE_KEY,FOOD_KEY,PERSONAL_KEY,MEALS_KEY,TREATMENT_STORAGE_KEY,EVOL_WEIGHT_KEY,EVOL_WEIGHT_GOAL_KEY,EVOL_PROFILE_KEY];
 let cloudClient=null,cloudUser=null,cloudReady=false,cloudBusy=false,cloudTimer=null,cloudLoading=false,cloudSetupDone=false;
 const CLOUD_OWNER_KEY='evolua_cloud_owner_v1';
 let cloudRevision=0,cloudSavingPromise=null;
@@ -1478,9 +1233,9 @@ function cloudSyncIndicator(state){
  if(el){el.hidden=!cloudUser;el.dataset.state=state;el.textContent=({ready:'Sincronizado',pending:'Pendente',saving:'Salvando...',error:'Falha na nuvem',loading:'Carregando...'})[state]||'Nuvem';}
  const info=document.getElementById('cloudState');if(info&&cloudUser)info.textContent=el?.textContent||state;
 }
-// Evolua Health 10.9: sync por registro. A tabela user_snapshots é backup de leitura.
+// Evolua Health 10.2: sync por registro. A tabela user_snapshots é backup de leitura.
 const CLOUD_RECORD_TABLE='evolua_records';
-const CLOUD_ARRAY_KEYS=[WATER_LOG_KEY,FOOD_KEY,PERSONAL_KEY,MEALS_KEY,TREATMENT_STORAGE_KEY,EVOL_WEIGHT_KEY,TASK_KEY];
+const CLOUD_ARRAY_KEYS=[FOOD_KEY,PERSONAL_KEY,MEALS_KEY,TREATMENT_STORAGE_KEY,EVOL_WEIGHT_KEY,TASK_KEY];
 let cloudBaseline=new Map(), cloudDirty=false;
 const cloudKey=(type,id)=>JSON.stringify([type,id]);
 function cloudTinyHash(input){let h=2166136261;for(let i=0;i<input.length;i++){h^=input.charCodeAt(i);h=Math.imul(h,16777619)}return (h>>>0).toString(36)}
@@ -1543,18 +1298,6 @@ function cloudRowsToSnapshot(map){
  }
  for(const [key,values] of grouped)snapshot[key]=JSON.stringify(values);
  for(const key of CLOUD_ARRAY_KEYS){if(!Object.prototype.hasOwnProperty.call(snapshot,key))snapshot[key]='[]'}
- // Importação compatível: o total diário antigo não se perde após a migração.
- // Seu ID é estável para não gerar duplicações ao abrir em outros dispositivos.
- if(snapshot[WATER_KEY]){try{
-   const legacy=JSON.parse(snapshot[WATER_KEY]);const ml=Number(legacy.ml);
-   if(ml>0&&/^\d{4}-\d{2}-\d{2}$/.test(legacy.date||'')){
-    const entries=JSON.parse(snapshot[WATER_LOG_KEY]||'[]');
-    if(!entries.some(x=>x.id==='legacy_'+legacy.date)){
-      entries.push({id:'legacy_'+legacy.date,date:legacy.date,time:'12:00',ml:Math.round(ml),legacy:true});
-      snapshot[WATER_LOG_KEY]=JSON.stringify(entries);
-    }
-   }
- }catch(e){}}
  return snapshot;
 }
 function cloudHydrateRows(rows){
@@ -1620,7 +1363,7 @@ async function cloudPullLatest(){
 function cloudUpdateUI(){let configured=!!cloudClient;document.getElementById('cloudConfig').hidden=configured;document.getElementById('cloudSignedOut').hidden=!configured||!!cloudUser;document.getElementById('cloudSignedIn').hidden=!cloudUser;let email=document.getElementById('cloudMaskedEmail');if(email)email.value=maskCloudEmail(cloudUser?.email);window.evoluaActiveUserEmail=cloudUser?.email||'';if(typeof updateEvoluaGreeting==='function')updateEvoluaGreeting();const sync=document.getElementById('ehCloudStatus');if(sync)sync.hidden=!cloudUser;}
 function cloudGateLogin(){document.getElementById('cloudGate').classList.remove('cloud-connection-unavailable');const controls=document.getElementById('gateControls');controls.innerHTML='';const f=document.getElementById('cloudAuthForm');if(!f)return;const copy=f.cloneNode(true);copy.id='cloudGateForm';copy.querySelector('#cloudEmail').id='cloudGateEmail';copy.querySelector('#cloudPassword').id='cloudGatePassword';copy.querySelector('#cloudLoginBtn').id='cloudGateLoginBtn';copy.onsubmit=async e=>{e.preventDefault();await cloudLogin(copy.querySelector('#cloudGateEmail').value,copy.querySelector('#cloudGatePassword').value)};const row=copy.querySelector('.profile-account-actions');row.querySelector('button[type="button"]').onclick=async()=>cloudSignupWith(copy.querySelector('#cloudGateEmail').value,copy.querySelector('#cloudGatePassword').value);const passInput=copy.querySelector('#cloudGatePassword');const passWrap=document.createElement('span');passWrap.className='cloud-password-wrap';passInput.parentNode.insertBefore(passWrap,passInput);passWrap.append(passInput);const showPass=document.createElement('button');showPass.type='button';showPass.className='cloud-password-visibility';showPass.textContent='Mostrar';showPass.setAttribute('aria-label','Mostrar senha');showPass.onclick=()=>{const visible=passInput.type==='text';passInput.type=visible?'password':'text';showPass.textContent=visible?'Mostrar':'Ocultar';showPass.setAttribute('aria-label',visible?'Mostrar senha':'Ocultar senha')};passWrap.append(showPass);controls.append(copy);let rec=document.createElement('button');rec.className='cloud-link';rec.type='button';rec.textContent='Recuperar senha';rec.onclick=async()=>cloudRecoveryFor(copy.querySelector('#cloudGateEmail').value);controls.append(rec);}
 function cloudGateChoice(){const controls=document.getElementById('gateControls');controls.innerHTML='<p>Existe um histórico neste navegador sem vínculo confirmado com esta conta. Escolha como começar.</p>';let b=document.createElement('button');b.className='cloud-btn';b.textContent='Importar histórico deste aparelho';b.onclick=cloudChooseImport;controls.append(b);let c=document.createElement('button');c.className='cloud-btn secondary';c.textContent='Iniciar sem importar';c.onclick=cloudChooseEmpty;controls.append(c);}
-async function cloudInit(){let cfg=cloudCfg();if(!cfg){cloudUpdateUI();cloudGateSetup();return}if(!window.supabase?.createClient){cloudGate(true,'Não foi possível carregar a conexão com o Supabase.');cloudStatus('Conexão indisponível. Atualize a página ou contate o suporte.','error');return}try{cloudClient=window.supabase.createClient(cfg.url,cfg.key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true},global:{headers:{'X-Client-Info':'evolua-health-10.9'}}});cloudUpdateUI();cloudGate(true,'Verificando sua sessão...');document.getElementById('gateControls').innerHTML='';const {data:{session},error}=await cloudClient.auth.getSession();if(error)throw error;if(session){await cloudOnLogin(session.user)}else{cloudGate(true,'Entre na sua conta para acessar seus registros.');cloudGateLogin();cloudUpdateUI();}cloudClient.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_OUT'){cloudReady=false;clearTimeout(cloudTimer);cloudClear();cloudNativeRemove.call(localStorage,CLOUD_OWNER_KEY);cloudUser=null;cloudUpdateUI();cloudGate(true,'Entre na conta para acessar os registros.');cloudGateLogin()}if(event==='PASSWORD_RECOVERY'){cloudGate(true,'Defina sua nova senha.');cloudGatePassword()}})}catch(e){cloudGate(true,'Não foi possível iniciar a conexão com o Supabase.');cloudStatus('Falha na configuração: '+e.message,'error');if(!document.getElementById('gateControls').children.length)cloudGateSetup()}}
+async function cloudInit(){let cfg=cloudCfg();if(!cfg){cloudUpdateUI();cloudGateSetup();return}if(!window.supabase?.createClient){cloudGate(true,'Não foi possível carregar a conexão com o Supabase.');cloudStatus('Conexão indisponível. Atualize a página ou contate o suporte.','error');return}try{cloudClient=window.supabase.createClient(cfg.url,cfg.key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true},global:{headers:{'X-Client-Info':'evolua-health-10.3'}}});cloudUpdateUI();cloudGate(true,'Verificando sua sessão...');document.getElementById('gateControls').innerHTML='';const {data:{session},error}=await cloudClient.auth.getSession();if(error)throw error;if(session){await cloudOnLogin(session.user)}else{cloudGate(true,'Entre na sua conta para acessar seus registros.');cloudGateLogin();cloudUpdateUI();}cloudClient.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_OUT'){cloudReady=false;clearTimeout(cloudTimer);cloudClear();cloudNativeRemove.call(localStorage,CLOUD_OWNER_KEY);cloudUser=null;cloudUpdateUI();cloudGate(true,'Entre na conta para acessar os registros.');cloudGateLogin()}if(event==='PASSWORD_RECOVERY'){cloudGate(true,'Defina sua nova senha.');cloudGatePassword()}})}catch(e){cloudGate(true,'Não foi possível iniciar a conexão com o Supabase.');cloudStatus('Falha na configuração: '+e.message,'error');if(!document.getElementById('gateControls').children.length)cloudGateSetup()}}
 function refreshAfterCloudLoad(){
   try{
     const parsed=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key)||'null')??fallback}catch{return fallback}};
@@ -1633,7 +1376,7 @@ function refreshAfterCloudLoad(){
     if(typeof EVOL_WEIGHT_KEY!=='undefined')weightHistory=parsed(EVOL_WEIGHT_KEY,[]);
     if(typeof EVOL_PROFILE_KEY!=='undefined')evolProfile=parsed(EVOL_PROFILE_KEY,{});
     if(typeof EVOL_WEIGHT_GOAL_KEY!=='undefined'){const goal=localStorage.getItem(EVOL_WEIGHT_GOAL_KEY);weightGoal=goal===null?null:Number(goal);}
-    if(typeof updateWaterToday==='function')updateWaterToday();if(typeof renderWaterHistory==='function')renderWaterHistory();
+    if(typeof updateWaterToday==='function')updateWaterToday();
     if(typeof tasks==='function')tasks();
     if(typeof renderFood==='function')renderFood();
     if(typeof renderTreatment==='function')renderTreatment();
@@ -1897,54 +1640,83 @@ window.addEventListener('online',()=>{if(cloudReady&&cloudUser){if(cloudDirty)cl
 }
 :root[data-theme="dark"] main>header>div:first-child>small{color:#a9c4b9!important;}
 </style>
-<style>
-/* Evolua 10.7: histórico de hidratação, responsivo */
-.water-history{margin:28px 0 24px}.water-history h2,.water-history h3{margin:0;color:var(--ink)}
-.water-history-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.water-history-head p{margin:5px 0 0;color:var(--muted);font-size:13px}.water-add{border:0;border-radius:12px;background:#0f826d;color:#fff;font-weight:750;min-height:44px;padding:10px 14px;white-space:nowrap}
-.water-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:12px}.water-stats>div{background:var(--surface);border:1px solid var(--line);border-radius:15px;padding:13px 11px;min-width:0;display:flex;flex-direction:column;gap:7px}.water-stats small{color:var(--muted);font-size:12px}.water-stats strong{font-size:18px;white-space:normal;overflow-wrap:anywhere;color:var(--ink)}
-.water-history-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0}.water-filter{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-bottom:20px}.water-filter label{font-weight:700;color:var(--ink);font-size:13px;max-width:190px;width:100%}.water-filter select{margin-top:7px;min-height:46px;width:100%;border-radius:12px;padding:9px 12px;background:var(--field);color:var(--ink);border:1px solid var(--line);font:inherit;font-size:16px}.water-caption{color:var(--muted);font-size:12px;text-align:right}
-.water-trend{display:flex;align-items:flex-end;gap:5px;min-height:160px;height:160px;max-width:100%;overflow:hidden;border-bottom:1px solid var(--line);padding:20px 2px 0}.water-trend-col{flex:1;min-width:0;height:100%;display:flex;justify-content:flex-end;align-items:center;flex-direction:column;position:relative}.water-trend-bar{width:min(100%,24px);min-height:0;background:#22ad89;border-radius:6px 6px 0 0}.water-trend-amount{font-size:9px;line-height:1;color:var(--muted);height:12px;white-space:nowrap}.water-trend-col small{font-size:10px;color:var(--muted);position:absolute;top:100%;padding-top:5px}.water-trend{margin-bottom:36px}.water-list-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:16px 0}.water-list-head h3{font-size:17px}.water-list-head span{font-size:12px;color:var(--muted)}
-.water-entry{display:flex;justify-content:space-between;gap:10px;align-items:center;border-top:1px solid var(--line);padding:12px 0}.water-entry>div:first-child{display:flex;flex-direction:column;gap:5px;min-width:0}.water-entry strong{font-size:17px;color:var(--ink)}.water-entry small{color:var(--muted);font-size:12px}.water-entry-actions{display:flex;gap:6px}.water-entry-actions button{border:1px solid var(--line);border-radius:10px;padding:9px 10px;background:transparent;color:var(--ink);font-weight:700;cursor:pointer}.water-entry-actions .danger{color:#c45a5a}.water-empty{color:var(--muted);font-size:13px;padding:12px 0}
-.water-sheet label{display:block;margin-top:15px;color:var(--ink);font-weight:700}.water-sheet input{display:block;box-sizing:border-box;width:100%;min-height:50px;margin-top:7px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--field);color:var(--ink);font-size:16px}
-@media(max-width:700px){.water-history-head{align-items:flex-start}.water-history-head h2{font-size:21px}.water-add{font-size:13px}.water-stats strong{font-size:16px}.water-stats>div{padding:11px 9px}.water-history-card{padding:14px}.water-filter{align-items:stretch;flex-direction:column}.water-caption{text-align:left}.water-trend-amount{font-size:8px}.water-trend-col small{font-size:9px}}
-@media(max-width:370px){.water-history-head{flex-wrap:wrap}.water-stats{gap:5px}.water-stats strong{font-size:14px}.water-entry-actions button{padding:8px}}
-</style><style>
-/* Evolua 10.7: hidratação detalhada na aba Evolução, Início compacto. */
-.water-history-link{display:block;background:transparent;border:0;padding:6px 0 0;margin-top:5px;color:var(--contrast);font:inherit;font-size:12px;font-weight:750;text-decoration:underline;text-underline-offset:3px;text-align:left;cursor:pointer}
-.water-history{scroll-margin-top:20px;margin:35px 0 22px;padding-top:23px;border-top:1px solid var(--line)}
-.water-history .water-history-head{gap:10px}
-@media(max-width:700px){.water-history{scroll-margin-top:12px}.water-history-head{flex-wrap:wrap}.water-history-head>div{flex:1 1 175px}.water-history-head .water-add{flex:0 0 auto}}
-</style><style>
-#waterOverlay.show{display:flex!important;position:fixed!important;inset:0!important;z-index:1600!important;align-items:flex-end!important;justify-content:center!important}
-#waterOverlay .water-sheet{max-height:90dvh;overflow-y:auto;overscroll-behavior:contain}
-</style>
 
 <style>
-/* Evolua Health 10.9: dados nutricionais mais claros no celular */
-.food-modal .nutrition-checks{margin:12px 0;padding:11px 14px;background:#fff6e9;color:#805014;border:1px solid #f0d5a8;border-radius:12px;font-size:12px;line-height:1.45}
-.food-modal .nutrition-checks p{margin:5px 0 0}
-.food-modal .nutrition-checks[hidden]{display:none!important}
-.food-modal #foodOrigin{font-weight:650;overflow-wrap:anywhere}
-.food-modal .source-help{line-height:1.5}
-:root[data-theme=dark] .food-modal .nutrition-checks{background:#3a3023;color:#ffe2b1;border-color:#665337}
-@media(max-width:700px){.food-modal .nutrition-checks{font-size:12px;padding:10px 12px}}
+/* Evolua 10.3: modal de alimentos responsivo ao teclado virtual, iOS/Android */
+@media(max-width:700px){
+ .food-modal.show{
+   align-items:flex-end!important;
+   justify-content:center!important;
+   padding:0!important;
+   overflow:hidden!important;
+ }
+ .food-modal.show .sheet{
+   width:100%!important;
+   max-width:none!important;
+   max-height:100%!important;
+   height:auto!important;
+   min-height:0!important;
+   overflow-y:auto!important;
+   overscroll-behavior:contain;
+   -webkit-overflow-scrolling:touch;
+   scrollbar-gutter:stable;
+   border-radius:20px 20px 0 0!important;
+   padding-bottom:calc(18px + env(safe-area-inset-bottom))!important;
+ }
+ .food-modal.keyboard-open .sheet{
+   max-height:100%!important;
+   padding-bottom:16px!important;
+ }
+ .food-modal .sheet #foodSearch{scroll-margin-top:75px;scroll-margin-bottom:24px}
+ .food-modal .sheet input:focus,
+ .food-modal .sheet textarea:focus{
+   scroll-margin-top:75px;
+   scroll-margin-bottom:115px;
+ }
+ .food-modal .sheet .sheet-actions{padding-bottom:12px}
+}
 </style>
-<style>.food-source-divider{padding:8px 12px;margin:8px 0 2px;color:#567a70;font-size:12px;font-weight:700}.food-suggestions small{display:block;font-size:11px;color:#647f75}.food-suggestions button{min-height:50px}</style>
-<style>
-/* Evolua 10.10 - fluxo de registro de alimentos progressivo e mobile */
-#foodSelectedStep[hidden],#foodSuggestions[hidden],#foodSearchGuide[hidden],
-#foodManualStart[hidden],#foodExternalFind[hidden],#externalResults[hidden] {display:none!important}
-.food-modal .food-search-guide{margin:13px 0 9px;font-size:13px;line-height:1.5;color:#60776d;text-align:center}
-.food-modal .food-manual-entry{display:block;width:100%;background:transparent;color:#0c7768;border:1px dashed #a3ccc0;border-radius:12px;padding:12px;margin:13px 0;font-size:14px;font-weight:700}
-.food-modal .food-selected-step{margin-top:16px;padding-top:8px;border-top:1px solid #e1ece6}
-.food-modal .food-advanced-details{border:1px solid #d8e9df;border-radius:14px;margin:18px 0 12px;padding:12px;background:#f7faf8}
-.food-modal .food-advanced-details>summary{cursor:pointer;color:#126b5c;font-size:14px;font-weight:750;line-height:1.45}
-.food-modal .food-advanced-details[open]>summary{margin-bottom:13px}
-.food-modal .sheet{max-height:min(90dvh,850px);overflow-y:auto}
-.food-modal .source-status:empty{display:none}.food-modal #externalStatus + .source-help{display:none}
-:root[data-theme="dark"] .food-modal .food-search-guide{color:#b3ccc0}
-:root[data-theme="dark"] .food-modal .food-manual-entry{color:#a1ead2;border-color:#5d8d7c}
-:root[data-theme="dark"] .food-modal .food-advanced-details{background:#253b33;border-color:#466c5e}
-:root[data-theme="dark"] .food-modal .food-advanced-details>summary{color:#b2f2da}
-</style></html>
+
+<script>
+/* 10.3: corrige posicionamento de modal quando o teclado reduz a viewport. */
+(function(){
+ const modal=document.getElementById('foodOverlay');
+ if(!modal)return;
+ const vv=window.visualViewport;
+ let focused=null;
+ function adjustFoodViewport(){
+   if(!modal.classList.contains('show')){
+     modal.style.removeProperty('top');
+     modal.style.removeProperty('height');
+     modal.style.removeProperty('bottom');
+     modal.classList.remove('keyboard-open');
+     return;
+   }
+   if(!vv)return;
+   const keyboardVisible=vv.height<window.innerHeight-110;
+   modal.classList.toggle('keyboard-open',keyboardVisible);
+   modal.style.top=vv.offsetTop+'px';
+   modal.style.height=vv.height+'px';
+   modal.style.bottom='auto';
+ }
+ if(vv){vv.addEventListener('resize',adjustFoodViewport);vv.addEventListener('scroll',adjustFoodViewport)}
+ document.addEventListener('focusin',e=>{
+   if(!modal.classList.contains('show') || !e.target.closest('#foodOverlay'))return;
+   focused=e.target;
+   adjustFoodViewport();
+   setTimeout(()=>{
+     if(!modal.classList.contains('show')||document.activeElement!==focused)return;
+     focused.scrollIntoView({block:'center',behavior:'instant'});
+     adjustFoodViewport();
+   },260);
+ });
+ document.addEventListener('focusout',e=>{
+   if(e.target.closest('#foodOverlay'))setTimeout(adjustFoodViewport,200);
+ });
+ const observer=new MutationObserver(adjustFoodViewport);
+ observer.observe(modal,{attributes:true,attributeFilter:['class']});
+ window.addEventListener('orientationchange',adjustFoodViewport);
+})();
+</script>
+</html>
 
