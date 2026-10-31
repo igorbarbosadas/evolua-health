@@ -1179,7 +1179,7 @@ renderWeightEvolution=function(){
 #cloudGate button{width:100%;margin-top:9px}
 #cloudGate .gate-message{color:#a13333;font-size:13px}
 @media(max-width:700px){#cloudGate{padding:12px}#cloudGate .cloud-gate-card{padding:18px}}
-</style><div id="cloudGate"><div class="cloud-gate-card"><div class="evolua-auth-brand"><div class="evolua-brand-lockup"><svg class="evolua-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect width="64" height="64" rx="19" fill="#0C7768"/><path d="M15 41.5L26 31L34 37L49 21" stroke="#F6FFF9" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M39.5 21H49V30.5" stroke="#B2ECD5" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="evolua-brand-name"><strong>Evolua <span>Health</span></strong><small>SEU ACOMPANHAMENTO, EM UM SÓ LUGAR</small></div></div></div><div class="evolua-auth-intro"><div class="evolua-auth-eyebrow">ÁREA SEGURA</div><h2>Bem-vindo ao Evolua</h2><p id="gateExplanation">Preparando seu acesso...</p></div><div id="gateControls"></div><p id="gateMessage" class="gate-message" aria-live="polite" role="status"></p><div class="evolua-auth-footer">Seus registros ficam vinculados à sua conta.</div></div></div><script src="./config.js?v=9.7"></script>
+</style><div id="cloudGate"><div class="cloud-gate-card"><div class="evolua-auth-brand"><div class="evolua-brand-lockup"><svg class="evolua-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect width="64" height="64" rx="19" fill="#0C7768"/><path d="M15 41.5L26 31L34 37L49 21" stroke="#F6FFF9" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M39.5 21H49V30.5" stroke="#B2ECD5" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="evolua-brand-name"><strong>Evolua <span>Health</span></strong><small>SEU ACOMPANHAMENTO, EM UM SÓ LUGAR</small></div></div></div><div class="evolua-auth-intro"><div class="evolua-auth-eyebrow">ÁREA SEGURA</div><h2>Bem-vindo ao Evolua</h2><p id="gateExplanation">Preparando seu acesso...</p></div><div id="gateControls"></div><p id="gateMessage" class="gate-message" aria-live="polite" role="status"></p><div class="evolua-auth-footer">Seus registros ficam vinculados à sua conta.</div></div></div><script src="./config.js?v=10.2"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 /* 8.6: a chave publishable/anon pode ser pública. Não inserir service_role. */
@@ -1229,44 +1229,137 @@ function cloudSyncIndicator(state){
  if(el){el.hidden=!cloudUser;el.dataset.state=state;el.textContent=({ready:'Sincronizado',pending:'Pendente',saving:'Salvando...',error:'Falha na nuvem',loading:'Carregando...'})[state]||'Nuvem';}
  const info=document.getElementById('cloudState');if(info&&cloudUser)info.textContent=el?.textContent||state;
 }
+// Evolua Health 10.2: sync por registro. A tabela user_snapshots é backup de leitura.
+const CLOUD_RECORD_TABLE='evolua_records';
+const CLOUD_ARRAY_KEYS=[FOOD_KEY,PERSONAL_KEY,MEALS_KEY,TREATMENT_STORAGE_KEY,EVOL_WEIGHT_KEY,TASK_KEY];
+let cloudBaseline=new Map(), cloudDirty=false;
+const cloudKey=(type,id)=>JSON.stringify([type,id]);
+function cloudTinyHash(input){let h=2166136261;for(let i=0;i<input.length;i++){h^=input.charCodeAt(i);h=Math.imul(h,16777619)}return (h>>>0).toString(36)}
+function cloudEncode(snapshot){
+ const encoded=new Map();
+ for(const storageKey of CLOUD_TRACKED){
+  const raw=snapshot[storageKey];
+  if(raw===undefined)continue;
+  if(CLOUD_ARRAY_KEYS.includes(storageKey)){
+   let items;try{items=JSON.parse(raw)}catch{continue}
+   if(!Array.isArray(items))continue;
+   const collisions=new Map();
+   for(const value of items){
+    const serialized=JSON.stringify(value);
+    const basis=value&&typeof value==='object'&&value.id!=null&&value.id!==''?String(value.id):'legacy_'+cloudTinyHash(serialized);
+    const duplicate=collisions.get(basis)||0;collisions.set(basis,duplicate+1);
+    const id=duplicate?basis+'_'+duplicate:basis;
+    encoded.set(cloudKey(storageKey,id),{record_type:storageKey,record_id:id,payload:{value}});
+   }
+  }else encoded.set(cloudKey(storageKey,'$value'),{record_type:storageKey,record_id:'$value',payload:{raw}});
+ }
+ return encoded;
+}
+function cloudEqual(a,b){return JSON.stringify(a?.payload)===JSON.stringify(b?.payload)}
+function cloudComputeChanges(local){
+ const changes=[];
+ for(const [key,value] of local){if(!cloudBaseline.has(key)||cloudBaseline.get(key).deleted_at||!cloudEqual(cloudBaseline.get(key),value))changes.push(value)}
+ for(const [key,value] of cloudBaseline){if(value.record_type==='system'||value.deleted_at)continue;if(!local.has(key))changes.push({...value,payload:value.payload,deleted_at:new Date().toISOString()})}
+ return changes;
+}
+async function cloudReadRows(){
+ const records=[];let page=0;const size=500;
+ while(true){
+  const {data,error}=await cloudClient.from(CLOUD_RECORD_TABLE).select('record_type,record_id,payload,deleted_at,updated_at').eq('user_id',cloudUser.id).order('record_type',{ascending:true}).order('record_id',{ascending:true}).range(page*size,(page+1)*size-1);
+  if(error)throw error;
+  records.push(...(data||[]));if(!data||data.length<size)break;
+  page++;if(page>99)throw new Error('Limite de registros excedido. Contate o suporte.');
+ }
+ return records;
+}
+function cloudMapRows(rows){return new Map(rows.map(r=>[cloudKey(r.record_type,r.record_id),r]));}
+async function cloudWriteRows(rows){
+ if(!rows.length)return;
+ const user=cloudUser.id;
+ for(let i=0;i<rows.length;i+=100){
+  const batch=rows.slice(i,i+100).map(r=>({user_id:user,record_type:r.record_type,record_id:r.record_id,payload:r.payload,deleted_at:r.deleted_at||null}));
+  const {error}=await cloudClient.from(CLOUD_RECORD_TABLE).upsert(batch,{onConflict:'user_id,record_type,record_id'});
+  if(error)throw error;
+ }
+}
+function cloudRowsToSnapshot(map){
+ const snapshot={}, grouped=new Map();
+ for(const row of map.values()){
+  if(row.deleted_at||row.record_type==='system')continue;
+  if(!CLOUD_TRACKED.includes(row.record_type))continue;
+  if(CLOUD_ARRAY_KEYS.includes(row.record_type)){
+   if(!grouped.has(row.record_type))grouped.set(row.record_type,[]);
+   if(row.payload&&Object.prototype.hasOwnProperty.call(row.payload,'value'))grouped.get(row.record_type).push(row.payload.value);
+  }else if(row.payload&&Object.prototype.hasOwnProperty.call(row.payload,'raw'))snapshot[row.record_type]=String(row.payload.raw);
+ }
+ for(const [key,values] of grouped)snapshot[key]=JSON.stringify(values);
+ for(const key of CLOUD_ARRAY_KEYS){if(!Object.prototype.hasOwnProperty.call(snapshot,key))snapshot[key]='[]'}
+ return snapshot;
+}
+function cloudHydrateRows(rows){
+ cloudBaseline=cloudMapRows(rows);
+ cloudApply(cloudRowsToSnapshot(cloudBaseline));
+ refreshAfterCloudLoad();
+}
+async function cloudInitializeFrom(snapshot){
+ const rows=[...cloudEncode(snapshot).values(),{record_type:'system',record_id:'initialized',payload:{version:2,created_at:new Date().toISOString()}}];
+ await cloudWriteRows(rows);
+ const fresh=await cloudReadRows();
+ cloudHydrateRows(fresh);
+}
 function cloudQueueSave(){
  cloudRevision++;
+ cloudDirty=true;
  cloudSyncIndicator('pending');
  clearTimeout(cloudTimer);
- cloudTimer=setTimeout(()=>cloudSave(false),1500);
+ cloudTimer=setTimeout(()=>cloudSave(false),1200);
 }
 async function cloudSave(show=true){
  if(!cloudClient||!cloudUser||!cloudReady)return false;
- if(cloudSavingPromise){const outcome=await cloudSavingPromise;return outcome;}
+ if(cloudSavingPromise)return cloudSavingPromise;
  const savingUserId=cloudUser.id;
  cloudSavingPromise=(async()=>{
-  cloudBusy=true;
-  cloudSyncIndicator('saving');
+  cloudBusy=true;cloudSyncIndicator('saving');
   try{
-   let attempts=0;
-   do{
-    const savedRevision=cloudRevision;
+   for(let attempts=0;attempts<8;attempts++){
+    const revision=cloudRevision;
     const snapshot=cloudSnapshot();
-    const {error}=await cloudClient.from('user_snapshots').upsert({user_id:savingUserId,data:snapshot,updated_at:new Date().toISOString()},{onConflict:'user_id'});
-    if(error)throw error;
-    if(!cloudUser||cloudUser.id!==savingUserId)throw new Error('A conta ativa mudou durante a sincronização.');
-    if(savedRevision===cloudRevision){cloudSyncIndicator('ready');if(show)cloudStatus('Dados sincronizados.','success');return true;}
-   }while(++attempts<10);
-   cloudSyncIndicator('pending');
-   cloudQueueSave();
-   return true;
-  }catch(e){
-   cloudSyncIndicator('error');
-   cloudStatus('Não foi possível sincronizar. Seus registros continuam neste aparelho. '+e.message,'error');
-   return false;
-  }finally{cloudBusy=false;cloudSavingPromise=null;}
+    const local=cloudEncode(snapshot);
+    const changes=cloudComputeChanges(local);
+    if(changes.length)await cloudWriteRows(changes);
+    if(!cloudUser||cloudUser.id!==savingUserId)throw new Error('A conta mudou durante a sincronização.');
+    const rows=await cloudReadRows();
+    cloudBaseline=cloudMapRows(rows);
+    if(cloudRevision===revision){
+     // Mesclar novas entradas remotas sem substituir mudanças locais em andamento.
+     cloudApply(cloudRowsToSnapshot(cloudBaseline));refreshAfterCloudLoad();
+     cloudDirty=false;cloudSyncIndicator('ready');
+     if(show)cloudStatus('Dados sincronizados.','success');
+     return true;
+    }
+   }
+   cloudSyncIndicator('pending');cloudTimer=setTimeout(()=>cloudSave(false),1000);return false;
+  }catch(e){cloudSyncIndicator('error');cloudStatus('Falha na sincronização. Seus dados continuam neste aparelho. '+e.message,'error');return false}
+  finally{cloudBusy=false;cloudSavingPromise=null}
  })();
  return cloudSavingPromise;
+}
+async function cloudPullLatest(){
+ if(!cloudReady||cloudDirty||cloudSavingPromise||!cloudUser||document.hidden)return;
+ try{
+  const rows=await cloudReadRows();
+  const remote=cloudMapRows(rows);
+  // Não atualizar sobre edição local ainda não enviada.
+  if(cloudDirty)return;
+  const before=JSON.stringify(cloudRowsToSnapshot(cloudBaseline));
+  const after=JSON.stringify(cloudRowsToSnapshot(remote));
+  if(before!==after)cloudHydrateRows(rows);else cloudBaseline=remote;
+ }catch(e){cloudSyncIndicator('error');cloudStatus('Falha ao atualizar dados de outro dispositivo. '+e.message,'error')}
 }
 function cloudUpdateUI(){let configured=!!cloudClient;document.getElementById('cloudConfig').hidden=configured;document.getElementById('cloudSignedOut').hidden=!configured||!!cloudUser;document.getElementById('cloudSignedIn').hidden=!cloudUser;let email=document.getElementById('cloudMaskedEmail');if(email)email.value=maskCloudEmail(cloudUser?.email);window.evoluaActiveUserEmail=cloudUser?.email||'';if(typeof updateEvoluaGreeting==='function')updateEvoluaGreeting();const sync=document.getElementById('ehCloudStatus');if(sync)sync.hidden=!cloudUser;}
 function cloudGateLogin(){document.getElementById('cloudGate').classList.remove('cloud-connection-unavailable');const controls=document.getElementById('gateControls');controls.innerHTML='';const f=document.getElementById('cloudAuthForm');if(!f)return;const copy=f.cloneNode(true);copy.id='cloudGateForm';copy.querySelector('#cloudEmail').id='cloudGateEmail';copy.querySelector('#cloudPassword').id='cloudGatePassword';copy.querySelector('#cloudLoginBtn').id='cloudGateLoginBtn';copy.onsubmit=async e=>{e.preventDefault();await cloudLogin(copy.querySelector('#cloudGateEmail').value,copy.querySelector('#cloudGatePassword').value)};const row=copy.querySelector('.profile-account-actions');row.querySelector('button[type="button"]').onclick=async()=>cloudSignupWith(copy.querySelector('#cloudGateEmail').value,copy.querySelector('#cloudGatePassword').value);const passInput=copy.querySelector('#cloudGatePassword');const passWrap=document.createElement('span');passWrap.className='cloud-password-wrap';passInput.parentNode.insertBefore(passWrap,passInput);passWrap.append(passInput);const showPass=document.createElement('button');showPass.type='button';showPass.className='cloud-password-visibility';showPass.textContent='Mostrar';showPass.setAttribute('aria-label','Mostrar senha');showPass.onclick=()=>{const visible=passInput.type==='text';passInput.type=visible?'password':'text';showPass.textContent=visible?'Mostrar':'Ocultar';showPass.setAttribute('aria-label',visible?'Mostrar senha':'Ocultar senha')};passWrap.append(showPass);controls.append(copy);let rec=document.createElement('button');rec.className='cloud-link';rec.type='button';rec.textContent='Recuperar senha';rec.onclick=async()=>cloudRecoveryFor(copy.querySelector('#cloudGateEmail').value);controls.append(rec);}
 function cloudGateChoice(){const controls=document.getElementById('gateControls');controls.innerHTML='<p>Existe um histórico neste navegador sem vínculo confirmado com esta conta. Escolha como começar.</p>';let b=document.createElement('button');b.className='cloud-btn';b.textContent='Importar histórico deste aparelho';b.onclick=cloudChooseImport;controls.append(b);let c=document.createElement('button');c.className='cloud-btn secondary';c.textContent='Iniciar sem importar';c.onclick=cloudChooseEmpty;controls.append(c);}
-async function cloudInit(){let cfg=cloudCfg();if(!cfg){cloudUpdateUI();cloudGateSetup();return}if(!window.supabase?.createClient){cloudGate(true,'Não foi possível carregar a conexão com o Supabase.');cloudStatus('Conexão indisponível. Atualize a página ou contate o suporte.','error');return}try{cloudClient=window.supabase.createClient(cfg.url,cfg.key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true},global:{headers:{'X-Client-Info':'evolua-health-8.6'}}});cloudUpdateUI();cloudGate(true,'Verificando sua sessão...');document.getElementById('gateControls').innerHTML='';const {data:{session},error}=await cloudClient.auth.getSession();if(error)throw error;if(session){await cloudOnLogin(session.user)}else{cloudGate(true,'Entre na sua conta para acessar seus registros.');cloudGateLogin();cloudUpdateUI();}cloudClient.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_OUT'){cloudReady=false;clearTimeout(cloudTimer);cloudClear();cloudNativeRemove.call(localStorage,CLOUD_OWNER_KEY);cloudUser=null;cloudUpdateUI();cloudGate(true,'Entre na conta para acessar os registros.');cloudGateLogin()}if(event==='PASSWORD_RECOVERY'){cloudGate(true,'Defina sua nova senha.');cloudGatePassword()}})}catch(e){cloudGate(true,'Não foi possível iniciar a conexão com o Supabase.');cloudStatus('Falha na configuração: '+e.message,'error');if(!document.getElementById('gateControls').children.length)cloudGateSetup()}}
+async function cloudInit(){let cfg=cloudCfg();if(!cfg){cloudUpdateUI();cloudGateSetup();return}if(!window.supabase?.createClient){cloudGate(true,'Não foi possível carregar a conexão com o Supabase.');cloudStatus('Conexão indisponível. Atualize a página ou contate o suporte.','error');return}try{cloudClient=window.supabase.createClient(cfg.url,cfg.key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true},global:{headers:{'X-Client-Info':'evolua-health-10.2'}}});cloudUpdateUI();cloudGate(true,'Verificando sua sessão...');document.getElementById('gateControls').innerHTML='';const {data:{session},error}=await cloudClient.auth.getSession();if(error)throw error;if(session){await cloudOnLogin(session.user)}else{cloudGate(true,'Entre na sua conta para acessar seus registros.');cloudGateLogin();cloudUpdateUI();}cloudClient.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_OUT'){cloudReady=false;clearTimeout(cloudTimer);cloudClear();cloudNativeRemove.call(localStorage,CLOUD_OWNER_KEY);cloudUser=null;cloudUpdateUI();cloudGate(true,'Entre na conta para acessar os registros.');cloudGateLogin()}if(event==='PASSWORD_RECOVERY'){cloudGate(true,'Defina sua nova senha.');cloudGatePassword()}})}catch(e){cloudGate(true,'Não foi possível iniciar a conexão com o Supabase.');cloudStatus('Falha na configuração: '+e.message,'error');if(!document.getElementById('gateControls').children.length)cloudGateSetup()}}
 function refreshAfterCloudLoad(){
   try{
     const parsed=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key)||'null')??fallback}catch{return fallback}};
@@ -1292,35 +1385,57 @@ function refreshAfterCloudLoad(){
 async function cloudOnLogin(user){
  cloudUser=user;cloudReady=false;cloudUpdateUI();cloudSyncIndicator('loading');
  cloudGate(true,'Carregando os registros da sua conta.');
- // Registros locais de outra conta nunca devem ser importados para esta.
  const previousOwner=localStorage.getItem(CLOUD_OWNER_KEY);
- if(previousOwner&&previousOwner!==user.id){cloudClear();cloudNativeRemove.call(localStorage,CLOUD_OWNER_KEY);}
+ if(previousOwner&&previousOwner!==user.id){cloudClear();cloudNativeRemove.call(localStorage,CLOUD_OWNER_KEY)}
  try{
-  const {data,error}=await cloudClient.from('user_snapshots').select('data').eq('user_id',user.id).maybeSingle();
-  if(error)throw error;
-  if(data&&data.data&&typeof data.data==='object'){
-   const before=cloudSnapshot();
-   const changed=JSON.stringify(before)!==JSON.stringify(data.data);
-   if(changed)cloudApply(data.data);
+  const rows=await cloudReadRows();
+  if(rows.length){
+   cloudHydrateRows(rows);
    cloudNativeSet.call(localStorage,CLOUD_OWNER_KEY,user.id);
    cloudReady=true;cloudSyncIndicator('ready');cloudGate(false);
-   cloudStatus('Histórico carregado da sua conta.','success');
-   if(changed){const marker='evolua_hydrated_once_'+user.id;const signature=JSON.stringify(data.data);if(sessionStorage.getItem(marker)!==signature){sessionStorage.setItem(marker,signature);cloudGate(true,'Preparando seus registros...');location.reload();return;}else{refreshAfterCloudLoad();}}
+   cloudStatus('Registros carregados.','success');
+   return;
+  }
+  // Migração segura: consulta a antiga tabela, nunca apaga a cópia de segurança.
+  const {data:old,error:oldError}=await cloudClient.from('user_snapshots').select('data').eq('user_id',user.id).maybeSingle();
+  if(oldError)throw oldError;
+  if(old?.data&&typeof old.data==='object'){
+   const localBeforeMigration=cloudSnapshot();
+   if(Object.keys(localBeforeMigration).length&&JSON.stringify(localBeforeMigration)!==JSON.stringify(old.data)){
+    cloudNativeSet.call(localStorage,'evolua_migration_backup_'+user.id,JSON.stringify(localBeforeMigration));
+   }
+   await cloudInitializeFrom(old.data);
+   cloudNativeSet.call(localStorage,CLOUD_OWNER_KEY,user.id);
+   cloudReady=true;cloudSyncIndicator('ready');cloudGate(false);
+   cloudStatus('Histórico antigo migrado com sucesso.','success');
    return;
   }
   if(Object.keys(cloudSnapshot()).length){
-   document.getElementById('cloudChoice').hidden=false;
-   cloudGate(true,'Sua conta ainda não possui histórico sincronizado.');cloudGateChoice();
-   cloudStatus('Escolha importar registros locais ou iniciar uma conta vazia.','info');
+   cloudGate(true,'Sua conta ainda não possui registros sincronizados.');cloudGateChoice();
+   cloudStatus('Escolha importar registros locais ou iniciar sem importar.','info');
   }else{
+   await cloudInitializeFrom({});
    cloudNativeSet.call(localStorage,CLOUD_OWNER_KEY,user.id);
    cloudReady=true;cloudSyncIndicator('ready');cloudGate(false);
-   cloudStatus('Conta conectada. Registre sua primeira informação.','success');
   }
- }catch(e){cloudSyncIndicator('error');cloudGate(true,'Não foi possível carregar seus dados.');cloudStatus('Não foi possível carregar o histórico. Confira sua conexão e tente novamente. Detalhes: '+e.message,'error');const controls=document.getElementById('gateControls');controls.innerHTML='';const retry=document.createElement('button');retry.type='button';retry.className='cloud-btn';retry.textContent='Tentar novamente';retry.onclick=()=>cloudOnLogin(user);controls.append(retry);const logout=document.createElement('button');logout.type='button';logout.className='cloud-btn secondary';logout.textContent='Sair da conta';logout.onclick=cloudLogout;controls.append(logout)}
+ }catch(e){
+  cloudSyncIndicator('error');cloudGate(true,'Não foi possível carregar seus dados.');
+  cloudStatus('Verifique a instalação do SQL 10.2 e sua conexão. Detalhes: '+e.message,'error');
+  const controls=document.getElementById('gateControls');controls.innerHTML='';
+  const retry=document.createElement('button');retry.type='button';retry.className='cloud-btn';retry.textContent='Tentar novamente';retry.onclick=()=>cloudOnLogin(user);controls.append(retry);
+  const logout=document.createElement('button');logout.type='button';logout.className='cloud-btn secondary';logout.textContent='Sair';logout.onclick=cloudLogout;controls.append(logout);
+ }
 }
-async function cloudChooseImport(){if(!cloudUser)return;cloudReady=true;const ok=await cloudSave();if(!ok){cloudReady=false;return;}cloudNativeSet.call(localStorage,CLOUD_OWNER_KEY,cloudUser.id);document.getElementById('cloudChoice').hidden=true;cloudGate(false);location.reload();}
-async function cloudChooseEmpty(){if(!cloudUser)return;const backup=cloudSnapshot();cloudClear();cloudReady=true;const ok=await cloudSave();if(!ok){cloudApply(backup);cloudReady=false;return;}cloudNativeSet.call(localStorage,CLOUD_OWNER_KEY,cloudUser.id);document.getElementById('cloudChoice').hidden=true;cloudGate(false);location.reload()}
+async function cloudChooseImport(){
+ if(!cloudUser)return;
+ try{await cloudInitializeFrom(cloudSnapshot());cloudNativeSet.call(localStorage,CLOUD_OWNER_KEY,cloudUser.id);cloudReady=true;cloudSyncIndicator('ready');document.getElementById('cloudChoice').hidden=true;cloudGate(false)}
+ catch(e){cloudStatus('Falha ao importar. '+e.message,'error')}
+}
+async function cloudChooseEmpty(){
+ if(!cloudUser)return;
+ try{await cloudInitializeFrom({});cloudNativeSet.call(localStorage,CLOUD_OWNER_KEY,cloudUser.id);cloudReady=true;cloudSyncIndicator('ready');document.getElementById('cloudChoice').hidden=true;cloudGate(false)}
+ catch(e){cloudStatus('Falha ao iniciar conta. '+e.message,'error')}
+}
 async function cloudLogin(email,password){if(!cloudClient)return cloudStatus('Configure o Supabase.','error');if(!email||!password)return cloudStatus('Informe e-mail e senha para entrar.','error');cloudStatus('Autenticando...','info');const {data,error}=await cloudClient.auth.signInWithPassword({email,password});if(error){cloudStatus(error.message,'error');return}cloudStatus('Login realizado com sucesso.','success');await cloudOnLogin(data.user)}
 async function submitCloudAuth(e){e.preventDefault();await cloudLogin(document.getElementById('cloudEmail').value,document.getElementById('cloudPassword').value)}
 async function cloudSignupWith(email,password){if(!cloudClient)return;const validationError=cloudValidateSignup(email,password);if(validationError)return cloudStatus(validationError,'error');cloudStatus('Criando sua conta...','info');const {data,error}=await cloudClient.auth.signUp({email,password,options:{emailRedirectTo:cloudRedirectURL()}});if(error)return cloudStatus(error.message,'error');cloudStatus(data.session?'Cadastro realizado com sucesso.':'Cadastro enviado. Confira seu e-mail e abra o link de confirmação. Ele retornará ao endereço público do Evolua Health.','success');if(data.session)await cloudOnLogin(data.user)}
@@ -1330,11 +1445,11 @@ async function cloudRecover(){await cloudRecoveryFor(document.getElementById('cl
 function cloudGatePassword(){const controls=document.getElementById('gateControls');controls.innerHTML='';const wrap=document.createElement('div');wrap.className='cloud-password-reset';const input=document.createElement('input');input.type='password';input.placeholder='Nova senha';input.autocomplete='new-password';input.style='width:100%;min-height:52px;font-size:16px;border-radius:12px;border:1px solid #ccc;padding:12px 14px;box-sizing:border-box';wrap.append(input);const note=document.createElement('small');note.className='cloud-password-note';note.textContent='Use 8+ caracteres com letra maiúscula, minúscula, número e símbolo.';wrap.append(note);controls.append(wrap);const b=document.createElement('button');b.className='cloud-btn';b.textContent='Salvar nova senha';b.onclick=async()=>{const validationError=cloudPasswordError(input.value);if(validationError)return cloudStatus(validationError,'error');const {error}=await cloudClient.auth.updateUser({password:input.value});if(error)return cloudStatus(error.message,'error');cloudStatus('Senha atualizada com sucesso.','success');cloudGate(false)};controls.append(b)}
 async function cloudChangeEmail(){if(!cloudClient||!cloudUser)return;const e=prompt('Novo e-mail da conta:');if(!e)return;const {error}=await cloudClient.auth.updateUser({email:e.trim()},{emailRedirectTo:cloudRedirectURL()});cloudStatus(error?error.message:'Solicitação enviada. Confirme a alteração pelo e-mail indicado (e pelo anterior, se solicitado).')}
 async function cloudChangePassword(){if(!cloudClient||!cloudUser)return;const p=prompt('Digite a nova senha (8+ caracteres, com maiúscula, minúscula, número e símbolo):');if(!p)return;const validationError=cloudPasswordError(p);if(validationError)return cloudStatus(validationError,'error');const {error}=await cloudClient.auth.updateUser({password:p});cloudStatus(error?error.message:'Senha atualizada com sucesso.',error?'error':'success')}
-async function cloudSyncNow(){await cloudSave(true)}
+async function cloudSyncNow(){if(cloudDirty){await cloudSave(true)}else{await cloudPullLatest();cloudStatus('Dados atualizados.','success')}}
 async function cloudLogout(){
  if(!cloudClient)return;
  clearTimeout(cloudTimer);
- if(cloudReady){
+ if(cloudReady&&cloudDirty){
   const saved=await cloudSave(false);
   if(!saved&&!confirm('A última sincronização falhou. Sair agora pode descartar registros deste aparelho. Deseja sair mesmo assim?'))return;
  }
@@ -1344,7 +1459,7 @@ async function cloudLogout(){
  cloudClear();cloudNativeRemove.call(localStorage,CLOUD_OWNER_KEY);
  cloudUser=null;cloudUpdateUI();location.reload();
 }
-window.addEventListener('online',()=>{if(cloudReady&&cloudUser)cloudSave(false)});cloudWatch();cloudInit();
+window.addEventListener('online',()=>{if(cloudReady&&cloudUser){if(cloudDirty)cloudSave(false);else cloudPullLatest()}});document.addEventListener('visibilitychange',()=>{if(!document.hidden)cloudPullLatest()});cloudWatch();cloudInit();
 </script><style>
 /* 8.7: login e cadastro claros e acessíveis em dispositivos móveis e desktop. */
 #cloudGate{padding:clamp(16px,4vw,32px);overflow-y:auto;background:#f3f8f5}
