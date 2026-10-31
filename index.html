@@ -254,8 +254,8 @@ function saveRecord(e){e.preventDefault();let val=id=>document.getElementById('f
 @media(max-width:700px){.checklist-card{padding:16px!important}.checklist-progress-header{margin-bottom:10px}.checklist-track,.checklist-fill{height:14px!important}}
 </style>
 <div class="overlay food-modal" id="foodOverlay" onclick="if(event.target===this)closeFood()"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="foodTitle"><div class="sheet-top"><h2 id="foodTitle">Adicionar alimento</h2><button class="close" onclick="closeFood()" aria-label="Fechar">✕</button></div>
-<form id="foodForm" onsubmit="saveFood(event)"><label for="foodMeal">Refeição</label><select id="foodMeal"><option>Café da manhã</option><option>Almoço</option><option>Lanche</option><option>Jantar</option><option>Ceia</option></select><label for="foodSearch">Pesquisar alimento</label><div class="food-search-row"><input id="foodSearch" type="search" placeholder="Ex.: arroz, frango, iogurte" oninput="onFoodSearchInput()" autocomplete="off"><button type="button" class="scan-trigger" onclick="openScanner()" aria-label="Escanear código de barras com a câmera" title="Escanear código de barras"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><path d="M7 9v6m3-6v6m3-6v6m3-6v6"/></svg></button></div><div id="foodSuggestions" class="food-suggestions"></div><button type="button" class="external-find" onclick="searchExternalByName()">Buscar produtos no Open Food Facts</button><div id="externalResults" class="external-results"></div>
-<div class="source-status" id="externalStatus" role="status" aria-live="polite">Pesquise pelo nome ou toque no botão de scanner ao lado da busca.</div><p class="source-help">A busca consulta primeiro o catálogo do Evolua Health. Alimentos locais são estimativas. Produtos de marca: Open Food Facts. Confira o rótulo e a porção.</p>
+<form id="foodForm" onsubmit="saveFood(event)"><label for="foodMeal">Refeição</label><select id="foodMeal"><option>Café da manhã</option><option>Almoço</option><option>Lanche</option><option>Jantar</option><option>Ceia</option></select><label for="foodSearch">Pesquisar alimento</label><div class="food-search-row"><input id="foodSearch" type="search" placeholder="Ex.: arroz, frango, iogurte" oninput="onFoodSearchInput()" autocomplete="off"><button type="button" class="scan-trigger" onclick="openScanner()" aria-label="Escanear código de barras com a câmera" title="Escanear código de barras"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><path d="M7 9v6m3-6v6m3-6v6m3-6v6"/></svg></button></div><div id="foodSuggestions" class="food-suggestions"></div><button type="button" id="foodManualStart" class="food-manual-entry" onclick="foodStartManual()">Não encontrou? Cadastrar manualmente</button><button type="button" class="external-find" id="foodExternalFind" onclick="searchExternalByName()">Buscar produtos no Open Food Facts</button><div id="externalResults" class="external-results"></div>
+<p class="food-search-guide" id="foodSearchGuide">Digite o nome do alimento ou use a câmera para ler o código de barras.</p><div class="source-status" id="externalStatus" role="status" aria-live="polite">Pesquise pelo nome ou toque no botão de scanner ao lado da busca.</div><p class="source-help">A busca consulta primeiro o catálogo do Evolua Health. Alimentos locais são estimativas. Produtos de marca: Open Food Facts. Confira o rótulo e a porção.</p>
 <input type="hidden" id="barcodeSearch"><button type="button" id="barcodeButton" onclick="lookupBarcode()" hidden>Consultar rótulo</button>
 <div class="food-fields"><div><label for="foodGrams">Quantidade</label><input id="foodGrams" type="number" min="0.0001" max="5000" step="any" value="100" oninput="calcFoodPreview()" required></div><div><label for="foodUnit">Unidade</label><select id="foodUnit" onchange="foodUnitChanged()"><option value="g">Gramas (g)</option><option value="ml">Mililitros (ml)</option><option value="un">Unidades</option><option value="gota">Gotas</option><option value="fatia">Fatias</option></select></div><div id="unitSizeWrap" hidden><label for="unitSize">Equivalência por unidade (g ou ml)</label><input id="unitSize" type="number" min="0.0001" step="any" value="1" oninput="calcFoodPreview()"></div><div><label for="foodCustom">Nome personalizado</label><input id="foodCustom" type="text" maxlength="100" placeholder="Opcional" oninput="calcFoodPreview()"></div></div>
 <p class="muted" id="nutritionBaseNotice">Informe nutrientes por 100 g ou 100 ml, conforme o produto. Para unidades, gotas ou fatias, informe também a equivalência.</p><div class="food-fields"><div><label for="nutKcal">Calorias (kcal)</label><input id="nutKcal" type="number" min="0" max="2000" step="any" placeholder="Não informado" oninput="calcFoodPreview()"></div><div><label for="nutProtein">Proteínas (g)</label><input id="nutProtein" type="number" min="0" max="100" step="any" placeholder="Não informado" oninput="calcFoodPreview()"></div><div><label for="nutCarbs">Carboidratos (g)</label><input id="nutCarbs" type="number" min="0" max="100" step="any" placeholder="Não informado" oninput="calcFoodPreview()"></div><div><label for="nutFat">Gorduras (g)</label><input id="nutFat" type="number" min="0" max="100" step="any" placeholder="Não informado" oninput="calcFoodPreview()"></div><div><label for="nutSugar">Açúcares totais (g)</label><input id="nutSugar" type="number" min="0" max="100" step="any" placeholder="Não informado" oninput="calcFoodPreview()"></div><div><label for="nutAddedSugar">Açúcares adicionados (g)</label><input id="nutAddedSugar" type="number" min="0" max="100" step="any" placeholder="Não informado" oninput="calcFoodPreview()"></div><div><label for="nutFiber">Fibras (g)</label><input id="nutFiber" type="number" min="0" max="100" step="0.01" placeholder="Não informado" oninput="calcFoodPreview()"></div><div><label for="nutSodium">Sódio (mg)</label><input id="nutSodium" type="number" min="0" max="50000" step="any" placeholder="Não informado" oninput="calcFoodPreview()"></div></div>
@@ -307,7 +307,7 @@ function selectSharedFood(id){
  const date=item.updated_at?new Date(item.updated_at).toLocaleDateString('pt-BR'):'';
  document.getElementById('foodOrigin').textContent='Origem: '+origin+(date?' · Atualizado em '+date:'');
  document.getElementById('externalStatus').textContent='Alimento do catálogo compartilhado. Confira os valores e a porção.';
- document.getElementById('foodSuggestions').replaceChildren();calcFoodPreview();
+ document.getElementById('foodSuggestions').replaceChildren();foodShowSelected();calcFoodPreview();
 }
 
 const FOOD_KEY='evolua43_food_records';
@@ -324,9 +324,9 @@ function foodUnitChanged(){let u=document.getElementById('foodUnit').value,wrap=
 function unitBase(){let u=document.getElementById('foodUnit').value,q=Number(document.getElementById('foodGrams').value);return ['g','ml'].includes(u)?q:q*Number(document.getElementById('unitSize').value)}
 function displayAmount(x){let num=x.quantity??x.grams,unit=x.unit||'g/ml';return Number(num).toLocaleString('pt-BR',{maximumFractionDigits:4})+' '+unit}
 function foodPer100(x){const base=Number(x.grams)||1;let result={name:x.name,source:x.source,sourceId:x.sourceId};for(const k of ['kcal','protein','carbs','fat','fiber','sodium','sugar','addedSugar'])result[k]=x[k]==null?null:Number((x[k]*100/base).toFixed(6));return result}
-function personalAddData(p){document.getElementById('foodSearch').value=p.name;document.getElementById('foodCustom').value='';activeFoodSource=p.source||'Catálogo pessoal';activeFoodSourceId=p.sourceId||'';for(let [el,k] of [['nutKcal','kcal'],['nutProtein','protein'],['nutCarbs','carbs'],['nutFat','fat'],['nutFiber','fiber'],['nutSodium','sodium'],['nutSugar','sugar'],['nutAddedSugar','addedSugar']])document.getElementById(el).value=p[k]??'';document.getElementById('foodOrigin').textContent='Origem: '+foodSourceLabel(activeFoodSource);document.getElementById('externalStatus').textContent='Alimento reutilizado. Confira a quantidade.';filterFoods();calcFoodPreview()}
+function personalAddData(p){document.getElementById('foodSearch').value=p.name;document.getElementById('foodCustom').value='';activeFoodSource=p.source||'Catálogo pessoal';activeFoodSourceId=p.sourceId||'';for(let [el,k] of [['nutKcal','kcal'],['nutProtein','protein'],['nutCarbs','carbs'],['nutFat','fat'],['nutFiber','fiber'],['nutSodium','sodium'],['nutSugar','sugar'],['nutAddedSugar','addedSugar']])document.getElementById(el).value=p[k]??'';document.getElementById('foodOrigin').textContent='Origem: '+foodSourceLabel(activeFoodSource);document.getElementById('externalStatus').textContent='Alimento reutilizado. Confira a quantidade.';filterFoods();foodShowSelected();calcFoodPreview()}
 function savePersonalFood(){let name=document.getElementById('foodCustom').value.trim()||document.getElementById('foodSearch').value.trim();let vals=['nutKcal','nutProtein','nutCarbs','nutFat','nutFiber','nutSodium','nutSugar','nutAddedSugar'].map(id=>{let v=document.getElementById(id).value;return v===''?null:Number(v)});if(!name||vals.slice(0,4).every(x=>x===null)){toast('Informe nome e nutrientes para salvar');return}let item={name,source:activeFoodSource,sourceId:activeFoodSourceId};['kcal','protein','carbs','fat','fiber','sodium','sugar','addedSugar'].forEach((k,i)=>item[k]=vals[i]);personalFoods=personalFoods.filter(x=>x.name.toLowerCase()!==name.toLowerCase());personalFoods.unshift(item);localStorage.setItem(PERSONAL_KEY,JSON.stringify(personalFoods));renderPersonal();toast('Salvo no meu catálogo')}
-function openPersonalLibrary(){openFood();document.getElementById('foodSearch').value='';filterFoods();document.getElementById('externalStatus').textContent='Selecione um alimento do seu catálogo abaixo.';let list=document.getElementById('externalResults');list.innerHTML=personalFoods.length?personalFoods.map((p,i)=>'<button type="button" onclick="choosePersonal('+i+')">'+safeText(p.name)+'</button>').join(''):'<p>Seu catálogo ainda está vazio. Cadastre um alimento e toque em Salvar no meu catálogo.</p>'}
+function openPersonalLibrary(){openFood();document.getElementById('foodSearch').value='';filterFoods();document.getElementById('externalStatus').textContent='Selecione um alimento do seu catálogo abaixo.';let list=document.getElementById('externalResults');list.hidden=false;list.innerHTML=personalFoods.length?personalFoods.map((p,i)=>'<button type="button" onclick="choosePersonal('+i+')">'+safeText(p.name)+'</button>').join(''):'<p>Seu catálogo ainda está vazio. Cadastre um alimento e toque em Salvar no meu catálogo.</p>'}
 function choosePersonal(i){let p=personalFoods[i];if(!p)return;personalAddData(p);document.getElementById('externalResults').replaceChildren()}
 function saveFavoriteMeal(){const meal=document.getElementById('mealFavoriteSelect').value;let now=foodRecords.filter(x=>x.date===localDay()&&x.meal===meal);if(!now.length){toast('Nenhum alimento registrado em '+meal.toLowerCase()+' hoje');return}let label=meal+' · '+now.map(x=>x.name).slice(0,3).join(' + ');favoriteMeals.unshift({name:label,items:now.map(x=>({name:x.name,quantity:x.quantity??x.grams,unit:x.unit||'g',unitSize:x.unitSize||1,grams:x.grams,meal:x.meal,source:x.source,sourceId:x.sourceId,kcal:x.kcal,protein:x.protein,carbs:x.carbs,fat:x.fat,fiber:x.fiber,sodium:x.sodium,sugar:x.sugar,addedSugar:x.addedSugar}))});localStorage.setItem(MEALS_KEY,JSON.stringify(favoriteMeals));renderPersonal();toast('Combinação salva: '+meal)}
 function deleteFavoriteMeal(i){if(!confirm('Excluir esta combinação favorita?'))return;favoriteMeals.splice(i,1);localStorage.setItem(MEALS_KEY,JSON.stringify(favoriteMeals));renderPersonal()}
@@ -432,8 +432,62 @@ renderPersonal();
 renderWaterHistory();
 const formatFood=n=>Number(n).toLocaleString('pt-BR',{maximumFractionDigits:1});
 function localDay(){let d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
-function openFood(){editingFoodId=null;document.getElementById('foodTitle').textContent='Adicionar alimento';document.getElementById('foodOverlay').classList.add('show');document.getElementById('foodForm').reset();document.getElementById('externalResults').replaceChildren();document.getElementById('foodGrams').value='100';document.getElementById('foodUnit').value='g';document.getElementById('unitSize').value='1';foodUnitChanged();['nutKcal','nutProtein','nutCarbs','nutFat','nutFiber','nutSodium','nutSugar','nutAddedSugar'].forEach(id=>document.getElementById(id).value='');selectedFood=null;activeFoodSource='manual';activeFoodSourceId='';document.getElementById('externalStatus').textContent='Pesquise pelo nome ou toque no botão de scanner ao lado da busca.';document.getElementById('foodOrigin').textContent='Origem: cadastro manual. Informe os dados do rótulo.';sharedFoodResults=[];sharedFoodQuery='';filterFoods();calcFoodPreview()}
-function editFood(id){let x=foodRecords.find(a=>a.id===id);if(!x)return;openFood();editingFoodId=id;document.getElementById('foodTitle').textContent='Editar alimento';document.getElementById('foodMeal').value=x.meal;document.getElementById('foodSearch').value=x.name;document.getElementById('foodGrams').value=x.quantity??x.grams;document.getElementById('foodUnit').value=x.unit||'g';document.getElementById('unitSize').value=x.unitSize||1;foodUnitChanged();activeFoodSource=x.source||'manual';activeFoodSourceId=x.sourceId||'';document.getElementById('foodOrigin').textContent='Origem: '+foodSourceLabel(activeFoodSource)+(activeFoodSourceId?' · Código '+activeFoodSourceId:'');let f=100/x.grams;[['nutKcal','kcal'],['nutProtein','protein'],['nutCarbs','carbs'],['nutFat','fat'],['nutFiber','fiber'],['nutSodium','sodium'],['nutSugar','sugar'],['nutAddedSugar','addedSugar']].forEach(([el,k])=>document.getElementById(el).value=x[k]===null||x[k]===undefined?'':(x[k]*f).toFixed(2));calcFoodPreview()}
+// Formulário progressivo 10.10: pesquisar -> selecionar -> informar porção -> salvar.
+function initializeCompactFoodForm(){
+ const form=document.getElementById('foodForm');if(!form||document.getElementById('foodSelectedStep'))return;
+ const meal=document.getElementById('foodMeal');
+ const firstFields=form.querySelector('.food-fields');
+ const notice=document.getElementById('nutritionBaseNotice');
+ const secondFields=notice.nextElementSibling;
+ const start=document.createElement('div');start.id='foodSelectedStep';start.hidden=true;start.className='food-selected-step';
+ const mealLabel=form.querySelector('label[for="foodMeal"]');
+ form.insertBefore(start,mealLabel);start.append(mealLabel,meal,firstFields);
+ const advanced=document.createElement('details');advanced.id='foodAdvancedDetails';advanced.className='food-advanced-details';
+ const summary=document.createElement('summary');summary.textContent='Conferir ou editar os valores nutricionais';advanced.append(summary);
+ start.append(advanced);
+ for(const id of ['nutritionBaseNotice','manualFoodHint','foodOrigin','nutritionChecks']){
+   const el=document.getElementById(id);if(el)advanced.append(el);
+ }
+ advanced.insertBefore(secondFields,document.getElementById('manualFoodHint'));
+ const favorite=form.querySelector('.food-favorite-actions');if(favorite)advanced.append(favorite);
+ const preview=document.getElementById('foodPreview');const actions=form.querySelector('.sheet-actions');
+ start.append(preview,actions);
+ document.getElementById('foodExternalFind').hidden=true;
+}
+function foodShowSelected({manual=false}={}){
+ const selected=document.getElementById('foodSelectedStep');if(!selected)return;
+ selected.hidden=false;
+ document.getElementById('foodSearchGuide').hidden=true;
+ document.getElementById('foodSuggestions').hidden=true;
+ document.getElementById('foodManualStart').hidden=true;
+ document.getElementById('foodExternalFind').hidden=true;
+ document.getElementById('externalResults').hidden=true;
+ const advanced=document.getElementById('foodAdvancedDetails');
+ if(advanced)advanced.open=manual;
+}
+function foodReturnToSearch(){
+ const selected=document.getElementById('foodSelectedStep');if(!selected)return;
+ selected.hidden=true;
+ document.getElementById('foodSearchGuide').hidden=false;
+ document.getElementById('foodSuggestions').hidden=false;
+ document.getElementById('foodManualStart').hidden=false;
+ document.getElementById('externalResults').hidden=false;
+ const q=document.getElementById('foodSearch').value.trim();
+ document.getElementById('foodExternalFind').hidden=q.length<3;
+}
+function foodStartManual(){
+ if(!document.getElementById('foodSearch').value.trim()){
+   document.getElementById('externalStatus').textContent='Digite primeiro o nome do alimento.';
+   document.getElementById('foodSearch').focus();return;
+ }
+ activeFoodSource='manual';activeFoodSourceId='';selectedFood=null;
+ document.getElementById('foodOrigin').textContent='Origem: cadastro manual. Informe os nutrientes por 100 g ou 100 ml.';
+ document.getElementById('externalStatus').textContent='Cadastro manual. Preencha as informações conforme o rótulo.';
+ foodShowSelected({manual:true});calcFoodPreview();
+}
+initializeCompactFoodForm();
+function openFood(){editingFoodId=null;document.getElementById('foodTitle').textContent='Adicionar alimento';document.getElementById('foodOverlay').classList.add('show');document.getElementById('foodForm').reset();document.getElementById('externalResults').replaceChildren();document.getElementById('foodGrams').value='100';document.getElementById('foodUnit').value='g';document.getElementById('unitSize').value='1';foodUnitChanged();['nutKcal','nutProtein','nutCarbs','nutFat','nutFiber','nutSodium','nutSugar','nutAddedSugar'].forEach(id=>document.getElementById(id).value='');selectedFood=null;activeFoodSource='manual';activeFoodSourceId='';document.getElementById('externalStatus').textContent='';document.getElementById('foodOrigin').textContent='Origem: cadastro manual. Informe os dados do rótulo.';sharedFoodResults=[];sharedFoodQuery='';foodReturnToSearch();filterFoods();calcFoodPreview()}
+function editFood(id){let x=foodRecords.find(a=>a.id===id);if(!x)return;openFood();editingFoodId=id;document.getElementById('foodTitle').textContent='Editar alimento';document.getElementById('foodMeal').value=x.meal;document.getElementById('foodSearch').value=x.name;document.getElementById('foodGrams').value=x.quantity??x.grams;document.getElementById('foodUnit').value=x.unit||'g';document.getElementById('unitSize').value=x.unitSize||1;foodUnitChanged();activeFoodSource=x.source||'manual';activeFoodSourceId=x.sourceId||'';document.getElementById('foodOrigin').textContent='Origem: '+foodSourceLabel(activeFoodSource)+(activeFoodSourceId?' · Código '+activeFoodSourceId:'');let f=100/x.grams;[['nutKcal','kcal'],['nutProtein','protein'],['nutCarbs','carbs'],['nutFat','fat'],['nutFiber','fiber'],['nutSodium','sodium'],['nutSugar','sugar'],['nutAddedSugar','addedSugar']].forEach(([el,k])=>document.getElementById(el).value=x[k]===null||x[k]===undefined?'':(x[k]*f).toFixed(2));foodShowSelected();calcFoodPreview()}
 function closeFood(){document.getElementById('foodOverlay').classList.remove('show')}
 function onFoodSearchInput(){
  barcodeLookupId++;
@@ -443,20 +497,21 @@ function onFoodSearchInput(){
  document.getElementById('barcodeSearch').value='';document.getElementById('externalResults').replaceChildren();
  document.getElementById('foodOrigin').textContent='Origem: cadastro manual. Informe os dados do rótulo.';
  document.getElementById('externalStatus').textContent=previouslySelected?'Nome alterado. Nutrientes anteriores limpos para evitar dados de outro alimento.':'Selecione um alimento da lista ou use o scanner para produtos embalados.';
- scheduleSharedFoodSearch();filterFoods();calcFoodPreview();
+ foodReturnToSearch();scheduleSharedFoodSearch();filterFoods();calcFoodPreview();
 }
 function filterFoods(){
  const list=document.getElementById('foodSuggestions');
  if(activeFoodSource==='Open Food Facts' && activeFoodSourceId){list.innerHTML='';return;}
  const q=normalizeFoodQuery(document.getElementById('foodSearch').value.trim());
- const matches=catalog.map((a,i)=>({a,i})).filter(o=>normalizeFoodQuery(o.a[0]).includes(q)).slice(0,q?8:4);
+ const externalBtn=document.getElementById('foodExternalFind');if(externalBtn)externalBtn.hidden=q.length<3;
+ const matches=q?catalog.map((a,i)=>({a,i})).filter(o=>normalizeFoodQuery(o.a[0]).includes(q)).slice(0,8):[];
  const remote=sharedFoodQuery===q?sharedFoodResults:[];
  const central=remote.map(item=>`<button type="button" onclick="selectSharedFood(${Number(item.id)})"><span>${safeText(item.name)}</span><small>${item.kcal??'--'} kcal/100 g · ${item.source==='usda'?'USDA (CC0)':'Catálogo central estimativo'}</small></button>`).join('');
  const fallback=matches.map(o=>`<button type="button" class="${selectedFood===o.i?'selected':''}" onclick="selectFood(${o.i})"><span>${safeText(o.a[0])}</span><small>${o.a[1]} kcal/100 g · estimativa local</small></button>`).join('');
  list.innerHTML=central+(central&&fallback?'<p class="food-source-divider">Outras referências locais</p>':'')+fallback || (q?'<p class="muted" style="padding:10px">Não encontrado. Busque no Open Food Facts ou cadastre pelo rótulo.</p>':'');
 }
 
-function selectFood(i){barcodeLookupId++;selectedFood=i;let a=catalog[i];activeFoodSource='Catálogo local aproximado';activeFoodSourceId='';document.getElementById('foodOrigin').textContent='Origem: catálogo local · estimativa, não é TBCA oficial';document.getElementById('foodSearch').value=a[0];document.getElementById('externalStatus').textContent='Alimento selecionado do catálogo local aproximado. Confira os valores.';['nutKcal','nutProtein','nutCarbs','nutFat'].forEach((key,j)=>document.getElementById(key).value=a[j+1]);['nutFiber','nutSodium','nutSugar','nutAddedSugar'].forEach(id=>document.getElementById(id).value='');filterFoods();calcFoodPreview()}
+function selectFood(i){barcodeLookupId++;selectedFood=i;let a=catalog[i];activeFoodSource='Catálogo local aproximado';activeFoodSourceId='';document.getElementById('foodOrigin').textContent='Origem: catálogo local · estimativa, não é TBCA oficial';document.getElementById('foodSearch').value=a[0];document.getElementById('externalStatus').textContent='Alimento selecionado do catálogo local aproximado. Confira os valores.';['nutKcal','nutProtein','nutCarbs','nutFat'].forEach((key,j)=>document.getElementById(key).value=a[j+1]);['nutFiber','nutSodium','nutSugar','nutAddedSugar'].forEach(id=>document.getElementById(id).value='');filterFoods();foodShowSelected();calcFoodPreview()}
 async function lookupBarcode(){
  const code=document.getElementById('barcodeSearch').value.trim(); const requestId=++barcodeLookupId;
  const status=document.getElementById('externalStatus'); const btn=document.getElementById('barcodeButton');
@@ -495,7 +550,7 @@ async function lookupBarcode(){
    const missing=['calorias','proteínas','carboidratos','gorduras','fibras','sódio'].filter((_,i)=>items[i]===null);
    document.getElementById('foodOrigin').textContent='Fonte: Open Food Facts · Código '+code+' · Por 100 g (ou 100 ml, conforme rótulo). Sódio expresso em mg.';
    const label=[product.product_name_pt||product.product_name||('Produto '+code),product.brands].filter(Boolean).join(' · ');
-   status.textContent='Produto encontrado: '+label+' · Código '+code+(missing.length?'. Não informado: '+missing.join(', ')+'. Preencha conforme o rótulo.':'. Confira os valores com a embalagem.');
+   foodShowSelected();status.textContent='Produto encontrado: '+label+' · Código '+code+(missing.length?'. Não informado: '+missing.join(', ')+'. Preencha conforme o rótulo.':'. Confira os valores com a embalagem.');
    calcFoodPreview();
  }catch(err){if(requestId!==barcodeLookupId)return;status.textContent='Falha ao consultar o serviço ('+err.message+'). Tente novamente ou cadastre o alimento manualmente.';}
  finally{btn.disabled=false;}
@@ -531,7 +586,7 @@ function selectExternalProduct(i){
  document.getElementById('foodSuggestions').replaceChildren();document.getElementById('externalResults').replaceChildren();
  document.getElementById('foodOrigin').textContent='Fonte: Open Food Facts · '+(p.brands||'Marca não informada')+' · Código '+(p.code||'não informado')+' · Dados por 100 g ou 100 ml, conforme produto.';
  document.getElementById('externalStatus').textContent='Produto selecionado. Confira os nutrientes e a embalagem antes de salvar.';
- calcFoodPreview();
+ foodShowSelected();calcFoodPreview();
 }
 function foodSourceLabel(source){
  const value=String(source||'').toLowerCase();
@@ -1875,5 +1930,21 @@ window.addEventListener('online',()=>{if(cloudReady&&cloudUser){if(cloudDirty)cl
 @media(max-width:700px){.food-modal .nutrition-checks{font-size:12px;padding:10px 12px}}
 </style>
 <style>.food-source-divider{padding:8px 12px;margin:8px 0 2px;color:#567a70;font-size:12px;font-weight:700}.food-suggestions small{display:block;font-size:11px;color:#647f75}.food-suggestions button{min-height:50px}</style>
-</html>
+<style>
+/* Evolua 10.10 - fluxo de registro de alimentos progressivo e mobile */
+#foodSelectedStep[hidden],#foodSuggestions[hidden],#foodSearchGuide[hidden],
+#foodManualStart[hidden],#foodExternalFind[hidden],#externalResults[hidden] {display:none!important}
+.food-modal .food-search-guide{margin:13px 0 9px;font-size:13px;line-height:1.5;color:#60776d;text-align:center}
+.food-modal .food-manual-entry{display:block;width:100%;background:transparent;color:#0c7768;border:1px dashed #a3ccc0;border-radius:12px;padding:12px;margin:13px 0;font-size:14px;font-weight:700}
+.food-modal .food-selected-step{margin-top:16px;padding-top:8px;border-top:1px solid #e1ece6}
+.food-modal .food-advanced-details{border:1px solid #d8e9df;border-radius:14px;margin:18px 0 12px;padding:12px;background:#f7faf8}
+.food-modal .food-advanced-details>summary{cursor:pointer;color:#126b5c;font-size:14px;font-weight:750;line-height:1.45}
+.food-modal .food-advanced-details[open]>summary{margin-bottom:13px}
+.food-modal .sheet{max-height:min(90dvh,850px);overflow-y:auto}
+.food-modal .source-status:empty{display:none}.food-modal #externalStatus + .source-help{display:none}
+:root[data-theme="dark"] .food-modal .food-search-guide{color:#b3ccc0}
+:root[data-theme="dark"] .food-modal .food-manual-entry{color:#a1ead2;border-color:#5d8d7c}
+:root[data-theme="dark"] .food-modal .food-advanced-details{background:#253b33;border-color:#466c5e}
+:root[data-theme="dark"] .food-modal .food-advanced-details>summary{color:#b2f2da}
+</style></html>
 
