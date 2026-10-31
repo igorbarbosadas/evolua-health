@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="pt-BR">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Evolua Health | Administração 2.0</title>
+<title>Evolua Health | Administração 2.1</title>
 <style>
 :root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color-scheme:dark;--bg:#151b1a;--surface:#222b29;--surface2:#2b3833;--line:#465850;--text:#f3faf6;--muted:#b7c9c0;--accent:#91e9c6;--danger:#f2a2a2}
 *{box-sizing:border-box}
@@ -66,7 +66,7 @@ label.check{display:flex;align-items:center;gap:8px;min-height:44px}label.check 
 #userRows button{white-space:nowrap}
 @media(max-width:780px){.metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.chart-grid{grid-template-columns:1fr}.user-search{flex-direction:column}}
 </style></head><body><div class="wrapper">
-<header class="top"><div class="identity"><span class="mark">↗</span><div><strong>Evolua Health</strong><small>Administração · 2.0</small></div></div>
+<header class="top"><div class="identity"><span class="mark">↗</span><div><strong>Evolua Health</strong><small>Administração · 2.1</small></div></div>
 <div class="actions"><a id="userAppLink" href="../">Ir para o aplicativo</a><button id="signout" type="button" class="secondary" hidden>Sair</button></div></header>
 <section id="login" class="card" style="max-width:500px;margin:50px auto">
 <h1>Acesso administrativo</h1><p>Entre com uma conta que tenha permissão de administrador no Supabase.</p>
@@ -104,10 +104,14 @@ label.check{display:flex;align-items:center;gap:8px;min-height:44px}label.check 
 </section>
 <section class="card" id="customerEditor" hidden>
 <h2>Ficha administrativa da conta</h2><p class="note" id="customerIdentity"></p>
-<p class="note">Plano e situação são registros comerciais manuais. Não cobram valores, não liberam recursos pagos nem bloqueiam o login.</p>
+<p class="note">Defina um período de acesso manual ou promocional. Nenhum pagamento é processado. O aplicativo dos usuários ainda não restringe funções por plano.</p>
 <form id="customerForm"><div class="fields"><label>Plano<select name="plan"><option value="gratuito">Gratuito</option><option value="pro">Pro</option><option value="equipe">Equipe</option></select></label>
 <label>Situação comercial<select name="commercial_status"><option value="sem_assinatura">Sem assinatura</option><option value="teste">Em teste</option><option value="ativa">Ativa (informação manual)</option><option value="atrasada">Pagamento pendente</option><option value="cancelada">Cancelada</option></select></label>
-<label class="span2">Nota administrativa (não incluir informações médicas)<input name="internal_note" maxlength="800" placeholder="Ex.: contato comercial, suporte"></label></div>
+<label class="span2">Nota administrativa (não incluir informações médicas)<input name="internal_note" maxlength="800" placeholder="Ex.: contato comercial, suporte"></label>
+<label>Início do acesso<input type="datetime-local" name="access_starts_at"></label>
+<label>Fim do acesso<input type="datetime-local" name="access_expires_at"></label>
+<label class="span2">Origem do acesso<select name="access_source"><option value="manual">Liberação manual</option><option value="promocional">Cortesia promocional</option><option value="pagamento_pendente">Pagamento pendente. Sem acesso pago</option></select></label>
+</div>
 <div class="actions"><button type="submit" id="customerSave">Salvar ficha</button><button type="button" class="secondary" id="customerCancel">Cancelar</button></div></form>
 </section>
 <section class="card admin-section" id="auditSection" hidden><div class="section-heading"><div><h1>Auditoria administrativa</h1><p class="note">Alterações feitas no catálogo e nas fichas comerciais, após a instalação desta versão.</p></div><button type="button" id="refreshAudit" class="secondary">Atualizar</button></div>
@@ -115,8 +119,12 @@ label.check{display:flex;align-items:center;gap:8px;min-height:44px}label.check 
 <div class="pager"><span class="note" id="auditPageInfo">Página 1</span><div class="actions"><button id="auditPrev" class="secondary">Anterior</button><button id="auditNext" class="secondary">Próxima</button></div></div>
 </section>
 <section class="card admin-section" id="commerceSection" hidden><h1>Planos e assinaturas</h1>
-<p>Controle comercial em preparação. A ficha administrativa permite categorizar usuários, mas não realiza cobranças ou controla recursos pagos do aplicativo.</p>
+<p>Controle de planos com datas de vigência e histórico de alterações. Os direitos de acesso são calculados no Supabase. A ativação desses direitos no aplicativo e a cobrança automática ainda não foram implementadas.</p>
 <div class="metric-grid" id="planSummary"></div>
+<h2 style="margin:22px 0 10px">Acessos e vencimentos</h2>
+<div class="metric-grid" id="accessSummary"></div>
+<div class="notice"><strong>Permissões preparadas, ativação no app pendente</strong>
+<p>Esta versão calcula no banco quais contas têm acesso vigente. O Evolua Health 10.15 ainda não usa essas permissões para bloquear ou liberar funções. A autenticação e os registros de saúde permanecem intactos.</p></div>
 <div class="notice"><strong>Integração financeira pendente</strong><p>Receita recorrente (MRR), inadimplência, conversões pagas, reembolsos e cancelamentos reais precisam de eventos verificados de um provedor de pagamento. Nenhum valor será estimado com base apenas nos planos cadastrados.</p></div>
 </section>
 <section class="card" id="editorCard" hidden><h2 id="editorHeading">Novo alimento</h2><p class="note">Os números devem representar a mesma base de 100 g ou 100 ml. Fonte e identificador são necessários.</p>
@@ -281,7 +289,7 @@ function switchAdminTab(id){
  if(id!=='usersSection')show('customerEditor',false);
  if(id==='usersSection')loadUsers();
  if(id==='auditSection')loadAudit();
- if(id==='commerceSection')drawPlanSummary();
+ if(id==='commerceSection'){drawPlanSummary();loadAccessMetrics()}
 }
 document.querySelectorAll('[data-admin-tab]').forEach(b=>b.addEventListener('click',()=>switchAdminTab(b.dataset.adminTab)));
 function fmtDate(d){return d?new Date(d).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'}):'Nunca'}
@@ -303,6 +311,15 @@ async function loadMetrics(){
  drawSeries('signupChart',data.signup_series||[]);drawSeries('activityChart',data.activity_series||[]);
  drawPlanSummary();
 }
+async function loadAccessMetrics(){
+ if(!isAdmin)return;
+ const {data,error}=await client.rpc('evolua_admin_access_metrics');
+ if(error){status('Indicadores de acesso: '+error.message,true);return}
+ const labels=[['Pro vigente',data.active_pro],['Equipe vigente',data.active_team],
+ ['Em teste vigente',data.trials],['Vencem em 7 dias',data.expiring_7d],
+ ['Vencidos',data.expired],['Pagamentos pendentes / atrasados',data.pending]];
+ $('accessSummary').replaceChildren(...labels.map(([a,b])=>stat(a,fmt(b))));
+}
 function drawPlanSummary(){const root=$('planSummary');root.replaceChildren();const plans=metricsCache?.plans||{};
  for(const [key,label] of [['gratuito','Gratuito (manual)'],['pro','Pro (manual)'],['equipe','Equipe (manual)']])root.append(stat(label,fmt(plans[key]||0)));
 }
@@ -313,7 +330,7 @@ async function loadUsers(){
  userItems=data.items||[];userCount=data.count||0;
  $('userRows').replaceChildren();
  for(const u of userItems){const tr=document.createElement('tr');
-  const values=[(u.email||'(sem e-mail)')+(u.confirmed?' ✓':' · não confirmado'),fmtDate(u.created_at),fmtDate(u.last_sign_in_at),fmt(u.record_count),u.plan];
+  const values=[(u.email||'(sem e-mail)')+(u.confirmed?' ✓':' · não confirmado'),fmtDate(u.created_at),fmtDate(u.last_sign_in_at),fmt(u.record_count),u.plan+(u.access_active?' · vigente':' · sem acesso pago')];
   for(const value of values){const td=document.createElement('td');td.textContent=value;tr.append(td)}
   const td=document.createElement('td');const edit=document.createElement('button');edit.type='button';edit.className='secondary';edit.textContent='Ficha';edit.addEventListener('click',()=>openCustomer(u));td.append(edit);tr.append(td);$('userRows').append(tr);
  }
@@ -324,13 +341,34 @@ async function loadUsers(){
 function openCustomer(u){switchAdminTab('usersSection');editingCustomerId=u.id;
  $('customerIdentity').textContent=(u.email||'Sem e-mail')+' · Conta '+u.id+' · Última atualização de registro: '+fmtDate(u.last_record_at);
  const f=$('customerForm').elements;f.namedItem('plan').value=u.plan;f.namedItem('commercial_status').value=u.commercial_status;
- f.namedItem('internal_note').value=u.internal_note||'';show('customerEditor',true);$('customerEditor').scrollIntoView({behavior:'smooth',block:'start'});
+ f.namedItem('internal_note').value=u.internal_note||'';
+ const localDateValue=iso=>{if(!iso)return '';const dt=new Date(iso);const pad=x=>String(x).padStart(2,'0');return dt.getFullYear()+'-'+pad(dt.getMonth()+1)+'-'+pad(dt.getDate())+'T'+pad(dt.getHours())+':'+pad(dt.getMinutes())};
+ f.namedItem('access_starts_at').value=localDateValue(u.access_starts_at);
+ f.namedItem('access_expires_at').value=localDateValue(u.access_expires_at);
+ f.namedItem('access_source').value=u.access_source||'manual';
+ show('customerEditor',true);$('customerEditor').scrollIntoView({behavior:'smooth',block:'start'});
 }
 $('customerForm').addEventListener('submit',async e=>{
  e.preventDefault();if(!editingCustomerId)return;
- const f=e.target.elements,button=$('customerSave');button.disabled=true;
+ const f=e.target.elements,button=$('customerSave');
+ const startValue=f.namedItem('access_starts_at').value,endValue=f.namedItem('access_expires_at').value;
+ if(startValue&&endValue&&new Date(endValue)<=new Date(startValue))return status('O fim do acesso deve ser posterior ao início.',true);
+ if(['pro','equipe'].includes(f.namedItem('plan').value)&&['ativa','teste'].includes(f.namedItem('commercial_status').value)&&(!startValue||!endValue||f.namedItem('access_source').value==='pagamento_pendente'))return status('Plano ativo ou teste exige datas e origem autorizada.',true);
+ button.disabled=true;
  try{const {error}=await client.rpc('evolua_admin_save_customer',{p_user_id:editingCustomerId,p_plan:f.namedItem('plan').value,p_status:f.namedItem('commercial_status').value,p_note:f.namedItem('internal_note').value.trim()});
-  if(error)throw error;show('customerEditor',false);status('Ficha administrativa salva.');await Promise.all([loadUsers(),loadMetrics()]);
+  if(error)throw error;
+  const iso=name=>{const value=f.namedItem(name).value;return value?new Date(value).toISOString():null};
+  const accessStart=iso('access_starts_at'),accessEnd=iso('access_expires_at');
+  if(['pro','equipe'].includes(f.namedItem('plan').value)&&['ativa','teste'].includes(f.namedItem('commercial_status').value)&&(!accessStart||!accessEnd)){
+   status('Plano ativo ou em teste exige início e fim do acesso.',true);return;
+  }
+  const {error:accessError}=await client.rpc('evolua_admin_set_access',{
+   p_user_id:editingCustomerId,p_plan:f.namedItem('plan').value,
+   p_status:f.namedItem('commercial_status').value,
+   p_starts:accessStart,p_expires:accessEnd,p_source:f.namedItem('access_source').value
+  });
+  if(accessError)throw accessError;
+  show('customerEditor',false);status('Ficha e período de acesso salvos.');await Promise.all([loadUsers(),loadMetrics(),loadAccessMetrics()]);
  }catch(err){status('Erro ao salvar: '+err.message,true)}finally{button.disabled=false}
 });
 $('customerCancel').addEventListener('click',()=>show('customerEditor',false));
