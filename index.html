@@ -1898,6 +1898,7 @@ renderWeightEvolution=function(){
  function close(){
   if(!splash.isConnected){finish();return;}
   splash.classList.add('movya1248-hide');
+  splash.style.pointerEvents='none';
   window.setTimeout(()=>{
    if(splash.isConnected)splash.remove();
    finish();
@@ -6212,4 +6213,66 @@ body.dark .movya-install-card p,body.dark .movya-install-dialog-text{color:#C4D9
  position:relative!important;
 }
 </style>
+
+<style id="movya1256-standalone-login-fix">
+/* MOVYA 12.56: removes fixed-scroll layer/focus traps in iOS home screen mode. */
+@supports (-webkit-touch-callout: none) {
+ html.movya-ios-standalone, html.movya-ios-standalone body {
+   min-height:100%!important;
+   -webkit-overflow-scrolling:auto!important;
+ }
+ html.movya-ios-standalone #cloudGate:not([hidden]) {
+   position:absolute!important;
+   inset:0!important;
+   min-height:100vh!important;
+   min-height:100dvh!important;
+   height:auto!important;
+   overflow:visible!important;
+   display:block!important;
+   padding:calc(16px + env(safe-area-inset-top)) 14px calc(16px + env(safe-area-inset-bottom))!important;
+   backdrop-filter:none!important;
+   -webkit-backdrop-filter:none!important;
+   isolation:auto!important;
+   transform:none!important;
+   touch-action:auto!important;
+ }
+ html.movya-ios-standalone #cloudGate .cloud-gate-card {
+   margin:0 auto!important;
+   width:min(100%,354px)!important;
+   max-height:none!important;
+   height:auto!important;
+   overflow:visible!important;
+   -webkit-overflow-scrolling:auto!important;
+   transform:none!important;
+ }
+ html.movya-ios-standalone #cloudGate #gateControls,
+ html.movya-ios-standalone #cloudGate #cloudGateForm,
+ html.movya-ios-standalone #cloudGate #cloudGateForm label {
+   overflow:visible!important;
+   transform:none!important;
+   touch-action:auto!important;
+ }
+ html.movya-ios-standalone #cloudGate #cloudGateForm input {
+   position:static!important;
+   z-index:auto!important;
+   touch-action:auto!important;
+   -webkit-appearance:auto!important;
+   appearance:auto!important;
+   -webkit-user-select:text!important;
+   user-select:text!important;
+ }
+}
+</style>
+<script id="movya1256-standalone-login-script">
+(function(){
+ const ios=/iPhone|iPad|iPod/i.test(navigator.userAgent)||(/Macintosh/i.test(navigator.userAgent)&&navigator.maxTouchPoints>1);
+ const standalone=window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches || navigator.standalone===true;
+ if(ios&&standalone) document.documentElement.classList.add('movya-ios-standalone');
+ // Never retain the splash as a transparent hit target after the intro finishes.
+ window.addEventListener('movya:splash-finished',()=>{
+  const splash=document.getElementById('movya1248Splash');
+  if(splash)splash.remove();
+ });
+})();
+</script>
 </html>
