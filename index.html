@@ -2622,7 +2622,7 @@ function movya1248AuthView(view,rememberEmail=''){
  if(msg){msg.textContent='';msg.className='gate-message';}
  if(eyebrow)eyebrow.textContent='';
  if(intro)intro.textContent=view==='signup'?'Criar sua conta':'Entrar na sua conta';
- if(explanation)explanation.textContent='';
+ if(explanation)explanation.textContent=view==='signup'?'Cadastre-se para começar e manter seus registros sincronizados com segurança.':'Acesse seus registros, metas e histórico de forma segura.';
  controls.replaceChildren();
  const formPanel=document.createElement('div');
  formPanel.className='movya1249-auth-panel';
@@ -2673,15 +2673,15 @@ function movya1248AuthView(view,rememberEmail=''){
  controls.append(formPanel);
  const footer=document.createElement('div');footer.className='movya1250-auth-actions';
  if(view==='login'){
-  const forgot=document.createElement('button');forgot.type='button';forgot.className='movya1250-forgot';forgot.textContent='Esqueci minha senha';
-  forgot.onclick=()=>cloudRecoveryFor(email.value.trim());
+  const forgot=document.createElement('a');forgot.href='#recuperar-senha';forgot.className='movya1250-forgot';forgot.textContent='Esqueci minha senha';
+  forgot.onclick=e=>{e.preventDefault();cloudRecoveryFor(email.value.trim());};
   form.insertBefore(forgot,submit);
  }
  const question=document.createElement('span');
  question.textContent=view==='signup'?'Já tem uma conta? ':'Não tem uma conta? ';
- const switchBtn=document.createElement('button');switchBtn.type='button';switchBtn.className='movya1250-switch';
+ const switchBtn=document.createElement('a');switchBtn.href=view==='signup'?'#entrar':'#criar-conta';switchBtn.className='movya1250-switch';
  switchBtn.textContent=view==='signup'?'Entrar':'Criar conta';
- switchBtn.onclick=()=>movya1248AuthView(view==='signup'?'login':'signup',email.value.trim());
+ switchBtn.onclick=e=>{e.preventDefault();movya1248AuthView(view==='signup'?'login':'signup',email.value.trim());};
  footer.append(question,switchBtn);
  controls.append(footer);
 }
@@ -6075,5 +6075,29 @@ body.dark .movya-install-card p,body.dark .movya-install-dialog-text{color:#C4D9
 #cloudGate[data-mode="auth"] .movya1250-forgot:hover,#cloudGate[data-mode="auth"] .movya1250-switch:hover{text-decoration:underline!important}
 #cloudGate[data-mode="auth"] .movya1250-forgot:focus-visible,#cloudGate[data-mode="auth"] .movya1250-switch:focus-visible{outline:2px solid #13b8ab!important;outline-offset:3px!important}
 @media(max-width:420px){#cloudGate[data-mode="auth"] .evolua-auth-intro{padding:14px 18px 10px!important}#cloudGate[data-mode="auth"] #gateControls{padding:0 16px 20px!important}}
+</style>
+
+<style id="movya1251-login-elegante">
+/* 12.51: texto original e links verdadeiros, evitando a herança dos estilos de button. */
+#cloudGate[data-mode="auth"] #gateExplanation{display:block!important;max-width:290px!important;margin:8px auto 20px!important;color:#698092!important;font-size:13px!important;line-height:1.55!important;text-align:center!important}
+#cloudGate[data-mode="auth"] .evolua-auth-intro{padding:20px 22px 0!important}
+#cloudGate[data-mode="auth"] .evolua-auth-intro h2{font-size:21px!important;letter-spacing:-.45px!important;margin:0!important;color:#0c3151!important}
+#cloudGate[data-mode="auth"] #gateControls{padding:0 24px 26px!important}
+#cloudGate[data-mode="auth"] .movya1249-auth-panel{border:0!important;background:transparent!important;box-shadow:none!important;padding:0!important}
+#cloudGate[data-mode="auth"] #cloudGateForm.movya1248-auth-form label{margin:0 0 14px!important;font-size:12px!important;letter-spacing:.05px!important}
+#cloudGate[data-mode="auth"] #cloudGateForm.movya1248-auth-form input{border-radius:12px!important;min-height:46px!important;background:#fff!important;border:1px solid #d3e4df!important;box-shadow:none!important;font-size:14px!important}
+#cloudGate[data-mode="auth"] #cloudGateForm.movya1248-auth-form input:focus{outline:2px solid #60cbb9!important;outline-offset:1px!important;border-color:#0f9586!important}
+#cloudGate[data-mode="auth"] a.movya1250-forgot{display:block!important;box-sizing:border-box!important;width:fit-content!important;min-width:0!important;max-width:100%!important;margin:-3px 0 17px auto!important;padding:4px 0!important;background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;text-decoration:none!important;color:#3c7185!important;font-size:12px!important;font-weight:600!important;line-height:1.4!important;cursor:pointer!important}
+#cloudGate[data-mode="auth"] .movya1248-submit{min-height:46px!important;border-radius:12px!important;background:#103452!important;color:#fff!important;font-weight:750!important;font-size:15px!important;box-shadow:0 8px 18px rgba(16,52,82,.10)!important}
+#cloudGate[data-mode="auth"] .movya1250-auth-actions{padding-top:17px!important;gap:4px!important;font-size:13px!important;color:#73889a!important}
+#cloudGate[data-mode="auth"] a.movya1250-switch{display:inline!important;min-height:0!important;width:auto!important;padding:0!important;margin:0!important;background:none!important;border:0!important;box-shadow:none!important;border-radius:0!important;color:#087e7b!important;font-size:13px!important;font-weight:750!important;line-height:1.5!important;text-decoration:none!important;cursor:pointer!important}
+#cloudGate[data-mode="auth"] a.movya1250-forgot:hover,#cloudGate[data-mode="auth"] a.movya1250-switch:hover{text-decoration:underline!important}
+#cloudGate[data-mode="auth"] a.movya1250-forgot:focus-visible,#cloudGate[data-mode="auth"] a.movya1250-switch:focus-visible{outline:2px solid #0c9b91!important;outline-offset:4px!important}
+:root[data-theme="dark"] #cloudGate[data-mode="auth"] #gateExplanation{color:#bed1d8!important}
+:root[data-theme="dark"] #cloudGate[data-mode="auth"] .evolua-auth-intro h2{color:#e8f6f5!important}
+:root[data-theme="dark"] #cloudGate[data-mode="auth"] #cloudGateForm.movya1248-auth-form input{background:#243b33!important;color:#fff!important;border-color:#547269!important}
+:root[data-theme="dark"] #cloudGate[data-mode="auth"] a.movya1250-forgot{color:#a8d8d8!important}
+:root[data-theme="dark"] #cloudGate[data-mode="auth"] a.movya1250-switch{color:#6fe1ca!important}
+@media(max-width:420px){#cloudGate[data-mode="auth"] .evolua-auth-intro{padding:17px 18px 0!important}#cloudGate[data-mode="auth"] #gateControls{padding:0 20px 22px!important}#cloudGate[data-mode="auth"] #gateExplanation{margin-bottom:16px!important}}
 </style>
 </html>
