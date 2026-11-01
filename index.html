@@ -2685,10 +2685,7 @@ function movya1248AuthView(view,rememberEmail=''){
   label.textContent=labelText;
   const inp=document.createElement('input');
   inp.id=id;inp.type=type;inp.autocomplete=auto;inp.required=true;
-  // iOS PWA: o foco precisa acontecer durante o toque real do usuário.
-  // Nunca solicitar foco automaticamente ao abrir o aplicativo.
-  inp.addEventListener('pointerdown',()=>{if(document.activeElement!==inp)inp.focus({preventScroll:true});});
-  inp.addEventListener('touchend',()=>{if(document.activeElement!==inp)inp.focus({preventScroll:true});},{passive:true});
+  // Deixar o Safari aplicar o foco nativo após o toque, sem handlers antecipados.
   if(type==='email'){inp.inputMode='email';inp.autocapitalize='off';inp.spellcheck=false;inp.placeholder='voce@exemplo.com';inp.value=rememberEmail||'';}
   if(type==='password')inp.minLength=8;
   label.append(inp);
@@ -6188,6 +6185,31 @@ body.dark .movya-install-card p,body.dark .movya-install-dialog-text{color:#C4D9
 }
 #cloudGate[data-mode="auth"] #cloudGateForm label {
  pointer-events:auto!important;
+}
+</style>
+
+<style id="movya1255-native-touch">
+/* 12.55: login como camada superior após a intro, com foco nativo do Safari. */
+#cloudGate:not([hidden]) {
+ z-index:100001!important;
+ isolation:isolate!important;
+ pointer-events:auto!important;
+}
+#cloudGate[data-mode="auth"] .cloud-gate-card,
+#cloudGate[data-mode="auth"] #gateControls,
+#cloudGate[data-mode="auth"] #cloudGateForm {
+ pointer-events:auto!important;
+}
+#cloudGate[data-mode="auth"] #cloudGateForm input {
+ position:relative!important;
+ z-index:1!important;
+ touch-action:auto!important;
+ -webkit-user-select:text!important;
+ user-select:text!important;
+ opacity:1!important;
+}
+#cloudGate[data-mode="auth"] #cloudGateForm label {
+ position:relative!important;
 }
 </style>
 </html>
