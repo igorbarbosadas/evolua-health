@@ -2685,6 +2685,10 @@ function movya1248AuthView(view,rememberEmail=''){
   label.textContent=labelText;
   const inp=document.createElement('input');
   inp.id=id;inp.type=type;inp.autocomplete=auto;inp.required=true;
+  // iOS PWA: o foco precisa acontecer durante o toque real do usuário.
+  // Nunca solicitar foco automaticamente ao abrir o aplicativo.
+  inp.addEventListener('pointerdown',()=>{if(document.activeElement!==inp)inp.focus({preventScroll:true});});
+  inp.addEventListener('touchend',()=>{if(document.activeElement!==inp)inp.focus({preventScroll:true});},{passive:true});
   if(type==='email'){inp.inputMode='email';inp.autocapitalize='off';inp.spellcheck=false;inp.placeholder='voce@exemplo.com';inp.value=rememberEmail||'';}
   if(type==='password')inp.minLength=8;
   label.append(inp);
@@ -6170,5 +6174,20 @@ body.dark .movya-install-card p,body.dark .movya-install-dialog-text{color:#C4D9
  #cloudGate[data-mode="auth"] #gateControls{padding-left:20px!important;padding-right:20px!important;}
 }
 @media(prefers-reduced-motion:reduce){#movya1248Splash{transition:none!important;}}
+</style>
+
+<style id="movya1254-ios-keyboard">
+/* 12.54: permitir entrada nativa de texto no iPhone e no PWA instalado. */
+#cloudGate[data-mode="auth"] #cloudGateForm input {
+ pointer-events:auto!important;
+ -webkit-user-select:text!important;
+ user-select:text!important;
+ touch-action:manipulation!important;
+ -webkit-appearance:none;
+ appearance:none;
+}
+#cloudGate[data-mode="auth"] #cloudGateForm label {
+ pointer-events:auto!important;
+}
 </style>
 </html>
