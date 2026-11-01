@@ -6214,61 +6214,65 @@ body.dark .movya-install-card p,body.dark .movya-install-dialog-text{color:#C4D9
 }
 </style>
 
-<style id="movya1256-standalone-login-fix">
-/* MOVYA 12.56: removes fixed-scroll layer/focus traps in iOS home screen mode. */
+
+
+<style id="movya1257-ios-pwa-auth">
+/* 12.57: login centered in standalone iOS. Undo previous absolute layout. */
 @supports (-webkit-touch-callout: none) {
- html.movya-ios-standalone, html.movya-ios-standalone body {
-   min-height:100%!important;
-   -webkit-overflow-scrolling:auto!important;
- }
  html.movya-ios-standalone #cloudGate:not([hidden]) {
-   position:absolute!important;
-   inset:0!important;
-   min-height:100vh!important;
-   min-height:100dvh!important;
-   height:auto!important;
-   overflow:visible!important;
-   display:block!important;
-   padding:calc(16px + env(safe-area-inset-top)) 14px calc(16px + env(safe-area-inset-bottom))!important;
-   backdrop-filter:none!important;
-   -webkit-backdrop-filter:none!important;
-   isolation:auto!important;
+   position:fixed!important;
+   top:0!important;right:0!important;bottom:0!important;left:0!important;
+   width:100%!important;height:100dvh!important;
+   min-height:0!important;
+   display:flex!important;
+   flex-direction:column!important;
+   align-items:center!important;
+   justify-content:center!important;
+   overflow-y:auto!important;
+   overscroll-behavior:contain!important;
+   padding:calc(12px + env(safe-area-inset-top)) 14px calc(12px + env(safe-area-inset-bottom))!important;
+   z-index:100001!important;
    transform:none!important;
-   touch-action:auto!important;
+   -webkit-backdrop-filter:none!important;
+   backdrop-filter:none!important;
+   isolation:isolate!important;
+   pointer-events:auto!important;
  }
  html.movya-ios-standalone #cloudGate .cloud-gate-card {
-   margin:0 auto!important;
+   position:relative!important;
+   flex:0 0 auto!important;
+   margin:auto!important;
    width:min(100%,354px)!important;
-   max-height:none!important;
+   max-width:100%!important;
    height:auto!important;
-   overflow:visible!important;
-   -webkit-overflow-scrolling:auto!important;
+   max-height:calc(100dvh - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom))!important;
+   overflow-y:auto!important;
+   -webkit-overflow-scrolling:touch!important;
    transform:none!important;
+   pointer-events:auto!important;
  }
- html.movya-ios-standalone #cloudGate #gateControls,
  html.movya-ios-standalone #cloudGate #cloudGateForm,
- html.movya-ios-standalone #cloudGate #cloudGateForm label {
-   overflow:visible!important;
-   transform:none!important;
+ html.movya-ios-standalone #cloudGate #cloudGateForm label,
+ html.movya-ios-standalone #cloudGate #cloudGateForm input {
+   pointer-events:auto!important;
    touch-action:auto!important;
  }
  html.movya-ios-standalone #cloudGate #cloudGateForm input {
-   position:static!important;
-   z-index:auto!important;
-   touch-action:auto!important;
-   -webkit-appearance:auto!important;
-   appearance:auto!important;
+   position:relative!important;
+   z-index:2!important;
    -webkit-user-select:text!important;
    user-select:text!important;
+   -webkit-appearance:none!important;
+   appearance:none!important;
+   font-size:16px!important;
  }
 }
 </style>
-<script id="movya1256-standalone-login-script">
+<script id="movya1257-ios-pwa-detect">
 (function(){
  const ios=/iPhone|iPad|iPod/i.test(navigator.userAgent)||(/Macintosh/i.test(navigator.userAgent)&&navigator.maxTouchPoints>1);
- const standalone=window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches || navigator.standalone===true;
- if(ios&&standalone) document.documentElement.classList.add('movya-ios-standalone');
- // Never retain the splash as a transparent hit target after the intro finishes.
+ const standalone=(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true;
+ if(ios&&standalone)document.documentElement.classList.add('movya-ios-standalone');
  window.addEventListener('movya:splash-finished',()=>{
   const splash=document.getElementById('movya1248Splash');
   if(splash)splash.remove();
