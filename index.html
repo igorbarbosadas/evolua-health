@@ -1876,14 +1876,32 @@ renderWeightEvolution=function(){
  </div>
 </div><script id="movya1248-splash-script">
 (function(){
+ window.MOVYA_SPLASH_ACTIVE=true;
+ window.MOVYA_SPLASH_DONE=false;
  const splash=document.getElementById('movya1248Splash');
- if(!splash)return;
+ if(!splash){
+  window.MOVYA_SPLASH_ACTIVE=false;
+  window.MOVYA_SPLASH_DONE=true;
+  window.dispatchEvent(new CustomEvent('movya:splash-finished'));
+  return;
+ }
  const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  const duration=reduced?1200:3950;
+ let closed=false;
+ function finish(){
+  if(closed)return;
+  closed=true;
+  window.MOVYA_SPLASH_ACTIVE=false;
+  window.MOVYA_SPLASH_DONE=true;
+  window.dispatchEvent(new CustomEvent('movya:splash-finished'));
+ }
  function close(){
-  if(!splash.isConnected)return;
+  if(!splash.isConnected){finish();return;}
   splash.classList.add('movya1248-hide');
-  window.setTimeout(()=>{if(splash.isConnected)splash.remove()},420);
+  window.setTimeout(()=>{
+   if(splash.isConnected)splash.remove();
+   finish();
+  },420);
  }
  window.setTimeout(close,duration);
 })();
@@ -2232,6 +2250,22 @@ function cloudRedirectURL(){
 
 const MOVYA_GATE_SHOW_DELAY=420;
 let movyaGateShowTimer=null;
+window.MOVYA_PENDING_AUTH_VIEW=window.MOVYA_PENDING_AUTH_VIEW||null;
+function movyaSplashStillActive(){return window.MOVYA_SPLASH_DONE!==true;}
+function movyaRevealGateAfterSplash(){
+ const gate=document.getElementById('cloudGate');
+ if(!gate||!gate.dataset.pendingReveal)return;
+ delete gate.dataset.pendingReveal;
+ gate.hidden=false;
+ if(window.MOVYA_PENDING_AUTH_VIEW&&gate.dataset.mode==='auth'){
+  const pending=window.MOVYA_PENDING_AUTH_VIEW;
+  window.MOVYA_PENDING_AUTH_VIEW=null;
+  movya1248AuthView(pending.view,pending.rememberEmail||'');
+ }
+}
+window.addEventListener('movya:splash-finished',()=>{
+ movyaRevealGateAfterSplash();
+});
 function cloudGateSetup(){
  const controls=document.getElementById('gateControls');
  if(controls)controls.innerHTML='';
@@ -2249,6 +2283,8 @@ function cloudGate(show,text,mode){
  if(!show){
   g.hidden=true;
   g.dataset.mode='';
+  delete g.dataset.pendingReveal;
+  window.MOVYA_PENDING_AUTH_VIEW=null;
   document.documentElement.classList.add('eh-access-ready');
   if(tools)tools.hidden=!(cloudUser&&cloudReady);
   return;
@@ -2257,7 +2293,14 @@ function cloudGate(show,text,mode){
  g.dataset.mode=nextMode;
  document.documentElement.classList.remove('eh-access-ready');
  if(tools)tools.hidden=true;
- const reveal=()=>{g.hidden=false;};
+ const reveal=()=>{
+  if(movyaSplashStillActive()){
+   g.dataset.pendingReveal='1';
+   return;
+  }
+  delete g.dataset.pendingReveal;
+  g.hidden=false;
+ };
  if(nextMode==='loading'&&!g.dataset.forceVisible){
   movyaGateShowTimer=setTimeout(()=>{reveal();movyaGateShowTimer=null;},MOVYA_GATE_SHOW_DELAY);
  }else{
@@ -2612,7 +2655,6 @@ function movya1248AuthView(view,rememberEmail=''){
  if(!gate||!controls)return;
  gate.classList.remove('cloud-connection-unavailable');
  gate.dataset.forceVisible='1';
- gate.hidden=false;
  gate.dataset.mode='auth';
  gate.dataset.authView=view;
  const intro=gate.querySelector('.evolua-auth-intro h2');
@@ -2624,6 +2666,13 @@ function movya1248AuthView(view,rememberEmail=''){
  if(intro)intro.textContent=view==='signup'?'Criar sua conta':'Entrar na sua conta';
  if(explanation)explanation.textContent=view==='signup'?'Cadastre-se para começar e manter seus registros sincronizados com segurança.':'Acesse seus registros, metas e histórico de forma segura.';
  controls.replaceChildren();
+ if(movyaSplashStillActive()){
+  window.MOVYA_PENDING_AUTH_VIEW={view,rememberEmail};
+  gate.hidden=true;
+  gate.dataset.pendingReveal='1';
+  return;
+ }
+ gate.hidden=false;
  const formPanel=document.createElement('div');
  formPanel.className='movya1249-auth-panel';
  const form=document.createElement('form');
