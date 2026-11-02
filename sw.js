@@ -1,12 +1,15 @@
-/* MOVYA 12.75: cache versionado somente para a estrutura publica do PWA.
+/* MOVYA 12.77: cache versionado somente para a estrutura publica do PWA.
  * Dados e autenticacao do Supabase NUNCA sao interceptados.
  */
-const CACHE='movya-public-shell-12-75';
+const CACHE='movya-public-shell-12-77';
 const SHELL=['./index.html','./manifest.webmanifest','./assets/movya-icon-192.png','./assets/movya-icon-512.png','./assets/movya-maskable-512.png'];
 self.addEventListener('install',event=>{
  event.waitUntil((async()=>{
   const cache=await caches.open(CACHE);
-  await Promise.allSettled(SHELL.map(path=>cache.add(new Request(path,{cache:'reload'}))));
+  // A página principal e o manifesto devem estar completos antes da ativação.
+  await cache.addAll(SHELL.slice(0,2).map(path=>new Request(path,{cache:'reload'})));
+  // Ícones podem falhar isoladamente sem impedir uma instalação válida.
+  await Promise.allSettled(SHELL.slice(2).map(path=>cache.add(new Request(path,{cache:'reload'}))));
  })());
 });
 self.addEventListener('activate',event=>{
