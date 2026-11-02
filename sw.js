@@ -1,13 +1,12 @@
-/* MOVYA 12.73: cache versionado somente para a estrutura publica do PWA.
+/* MOVYA 12.74: cache versionado somente para a estrutura publica do PWA.
  * Dados e autenticacao do Supabase NUNCA sao interceptados.
  */
-const CACHE='movya-public-shell-12-73';
+const CACHE='movya-public-shell-12-74';
 const SHELL=['./index.html','./manifest.webmanifest','./assets/movya-icon-192.png','./assets/movya-icon-512.png','./assets/movya-maskable-512.png'];
 self.addEventListener('install',event=>{
  event.waitUntil((async()=>{
   const cache=await caches.open(CACHE);
   await Promise.allSettled(SHELL.map(path=>cache.add(new Request(path,{cache:'reload'}))));
-  await self.skipWaiting();
  })());
 });
 self.addEventListener('activate',event=>{
@@ -49,4 +48,9 @@ self.addEventListener('fetch',event=>{
    catch(error){const cached=await caches.match(request);if(cached)return cached;throw error;}
   })());
  }
+});
+
+// Apenas uma escolha explícita do usuário aplica a nova versão.
+self.addEventListener('message',event=>{
+ if(event.data&&event.data.type==='SKIP_WAITING')self.skipWaiting();
 });
