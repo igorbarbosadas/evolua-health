@@ -1,4 +1,4 @@
-/* MOVYA 13.05: cache versionado somente para a estrutura publica do PWA.
+/* MOVYA 13.06: cache versionado somente para a estrutura publica do PWA.
  * Dados e autenticacao do Supabase NUNCA sao interceptados.
  */
 const CACHE='movya-public-shell-13-05';
