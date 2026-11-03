@@ -1,7 +1,7 @@
-/* MOVYA 13.09: cache versionado somente para a estrutura publica do PWA.
+/* MOVYA 13.11: cache versionado somente para a estrutura publica do PWA.
  * Dados e autenticacao do Supabase NUNCA sao interceptados.
  */
-const CACHE='movya-public-shell-13-09';
+const CACHE='movya-public-shell-13-11';
 const SHELL=['./index.html','./manifest.webmanifest','./assets/movya-icon-192.png','./assets/movya-icon-512.png','./assets/movya-maskable-512.png'];
 self.addEventListener('install',event=>{
  event.waitUntil((async()=>{
@@ -62,20 +62,33 @@ self.addEventListener('message',event=>{
 self.addEventListener('push',event=>{
  let data={};try{data=event.data?event.data.json():{}}catch{}
  const type=['water','meal','application','custom'].includes(data.type)?data.type:'custom';
- const title='MOVYA · Lembrete';
- const messages={water:'Está na hora do seu lembrete de hidratação.',meal:'Está na hora de conferir sua refeição.',application:'Você tem um lembrete agendado. Abra o MOVYA para conferir.',custom:'Você tem um lembrete programado.'};
- event.waitUntil(self.registration.showNotification(title,{
-  body:messages[type],icon:'./assets/movya-icon-192.png',badge:'./assets/movya-icon-192.png',
+ const messages={
+  water:{title:'💧 Hora de se hidratar!',body:'Que tal um copo de água? 💦 Registre e avance na sua meta diária!'},
+  meal:{title:'🍽️ Hora de se alimentar!',body:'Sua pausa chegou! 🥗 Aproveite e registre sua refeição no MOVYA.'},
+  application:{title:'📅 Lembrete de aplicação',body:'Confira seu horário programado no MOVYA. ✅'},
+  custom:{title:'🔔 Você tem um lembrete!',body:'Hora de conferir sua atividade no MOVYA. ✨'},
+ };
+ const msg=messages[type];
+ event.waitUntil(self.registration.showNotification(msg.title,{
+  body:msg.body,icon:'./assets/movya-icon-192.png',badge:'./assets/movya-icon-192.png',
   tag:'movya-reminder-'+String(data.id||type).slice(0,90),renotify:false,
-  data:{path:'./?movya=lembretes'},
+  data:{reminderType:type,id:String(data.id||'').slice(0,90)},
  }));
 });
 self.addEventListener('notificationclick',event=>{
  event.notification.close();
  event.waitUntil((async()=>{
-  const target=new URL('./?movya=lembretes',self.registration.scope).href;
+  const type=['water','meal','application','custom'].includes(event.notification.data?.reminderType)?event.notification.data.reminderType:'custom';
+  const target=new URL('./?movya='+encodeURIComponent(type),self.registration.scope).href;
   const windows=await clients.matchAll({type:'window',includeUncontrolled:true});
-  for(const client of windows){if(new URL(client.url).origin===self.location.origin){await client.focus();client.postMessage({type:'MOVYA_OPEN_REMINDERS'});return}}
+  const inApp=windows.filter(c=>{
+   try{const u=new URL(c.url);return u.origin===self.location.origin&&u.pathname.startsWith(new URL(self.registration.scope).pathname)}catch{return false}
+  });
+  if(inApp.length){
+   const client=await inApp[0].focus();
+   client?.postMessage({type:'MOVYA_OPEN_REMINDER',reminderType:type});
+   return;
+  }
   await clients.openWindow(target);
  })());
 });
